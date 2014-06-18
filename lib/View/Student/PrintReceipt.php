@@ -9,6 +9,11 @@ class View_Student_PrintReceipt extends View {
 		$this->template->set('school_name',$this->api->getConfig('school/name'));
 		$this->template->set('sub1',$this->api->getConfig('school/sub1'));
 		$this->template->set('sub2',$this->api->getConfig('school/sub2'));
+		$this->template->set('receipt_no',$receipt['name']);
+		$this->template->set('student_name',$receipt['student']);
+		$this->template->set('class',$receipt->ref('student_id')->ref('class_id')->get('full_name'));
+		$this->template->set('scholar_no',$receipt->ref('student_id')->ref('scholar_id')->get('scholar_no'));
+		$this->template->set('month',implode(", ",$receipt->satisfiedMonths()));
 	}
 
 	function defaultTemplate(){

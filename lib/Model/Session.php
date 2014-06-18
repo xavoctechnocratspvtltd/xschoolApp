@@ -60,31 +60,35 @@ public $table="sessions";
 
 	function beforeDelete(){
 
-		if($st->count()->getOne()>0)
+		if($this->ref('Student')->count()->getOne()>0)
 			throw $this->exception(' You can not delete, It contain student record');
 
-		if($fic->count()->getOne()>0)
+		if($this->ref('FeesInAClass')->count()->getOne()>0)
 			throw $this->exception(' You can not delete, It contain Fees record');
 
 
-		if($sic->count()->getOne()>0)
+		if($this->ref('SubjectInAClass')->count()->getOne()>0)
 			throw $this->exception(' You can not delete, It contain Subject record');
 
 
-		if($eic->count()->getOne()>0)
+		if($this->ref('ExamInAClass')->count()->getOne()>0)
 			throw $this->exception(' You can not delete, It contain Exam record');
     	
-    	$m->api->forget('currentSession');
+    	$this->api->forget('currentSession');
 	}
 
 	function getCurrent(){
 		if($memorized_session = $this->api->recall('currentSession',false))
 			return  $memorized_session;
 		else{
-			$this->setOrder('id','desc');
-			$this->tryLoadAny();
-			return $this;
+			return $this->getLast();
 		}
+	}
+
+	function getLast(){
+		$this->setOrder('id','desc');
+		$this->tryLoadAny();
+		return $this;
 	}
 
 	function markCurrent(){
@@ -93,6 +97,7 @@ public $table="sessions";
 			throw $this->exception('Can not Mark Current unloaded Model');
 		
 		$this->api->memorize('currentSession',$this);
+
 			// throw new \Exception($this->api->currentSession, 1);
 			
 		}

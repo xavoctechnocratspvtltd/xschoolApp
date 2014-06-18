@@ -8,7 +8,7 @@ public $table="exams";
 		
 		$this->addField('name');
 		$this->hasMany('ExamInAClass','exam_id');
-
+		$this->addHook('beforeDelete',$this);
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
@@ -22,30 +22,24 @@ public $table="exams";
 			
 	}
 
-	function delete($force=fales){
+	function deleteForced(){
 		$eic=$this->ref('ExamInAClass');
 
-		if($force){
-			foreach ($eic as $junk) {
-				$eic->delete($force);
-			}
-
-			if($eic->count()->getOne()> 0)
-				throw $this->exception(' You can not delete, It is added in class');
-			$eic->delete();
-
-
+		foreach ($eic as $junk){
+			$eic->deleteForced();		
 		}
-
-
-
-
 	}
 
 	function getAllExam($exam_ids_array){
 
 		$this->addCondition('id',$exam_ids_array);
 		return $this;
+	}
+
+	function beforeDelete(){
+		if($this->ref('ExamInAClass')->count()->getOne()> 0)
+				throw $this->exception(' You can not delete, It is added in class');
+
 	}
 
 }

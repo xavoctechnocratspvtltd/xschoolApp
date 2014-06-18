@@ -28,8 +28,16 @@ public $table="student_fees_applied";
 
 	}
 
-	function paidAmount(){
-		return $this->ref('FeesTransaction')->sum('amount')->getOne();
+	function paidAmount($via_receipt=null){
+		$fee_trasactions = $this->ref('FeesTransaction');
+
+		if($via_receipt !==null){
+			$fee_trasactions->addCondition('submitted_on','<',$this->api->nextDate($via_receipt['created_at']));
+			$fee_trasactions->addCondition('fees_receipt_id',$via_receipt->id);
+		}
+
+		$amount = $fee_trasactions->_dsql()->del('fields')->field('sum(amount)')->getOne();
+		return $amount;
 	}
 
 	function pay($amount, $receipt){

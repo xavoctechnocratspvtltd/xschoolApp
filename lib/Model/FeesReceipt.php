@@ -44,6 +44,35 @@ class Model_FeesReceipt extends Model_Table {
 		}
 	}
 
+	function satisfiedMonths(){
+
+		$months_satisfied=array();
+		$transactions_in_this_receipt = $this->ref('FeesTransaction');
+
+		foreach ($transactions_in_this_receipt as $junk) {
+			$transaction_for_fee_applied = $transactions_in_this_receipt->ref('student_applied_fees_id');
+			$all_feeses_applied_in_same_month = $this->add('Model_StudentAppliedFees')
+										->addCondition('due_on',$transaction_for_fee_applied['due_on'])
+										->addCondition('student_id',$transaction_for_fee_applied['student_id']);
+			$due_payment_in_month = false;
+			foreach ($all_feeses_applied_in_same_month as $junk2) {
+				$paid_till_receipt_date=$all_feeses_applied_in_same_month->paidAmount($this);
+				// echo $all_feeses_applied_in_same_month['fees']. ' '. $all_feeses_applied_in_same_month['due_on']. ' '. $paid_till_receipt_date . ' DUE: '.($all_feeses_applied_in_same_month['amount']-$paid_till_receipt_date).'<br/>';
+				if(($all_feeses_applied_in_same_month['amount']-$paid_till_receipt_date) > 0){
+					$due_payment_in_month = true;
+					break;
+				}
+			}
+			if($due_payment_in_month==false){
+				$month_to_add = date('M Y',strtotime($transaction_for_fee_applied['due_on']));
+				if(!in_array($month_to_add, $months_satisfied))
+					$months_satisfied[] = $month_to_add;
+			}
+		}
+
+		return $months_satisfied;
+	}
+
 
 	function newReceiptNo($branch=null){
 		if(!$branch) $branch=$this->api->currentBranch;

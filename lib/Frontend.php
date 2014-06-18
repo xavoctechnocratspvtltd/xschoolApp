@@ -48,9 +48,31 @@ class Frontend extends ApiFrontend {
         $this->currentSession = $this->add('Model_Session')->getCurrent();
 
         if($this->auth->isLoggedIn()){
-            $this->template->set('current_branch_name',$this->currentBranch['name']);
-            $this->template->set('current_staff',$this->api->auth->model['name']);
-            $this->template->set('current_session',$this->currentSession['name']);
+            // $this->template->set('current_branch_name',$this->currentBranch['name']);
+            // $this->template->set('current_staff',$this->api->auth->model['name']);
+            // $this->template->set('current_session',$this->currentSession['name']);
+            // $this->template->set('current_date',$this->recall('current_date'));
+            $current_date='<span style="color:green">'.$this->api->today.'</span>';
+            if(strtotime($this->today)!=strtotime(date('Y-m-d')))
+                    $current_date='<span style="color:red">'.$this->api->today.'</span>';
+
+            
+            $current_session='<span style="color:green">'.$this->api->currentSession['name'].'</span>';
+            if($this->api->currentSession->id != $this->add('Model_Session')->getLast()->get('id'))
+                $current_session='<span style="color:red">'.$this->api->currentSession['name'].'</span>';
+
+            $v=$this->add('View',null,'WelcomeBlock');
+            $v->setStyle('width','300px');
+            $v->setHtml('<b>Welcome !</b>'.$this->api->auth->model['name'].'<br/>'
+                .'Current Branch :'.$this->currentBranch['name'].'<br/>'.
+                'Current Session :'.$current_session.'<br/>'.
+                'Current Date :'.$current_date.'<br/>'
+                );
+
+            $v->addClass('welcome-block');
+            $v->js('reload')->reload();
+
+            // $btn=$this->add('Button')->set('Set Date');
         }
 
         // This method is executed for ALL the pages you are going to add,
@@ -72,25 +94,17 @@ class Frontend extends ApiFrontend {
 
         $this->addLayout('UserMenu');
     }
-    function layout_UserMenu(){
-        if($this->auth->isLoggedIn()){
-            $this->add('Text',null,'UserMenu')
-                ->set('Hello, '.$this->auth->get('username').' | ');
-            $this->add('HtmlElement',null,'UserMenu')
-                ->setElement('a')
-                ->set('Logout')
-                ->setAttr('href',$this->getDestinationURL('logout'))
-                ;
-        }else{
-            $this->add('HtmlElement',null,'UserMenu')
-                ->setElement('a')
-                ->set('Login')
-                ->setAttr('href',$this->getDestinationURL('authtest'))
-                ;
-        }
+    
+    function setDate($date){
+        $this->api->memorize('current_date',$date);
+        $this->now = date('Y-m-d H:i:s',strtotime($date));
+        $this->today = date('Y-m-d',strtotime($date));
     }
-    function page_examples($p){
-        header('Location: '.$this->pm->base_path.'examples');
-        exit;
+
+    function nextDate($date=null){
+        if(!$date) $date = $this->api->today;
+        $date = date("Y-m-d", strtotime(date("Y-m-d", strtotime($date)) . " +1 DAY"));    
+        return $date;
     }
+
 }
