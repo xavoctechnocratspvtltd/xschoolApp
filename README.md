@@ -1,4 +1,4 @@
 xschoolApp
 ==========
 
-A compltete School Management Application
+A complete School Management Application

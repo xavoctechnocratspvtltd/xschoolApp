@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<title><?page_title?>Agile Toolkit<?/?></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" href="<?template?>images/favicon.ico<?/?>" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="<?template?>css/jquery-ui.css<?/?>" />
+		<link rel="stylesheet" type="text/css" href="<?template?>css/atk-main.css<?/?>" />
+		<link rel="stylesheet" type="text/css" href="<?template?>css/atk-custom.css<?/?>" />
+		<link rel="stylesheet" type="text/css" href="<?template?>css/epan.css<?/?>" />
+		<?$js_include?>
+		<!--[if IE 8]>
+			<link rel="stylesheet" type="text/css" href="<?template?>css/ie8.css<?/?>"/>
+			<script type="text/javascript" src="<?template?>css/ie8.js<?/?>"></script>
+		<![endif]-->
+		<script type="text/javascript">
+			$(function(){
+				<?$document_ready?>
+			});
+		</script>
+	</head>
+	<body>
+		<div id="atk-layout" class="atk-wrapper">
+			<div id="header">
+				<?logo?><div id="atk-logo1" class="ui-widget-header1 float-left"><a 
+                                    href="<?page?>index<?/?>"><img src="logo.png" /></a></div><?/logo?>
+				<div id="header-right">
+					<?Menu?>
+                            <div class="atk-menu atk-menu-horizontal ui-widget">
+                                <ul>
+								    <li class="ui-state-default"><a href="javascript:void(0)">Menu is not defined</a></li>
+                                </ul>
+							</div>
+					<?/?>
+					<?x?>
+					<div id="atk-version" class="alert alert-info"><b><?name?>Welcome! <?$current_staff?>
+					[ <?$current_branch_name?> ]<?/?></b><br/><i> Session : <?$current_session?></i></div>
+					<?/x?>
+				</div>
+			</div>
+			<?$Content?>
+			<div id="atk-footer-guard"></div>
+		</div>
+		<?Footer?>
+		<div id="footer" class="atk-wrapper">
+			<?footer_text?>
+			This system is implemented By <a href="http://xavoc.com/">Xavoc Technocrats Pvt. Ltd.</a>. &copy; 1999–2012. <a href="http://agiletoolkit.org/about/license">See License</a>
+			<?/?>
+		</div>
+		<?/?>
+		<div id="atk-growl-holder" class="atk-growl"></div>
+	</body>
+</html>

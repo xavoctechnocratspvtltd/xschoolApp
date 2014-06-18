@@ -1,0 +1,9 @@
+input.ui-autocomplete-input{
+	background-image: url(../images/magnifier.png);
+	background-repeat: no-repeat;
+	background-position: center right;
+	padding-right: 16px;
+}
+input.ui-autocomplete-loading{
+	background-image: url(../images/indicator.gif);
+}

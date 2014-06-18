@@ -1,0 +1,150 @@
+.top-page {
+  min-height: 100px;
+  padding-bottom: 50px;
+}
+.epan-component {
+  position: relative;
+  min-height: 20px;
+}
+.epan-component .drag-handler {
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  cursor: move;
+}
+.epan-component .remove_btn {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  cursor: help;
+}
+.epan-component .dragging-shorten {
+  width: 50px;
+  height: 50px;
+}
+.epan-sortable-extra-padding {
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+.component-outline {
+  outline: 1px dotted lightgray;
+}
+.epan-frontend-editing-toolbar {
+  width: 100%;
+  height: 110px;
+  border-top: 3px solid orange;
+  border-bottom: 3px solid orange;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  margin: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #141414;
+  left: 0;
+  z-index: 1000;
+}
+.epan-frontend-editing-toolbar .components-section {
+  margin-left: 20px;
+  height: 75px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.epan-frontend-editing-toolbar .components-section .tools-panel {
+  width: 1150px;
+  height: 110px -3;
+}
+.epan-frontend-editing-toolbar .components-section .tools-panel .epan-frontend-editing-tool {
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  border-right: 1px solid gray;
+  position: relative;
+  float: left;
+}
+.epan-frontend-editing-toolbar .components-section .tools-panel .epan-frontend-editing-tool:hover {
+  background-color: gray;
+}
+.epan-frontend-editing-toolbar .components-section .tools-panel .epan-frontend-editing-tool img.tool_shadow {
+  top: -5px;
+  position: absolute;
+  top: 28px;
+  left: 16px;
+}
+.epan-frontend-editing-toolbar .components-section .tools-panel .epan-frontend-editing-tool span.title {
+  font-size: 0.8em;
+}
+.epan-place-holder {
+  min-height: 50px;
+  outline: 2px dashed blue;
+  background-color: lightyellow;
+  color: red;
+}
+.ui-selecting {
+  outline: 2px dashed lightblue;
+}
+.ui-selected {
+  outline: 2px dashed blue;
+}
+body {
+  margin-bottom: 115px !important;
+}
+#epan-quick-component-options {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  border: 1px solid lightgray;
+  color: #141414;
+  z-index: 1000;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#epan-quick-component-options .option-drag-handler {
+  background-color: lightgray;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding-left: 20px;
+}
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+  z-index: 10000;
+}
+#overlay-dark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  filter: alpha(opacity=1);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
+  z-index: 10000;
+}
+#overlay-dark #overlay-dark-message {
+  color: yellow;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+  text-align: center;
+}
+.remove_btn {
+  cursor: not-allowed;
+}
+.panel-group .panel {
+  overflow: visible;
+}

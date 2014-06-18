@@ -1,0 +1,26 @@
+{
+    "name": "atk4/autocomplete",
+    "type": "library",
+    "description": "Autocomplete implementation for Agile Toolkit",
+    "homepage": "https://github.com/atk4/autocomplete",
+    "keywords": ["atk4"],
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Agile Toolkit",
+            "email": "spam@agiletoolkit.org"
+        }
+    ],
+    "source": {
+        "url": "git@github.com:atk4/autocomplete.git",
+        "type": "git",
+        "reference": "origin/master"
+    },
+    "require": {
+        "atk4/atk4": ">=4.2.5",
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": { "autocomplete": "lib" }
+    }
+}
