@@ -5,7 +5,6 @@ class Model_FeesReceipt extends Model_Table {
 	function init(){
 		parent::init();
 
-
 		$this->hasOne('Branch','branch_id');
 		$this->hasOne('Student','student_id');
 		$this->addField('name')->caption('Receipt No');
@@ -48,7 +47,7 @@ class Model_FeesReceipt extends Model_Table {
 	function satisfiedMonths(){
 
 		$month_print=array();
-		$touched_months=array();
+		$touched_months=array(0);
 		$transactions_in_this_receipt = $this->ref('FeesTransaction');
 		$transactions_in_this_receipt->join('student_fees_applied','student_applied_fees_id')
 				->join('fees','fees_id')->addField('distribution');
@@ -86,36 +85,6 @@ class Model_FeesReceipt extends Model_Table {
 
 		// echo $in_month_year. " => " .$fees_applied_in_required_months->ref('fees_id')->get('name') . '=' . $month_print[$in_month_year] . '<br/>';
 		return $month_print;
-
-
-
-		$months_satisfied=array();
-		$transactions_in_this_receipt = $this->ref('FeesTransaction');
-
-		foreach ($transactions_in_this_receipt as $junk) {
-			$transaction_for_fee_applied = $transactions_in_this_receipt->ref('student_applied_fees_id');
-			$all_feeses_applied_in_same_month = $this->add('Model_StudentAppliedFees')
-										->addCondition('due_on',$transaction_for_fee_applied['due_on'])
-										->addCondition('student_id',$transaction_for_fee_applied['student_id']);
-			
-			$due_payment_in_month = false;
-			foreach ($all_feeses_applied_in_same_month as $junk2) {
-				$paid_till_receipt_date = $all_feeses_applied_in_same_month->paidAmount($this);
-				// echo $all_feeses_applied_in_same_month['fees']. ' '. $all_feeses_applied_in_same_month['due_on']. ' '. $paid_till_receipt_date . ' DUE: '.($all_feeses_applied_in_same_month['amount']-$paid_till_receipt_date).'<br/>';
-				if(($all_feeses_applied_in_same_month['amount']-$paid_till_receipt_date) > 0){
-					$due_payment_in_month = true;
-					break;
-				}
-			}
-
-			if($due_payment_in_month==false){
-				$month_to_add = date('M Y',strtotime($transaction_for_fee_applied['due_on']));
-				if(!in_array($month_to_add, $months_satisfied))
-					$months_satisfied[] = $month_to_add;
-			}
-		}
-
-		return $months_satisfied;
 	}
 
 
