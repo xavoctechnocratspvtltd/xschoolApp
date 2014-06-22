@@ -97,7 +97,7 @@ public $table="student_fees_applied";
 
 		$start_date = $this->api->currentSession['start_date'];
 
-		$start_date = date('Y',strototime($start_date)) . '-'. date('m',strototime($start_date). '-'. $this->api->getConfig('school/fee_date'));
+		$start_date = date('Y',strtotime($start_date)) . '-'. date('m',strtotime($start_date)). '-'. $this->api->getConfig('school/fee_date');
 
 		$count = ($fees['distribution']=='No')?1: $this->api->getConfig('school/emi'); // TODO CONFIG 8 MONTHS
 

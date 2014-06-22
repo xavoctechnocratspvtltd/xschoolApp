@@ -49,7 +49,10 @@ class Model_FeesReceipt extends Model_Table {
 
 		$month_print=array();
 		$touched_months=array();
-		$transactions_in_this_receipt = $this->ref('FeesTransaction')->setOrder('id');
+		$transactions_in_this_receipt = $this->ref('FeesTransaction');
+		$transactions_in_this_receipt->join('student_fees_applied','student_applied_fees_id')
+				->join('fees','fees_id')->addField('distribution');
+		$transactions_in_this_receipt->setOrder('distribution desc,id');
 		
 		foreach ($transactions_in_this_receipt as $junk) {
 			$transaction_aginst_fees_applied = $transactions_in_this_receipt->ref('student_applied_fees_id');
@@ -59,18 +62,15 @@ class Model_FeesReceipt extends Model_Table {
 			if($is_yearly){
 				$month_print[$fees['name']] = $transaction_aginst_fees_applied['amount'] - $transaction_aginst_fees_applied->paidAmountTill($this);
 			}else{
+				$month_print[$in_month_year] = 0;
 				if(!in_array($transaction_aginst_fees_applied['due_on'], $touched_months))
 					$touched_months[] = $transaction_aginst_fees_applied['due_on'];
-				if(isset($month_print[$in_month_year])){
-					$month_print[$in_month_year] += $transaction_aginst_fees_applied['amount'] - $transaction_aginst_fees_applied->paidAmountTill($this);
-				}else{
-					$month_print[$in_month_year] = $transaction_aginst_fees_applied['amount'] - $transaction_aginst_fees_applied->paidAmountTill($this);
-				}
 			}
 
 		}
 
-		// All partial dues that are paid is covered now cover
+		// All partial dues that are paid is covered in previous code, 
+		// now cover
 		// All dues that are either NOT PAID or PAID IN ANOTHER RECEIPT
 		
 		$fees_applied_in_required_months = $this->add('Model_StudentAppliedFees');
@@ -84,6 +84,7 @@ class Model_FeesReceipt extends Model_Table {
 			}
 		}
 
+		// echo $in_month_year. " => " .$fees_applied_in_required_months->ref('fees_id')->get('name') . '=' . $month_print[$in_month_year] . '<br/>';
 		return $month_print;
 
 

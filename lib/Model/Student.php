@@ -150,7 +150,8 @@ public $table="students";
 
 	function removeFees($fees){
 		if(!$this->hasFeesApplied($fees))
-			throw $this->exception('Fees is not applied to student, cannot remove');
+			return;
+			// throw $this->exception('Fees is not applied to student, cannot remove');
 
 		if($this->hasFeesApplied($fees)){
 			$fees_for_this_student = $this->appliedFees($fees);

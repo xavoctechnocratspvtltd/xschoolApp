@@ -13,7 +13,16 @@ class View_Student_PrintReceipt extends View {
 		$this->template->set('student_name',$receipt['student']);
 		$this->template->set('class',$receipt->ref('student_id')->ref('class_id')->get('full_name'));
 		$this->template->set('scholar_no',$receipt->ref('student_id')->ref('scholar_id')->get('scholar_no'));
-		$this->template->set('month',implode(", ",$receipt->satisfiedMonths()));
+		
+		$months = $receipt->satisfiedMonths();
+		$str="";
+		foreach ($months as $month => $due) {
+			$str .= $month;
+			if($due > 0)
+				$str .= ' ('.$due.'/- Due) ';
+			$str .= ", ";
+		}
+		$this->template->set('month',$str);
 	}
 
 	function defaultTemplate(){
