@@ -10,6 +10,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this->hasOne('Student','student_id');
 		$this->addField('name')->caption('Receipt No');
 		$this->addField('amount')->type('money');
+		$this->addField('months')->type('text');
 		$this->addField('created_at')->type('date')->defaultValue($this->api->today);
 		$this->hasMany('FeesTransaction','fees_receipt_id');
 
@@ -28,8 +29,8 @@ class Model_FeesReceipt extends Model_Table {
 		$fees_for_this_student = $student->appliedFees()->setOrder('due_on,id');
 
 		foreach ($fees_for_this_student as $fees_for_this_student_array) {
-			$paid_againt_this_fees = $fees_for_this_student->paidAmount();
-			$to_pay_for_this_fees = $fees_for_this_student['amount'] - $paid_againt_this_fees;
+			$paid_against_this_fees = $fees_for_this_student->paidAmount();
+			$to_pay_for_this_fees = $fees_for_this_student['amount'] - $paid_against_this_fees;
 
 			if($to_pay_for_this_fees > $to_set_amount)
 				$to_pay_for_this_fees = $to_set_amount;
@@ -46,6 +47,47 @@ class Model_FeesReceipt extends Model_Table {
 
 	function satisfiedMonths(){
 
+		$month_print=array();
+		$touched_months=array();
+		$transactions_in_this_receipt = $this->ref('FeesTransaction')->setOrder('id');
+		
+		foreach ($transactions_in_this_receipt as $junk) {
+			$transaction_aginst_fees_applied = $transactions_in_this_receipt->ref('student_applied_fees_id');
+			$fees = $transaction_aginst_fees_applied->ref('fees_id');
+			$is_yearly = ($fees['distribution'] == 'No');
+			$in_month_year = date('M Y',strtotime($transaction_aginst_fees_applied['due_on']));
+			if($is_yearly){
+				$month_print[$fees['name']] = $transaction_aginst_fees_applied['amount'] - $transaction_aginst_fees_applied->paidAmountTill($this);
+			}else{
+				if(!in_array($transaction_aginst_fees_applied['due_on'], $touched_months))
+					$touched_months[] = $transaction_aginst_fees_applied['due_on'];
+				if(isset($month_print[$in_month_year])){
+					$month_print[$in_month_year] += $transaction_aginst_fees_applied['amount'] - $transaction_aginst_fees_applied->paidAmountTill($this);
+				}else{
+					$month_print[$in_month_year] = $transaction_aginst_fees_applied['amount'] - $transaction_aginst_fees_applied->paidAmountTill($this);
+				}
+			}
+
+		}
+
+		// All partial dues that are paid is covered now cover
+		// All dues that are either NOT PAID or PAID IN ANOTHER RECEIPT
+		
+		$fees_applied_in_required_months = $this->add('Model_StudentAppliedFees');
+		$fees_applied_in_required_months->addCondition('due_on',$touched_months);
+		$fees_applied_in_required_months->addCondition('student_id',$this['student_id']);
+
+		foreach ($fees_applied_in_required_months as $junk) {
+			$due_amount = $fees_applied_in_required_months->dueAmountAfter($this);
+			if($due_amount){
+				$month_print[$in_month_year] += $due_amount;
+			}
+		}
+
+		return $month_print;
+
+
+
 		$months_satisfied=array();
 		$transactions_in_this_receipt = $this->ref('FeesTransaction');
 
@@ -54,15 +96,17 @@ class Model_FeesReceipt extends Model_Table {
 			$all_feeses_applied_in_same_month = $this->add('Model_StudentAppliedFees')
 										->addCondition('due_on',$transaction_for_fee_applied['due_on'])
 										->addCondition('student_id',$transaction_for_fee_applied['student_id']);
+			
 			$due_payment_in_month = false;
 			foreach ($all_feeses_applied_in_same_month as $junk2) {
-				$paid_till_receipt_date=$all_feeses_applied_in_same_month->paidAmount($this);
+				$paid_till_receipt_date = $all_feeses_applied_in_same_month->paidAmount($this);
 				// echo $all_feeses_applied_in_same_month['fees']. ' '. $all_feeses_applied_in_same_month['due_on']. ' '. $paid_till_receipt_date . ' DUE: '.($all_feeses_applied_in_same_month['amount']-$paid_till_receipt_date).'<br/>';
 				if(($all_feeses_applied_in_same_month['amount']-$paid_till_receipt_date) > 0){
 					$due_payment_in_month = true;
 					break;
 				}
 			}
+
 			if($due_payment_in_month==false){
 				$month_to_add = date('M Y',strtotime($transaction_for_fee_applied['due_on']));
 				if(!in_array($month_to_add, $months_satisfied))

@@ -92,12 +92,11 @@ public $table="sessions";
 	}
 
 	function markCurrent(){
-
 		if(!$this->loaded())
 			throw $this->exception('Can not Mark Current unloaded Model');
 		
-		$this->api->memorize('currentSession',$this);
-
+			$this->api->memorize('currentSession',$this);
+			$this->api->currentSession =  $this;
 			// throw new \Exception($this->api->currentSession, 1);
 			
 		}
@@ -105,4 +104,4 @@ public $table="sessions";
 
 	function deleteSession(){}
 	// function editSession(){} ???
-}
+}	

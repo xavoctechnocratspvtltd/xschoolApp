@@ -31,21 +31,51 @@ public $table="student_fees_applied";
 	function paidAmount($via_receipt=null){
 		$fee_trasactions = $this->ref('FeesTransaction');
 
-		if($via_receipt !==null){
+		if($via_receipt !== null){
 			$fee_trasactions->addCondition('submitted_on','<',$this->api->nextDate($via_receipt['created_at']));
 			$fee_trasactions->addCondition('fees_receipt_id',$via_receipt->id);
 		}
 
-		$amount = $fee_trasactions->_dsql()->del('fields')->field('sum(amount)')->getOne();
+		// $amount = $fee_trasactions->_dsql()->del('fields')->field('sum(amount)')->getOne();
+		$amount = $fee_trasactions->sum('amount')->getOne();
 		return $amount;
+	}
+
+	function paidAmountTill($via_receipt=null){
+		$fee_trasactions = $this->ref('FeesTransaction');
+
+		if($via_receipt !== null){
+			$fee_trasactions->addCondition('submitted_on','<',$this->api->nextDate($via_receipt['created_at']));
+			$fee_trasactions->addCondition('fees_receipt_id','<=',$via_receipt->id);
+		}
+
+		// $amount = $fee_trasactions->_dsql()->del('fields')->field('sum(amount)')->getOne();
+		$amount = $fee_trasactions->sum('amount')->getOne();
+		return $amount;
+	}
+
+	function dueAmountAfter($after_receipt){
+		return $this['amount'] - $this->paidAmountTill($after_receipt);
 	}
 
 	function pay($amount, $receipt){
 		if($amount > ($this['amount'] - $this->paidAmount()) )
 			throw $this->exception('Amount Exceeding required amount', 'ValidityCheck')->setField('amount');
 
+		if(($this['amount'] - $this->paidAmount()) == 0)
+			return; // All Fees Paid Already
+
 		$newtransaction = $this->add('Model_FeesTransaction');
 		$newtransaction->createNew($receipt,$this,$amount);
+
+		// $due_amount = $this['amount'] - $this->paidAmount();
+		
+		// if($this->ref('fees_id')->get('distribution') == 'NO'){
+		// 	$receipt['months']  = $receipt['months'] . ' ' . $this->ref('fees_id')->get('name'). ' ( '. $due_amount .'/- due),';
+		// 	$receipt->save();
+		// }
+
+		
 
 	}
 
@@ -66,6 +96,9 @@ public $table="student_fees_applied";
 	function createNew($student, $fees){
 
 		$start_date = $this->api->currentSession['start_date'];
+
+		$start_date = date('Y',strototime($start_date)) . '-'. date('m',strototime($start_date). '-'. $this->api->getConfig('school/fee_date'));
+
 		$count = ($fees['distribution']=='No')?1: $this->api->getConfig('school/emi'); // TODO CONFIG 8 MONTHS
 
 		$first_fee_amount = $fee_amount = $student->type()->getAmount($fees);
