@@ -183,7 +183,7 @@ public $table="students";
 	
 		$receipt=$this->add('Model_FeesReceipt');
 		$receipt->createNew($this,$amount);
-
+		return $receipt;
 	}
 
 	function feesReceipts(){
