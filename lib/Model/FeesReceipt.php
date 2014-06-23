@@ -13,6 +13,8 @@ class Model_FeesReceipt extends Model_Table {
 		$this->addField('created_at')->type('date')->defaultValue($this->api->today);
 		$this->hasMany('FeesTransaction','fees_receipt_id');
 
+		$this->addHook('beforeDelete',$this);
+
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
@@ -42,6 +44,10 @@ class Model_FeesReceipt extends Model_Table {
 			$to_set_amount = $to_set_amount - $to_pay_for_this_fees;
 
 		}
+	}
+
+	function beforeDelete(){
+		$this->ref('FeesTransaction')->deleteAll();
 	}
 
 	function satisfiedMonths(){

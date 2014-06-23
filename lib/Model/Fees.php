@@ -9,7 +9,7 @@ public $table="fees";
 		// $this->hasOne('FeesHead','feeshead_id'); //TODO DELETE
 		// $this->addField('club_additional_emis')->type('number')->defaultValue('0');
 		$this->addField('name')->mandatory(true);
-		$this->addField('default_amount');
+		$this->addField('default_amount')->defaultValue(0)->type('money');
 
 		$this->addField('distribution')->setValueList(array('No'=>'NO','in_each_emi'=>'IN EACH EMI'))->mandatory(true);
 

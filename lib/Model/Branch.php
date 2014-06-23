@@ -6,13 +6,13 @@ public $table="branches";
 	function init(){
 		parent::init();
 
-		$this->addField('name');
-		$this->addField('address')->type('text');
-		$this->addField('phone_no');
+		$this->addField('name')->mandatory(true);
+		$this->addField('address')->type('text')->mandatory(true);
+		$this->addField('phone_no')->mandatory(true);
 		$this->addField('principle_name');
 		$this->addField('principle_contact_no');
 
-		$this->addField('created_at')->type('date')->defaultValue($this->api->today);
+		$this->addField('created_at')->type('date')->defaultValue($this->api->today)->system(true);
 		$this->addField('update_at')->type('date')->system(true);
 
 		$this->hasMany('Class','branch_id');

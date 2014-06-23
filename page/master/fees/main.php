@@ -31,6 +31,9 @@ class page_master_fees_main extends Page {
 		if($grid = $crud->grid){
 
 			$grid->addColumn('expander','setamounts','Set Amounts');
+
+			$grid->addPaginator(10);
+			$grid->addQuickSearch(array('name'));
 		}
 
 		if($crud->isEditing()){

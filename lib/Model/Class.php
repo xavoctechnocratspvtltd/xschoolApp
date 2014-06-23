@@ -6,7 +6,7 @@ public $table="classes";
 	function init(){
 		parent::init();
 
-        $this->hasOne('Branch','branch_id');
+        $this->hasOne('Branch','branch_id')->mandatory(true);
         // $this->hasOne('ClassPrev','previous_class_id','full_name');
 		$this->addField('name')->mandatory("Please give a class name")->caption('Class Name');
         $this->addField('section')->mandatory('Give section a name');

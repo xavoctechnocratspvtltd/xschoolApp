@@ -11,8 +11,8 @@ public $table="students";
 		$this->hasOne('Class','class_id','full_name');
 		$this->hasOne('StudentType','studenttype_id');
 		$this->addField('roll_no');
-		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler");
-        $this->addField('isScholared')->type('boolean');
+		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
+        $this->addField('isScholared')->type('boolean')->system(true);
 
         $this->addExpression('name')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('name');
@@ -87,6 +87,8 @@ public $table="students";
 		// foreach ($stm as $junk) {
 		// 	$stm->deleteForced();
 		// }
+
+		throw $this->exception('Marks remove for student or any other leftover ????');
 
 		$this->delete();
 		// check any entry regarding this student
@@ -183,6 +185,10 @@ public $table="students";
 	
 		$receipt=$this->add('Model_FeesReceipt');
 		$receipt->createNew($this,$amount);
+		
+		$transaction=$this->add('Model_PaymentTransaction');
+		$transaction->createNew($receipt->id,$amount,"Income",'fees submit');
+		
 		return $receipt;
 	}
 

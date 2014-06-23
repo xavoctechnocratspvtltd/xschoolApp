@@ -5,11 +5,15 @@ class page_master_class_main extends Page {
 		// parent::init();
 	
 		$crud=$this->add('xCRUD');
-		$class=$this->api->currentBranch->classes();
+		$class=$this->add('Model_Class');//$this->api->currentBranch->classes();
 
 
 		$crud->addHook('myupdate',function($crud,$form){
+			if(!$form['branch_id'])
+				throw $form->exception('Please specify Branch', 'ValidityCheck')->setField('branch_id');
+			
 			if($crud->isEditing('edit')) return false; // Always required to bypass the bellow code in editing crud mode
+			
 			
 			// Do your stuff by getting $form data
 			$class_model = $crud->add('Model_Class');
@@ -21,6 +25,9 @@ class page_master_class_main extends Page {
 		$crud->setModel($class);		
 
 		if($g=$crud->grid){
+
+			$g->addPaginator(10);
+			$g->addQuickSearch(array('branch','full_name'));
 
 			$g->addColumn('expander','subject','Associate Subject');
 			$g->addColumn('expander','exam','Associate Exam');

@@ -6,7 +6,7 @@ class Model_StudentType extends Model_Table {
 		parent::init();
 
 		$this->hasOne( 'StudentTypePrev', 'previouse_studenttype_id' );
-		$this->addField( 'name' );
+		$this->addField( 'name' )->mandatory(true);
 		$this->hasMany( 'FeesAmountForStudentTypes', 'studenttype_id' );
 		$this->hasMany( 'StudentType', 'previouse_studenttype_id', null, 'LastYearStudentType' );
 			// $this->add('dynamic_model/Controller_AutoCreator');

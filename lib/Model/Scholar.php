@@ -6,7 +6,7 @@ public $table="scholars";
 	function init(){
 		parent::init();
 
-		$this->addField('admission_date')->type('date')->mandatory("Required Field")->caption('Date Of Joining')->defaultValue(date('d-m-Y'));
+		$this->addField('admission_date')->type('date')->mandatory(true)->caption('Date Of Joining')->defaultValue(date('d-m-Y'));
 		$this->addField('scholar_no')->mandatory("Scholar Number is Must")->sortable(true)  ;
 		$this->addField('name')->mandatory("Name is Must")->caption('Student Name');
 		$this->addField('father_name')->mandatory("Required Field")->caption('Father`s Name');

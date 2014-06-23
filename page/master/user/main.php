@@ -19,5 +19,10 @@ class page_master_user_main extends Page {
 		});
 		
 		$crud->setModel($staff_model_new);		
+
+		if($g=$crud->grid){
+			$g->addQuickSearch(array('name','branch'));
+			$g->addPaginator(10);
+		}
 	}
 }

@@ -17,6 +17,14 @@ class page_master_subject_main extends Page {
 			$subject_model->createNew($form['name'],$form->getAllFields(),$form);
 			return true; // Always required
 		});
-		$crud->setModel($subject);		
+		$crud->setModel($subject);	
+
+
+
+		if($g=$crud->grid){
+			$g->addPaginator(10);
+			$g->addQuickSearch(array('name'));
+
+		}	
 	}
 }

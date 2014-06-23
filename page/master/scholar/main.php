@@ -68,5 +68,11 @@ class page_master_scholar_main extends Page {
 
 		$crud->setModel($scholar_model);
 
+
+		if($g=$crud->grid){
+			$g->addPaginator(10);
+			$g->addQuickSearch(array('name','address','phone_no','scholar_no','father_name'));
+
+		}
 	}
 }

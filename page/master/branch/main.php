@@ -19,5 +19,12 @@ class page_master_branch_main extends Page {
 		});
 		
 		$crud->setModel($branch);		
+	
+		if($g=$crud->grid){
+			$g->addPaginator(10);
+			$g->addQuickSearch(array('name','address','phone_no','principle_name','principle_contact_no'));
+
+		}
+
 	}
 }

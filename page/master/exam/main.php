@@ -7,7 +7,6 @@ class page_master_exam_main extends Page {
 		$crud=$this->add('xCRUD');
 		$exam=$this->add('Model_Exam');
 
-		$crud->setModel($exam);
 
 
 		$crud->addHook('myupdate',function($crud,$form){
@@ -19,6 +18,15 @@ class page_master_exam_main extends Page {
 			$exam_model->createNew($form['name'],$form->getAllFields(),$form);
 			return true; // Always required
 		});		
+
+		$crud->setModel($exam);
+
+		
+		if($g=$crud->grid){
+			$g->addPaginator(10);
+			$g->addQuickSearch(array('name'));
+
+		}
 
 		
 	}

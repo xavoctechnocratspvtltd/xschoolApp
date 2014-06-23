@@ -54,6 +54,9 @@ class page_master_session_main extends Page {
 			$g->addColumn('currentsession','current');
 
 			$g->addColumn('button','mark_current');
+
+			$g->addPaginator(10);
+			$g->addQuickSearch(array('name'));
 		}
 		
 	}

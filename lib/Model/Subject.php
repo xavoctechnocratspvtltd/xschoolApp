@@ -6,7 +6,7 @@ public $table="subjects";
 	function init(){
 		parent::init();
 
-	 $this->addField('name');
+	 $this->addField('name')->mandatory(true);
 	 $this->hasMany('SubjectInAClass','subject_id');
 	 $this->add('dynamic_model/Controller_AutoCreator');
 

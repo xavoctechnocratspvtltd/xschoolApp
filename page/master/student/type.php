@@ -32,5 +32,11 @@ class page_master_student_type extends Page {
 			$o->now();
 		}
 
+
+		if($g=$crud->grid){
+			$g->addPaginator(10);
+			$g->addQuickSearch(array('name'));
+
+		}
 	}
 }

@@ -70,11 +70,21 @@ class page_fees_deposit extends Page {
 				$student->load($_REQUEST[$student_field->name]);
 			}
 			$deposit=$deposit_container->add('View_Student_FeesSubmitBlock',array('student'=>$student));
+			$deposit_container->js(true)->show();
 		}
 
 		if($form->isSubmitted()){
 			$deposit_container->js()->reload(array($student_field->name=>$form['student_id'], $scholar_no_field->name=>$form['scholar_no']))->execute();
 		}
+
+		$branch_field->js('change',$deposit_container->js()->hide());
+		$class_field->js('change',$deposit_container->js()->hide());
+		$student_field->js('change',array(
+				$deposit_container->js()->hide(),
+				$scholar_no_field->js()->val('')
+			)
+		);
+		$scholar_no_field->js('change',$deposit_container->js()->hide());
 
 	}
 

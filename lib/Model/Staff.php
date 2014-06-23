@@ -5,10 +5,10 @@ class Model_Staff extends Model_Table{
 	function init(){
 		parent::init();
 
-		$this->hasOne('Branch','branch_id');
-		$this->addField('name');
-		$this->addField('username');
-		$this->addField('password');
+		$this->hasOne('Branch','branch_id')->mandatory(true);
+		$this->addField('name')->mandatory(true);
+		$this->addField('username')->mandatory(true);
+		$this->addField('password')->type('password')->mandatory(true);
 
 		 $this->add('dynamic_model/Controller_AutoCreator');
 

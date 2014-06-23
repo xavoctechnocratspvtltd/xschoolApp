@@ -19,6 +19,10 @@ class page_master_student_list extends Page {
 		$grid->addColumn('Confirm','remove_student');
 		$grid->addColumn('Expander','fees_applied');
 		$grid->addColumn('Expander','change_class');
+		$grid->addPaginator(50);
+		$grid->addQuickSearch(array('scholar','scholar_no','class','roll_no'));
+		// 
+		$grid->removeColumn('name');
 
 	}
 

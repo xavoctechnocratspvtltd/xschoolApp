@@ -90,6 +90,7 @@ class Frontend extends ApiFrontend {
             ->addMenuItem('master_student_main','Student Management')
             ->addMenuItem('fees_main','Fees Management')
             ->addMenuItem('reports_daybook','Day Book')
+            ->addMenuItem('accounts','General Accounting ')
             ->addMenuItem('logout')
             ;
 
