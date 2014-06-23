@@ -15,6 +15,7 @@ class View_Student_FastDeposit extends View{
 		
 		$form = $this->add('Form');
 		$form->addField('line','amount');
+		$form->addField('line','late_fees');
 		$form->addSubmit('Submit Fees');
 
 		if($form->isSubmitted()){

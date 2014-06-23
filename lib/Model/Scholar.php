@@ -23,7 +23,7 @@ public $table="scholars";
 		$this->addField('blood_group');
 		$this->addField('brother_sister_name_class')->type('text');
 		$this->addField('form_no');
-		$this->addField('gender')->enum(array('Male','FeMale'));
+		$this->addField('gender')->setValueList(array('m'=>'Male','f'=>'FeMale'));
 		$this->addField('previous_school_and_class')->type('text');
 
 

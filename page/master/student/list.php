@@ -17,7 +17,37 @@ class page_master_student_list extends Page {
 		$grid->js('reload')->reload();
 
 		$grid->addColumn('Confirm','remove_student');
+		$grid->addColumn('Expander','fees_applied');
 		$grid->addColumn('Expander','change_class');
+
+	}
+
+	function page_fees_applied(){
+		$this->api->stickyGET('students_id');
+		$this_student =$this->add('Model_Student')->load($_GET['students_id']);
+
+		$feeses = $this->add('Model_Fees');
+
+		foreach ($feeses as $fee) {
+			$btn = $this->add('Button')->set($feeses['name']);
+			if($fee_applied = $this_student->hasFeesApplied($feeses)){
+				$btn->addClass('btn btn-success');
+			}else{
+				$btn->addClass('btn btn-danger');		
+
+			}
+
+			if($btn->isClicked("Are you sure")){
+				if($fee_applied){
+					$this_student->removeFees($feeses);
+				}else{
+					$this_student->addFees($feeses);
+				}
+				$btn->js()->reload()->execute();
+			}
+
+		}
+
 
 	}
 

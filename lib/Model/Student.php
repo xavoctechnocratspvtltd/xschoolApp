@@ -179,7 +179,7 @@ public $table="students";
 		return $fees_for_this_student;	
 	}
 
-	function submitFees($amount,$fees=null,$month=null){
+	function submitFees($amount,$late_fees = 0 ){
 	
 		$receipt=$this->add('Model_FeesReceipt');
 		$receipt->createNew($this,$amount);
@@ -245,6 +245,12 @@ public $table="students";
 		}
 
 		return $due_fees;
+	}
+
+	function getLateFees(){
+		$late_fee_per_day = $this->api->getConfig('school/late_fee_per_day');
+
+		return $late_fee_per_day;
 	}
 
 	function changeClass($to_class, $change_feeses_also =false){

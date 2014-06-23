@@ -16,7 +16,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
-	function createNew($student,$amount){
+	function createNew($student,$amount , $late_fees=0){
 
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
