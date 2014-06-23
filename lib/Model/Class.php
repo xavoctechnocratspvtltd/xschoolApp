@@ -17,7 +17,11 @@ public $table="classes";
         $this->hasMany('FeesInAClass','class_id');
         // $this->hasMany('ClassPrev','previous_class_id');
 
-        $this->addExpression('full_name')->set('(concat(name," - ",section))');      
+        $this->addExpression('full_name')->set('(concat(name," - ",section))');
+
+        $this->addExpression('no_of_students')->set(function($m,$q){
+        	return $m->refSQL('CurrentStudent')->count();
+        });
 
         $this->addHook('editing',array($this,'editingDefault'));
         $this->addHook('beforeDelete',$this);

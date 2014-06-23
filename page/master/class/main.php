@@ -32,6 +32,7 @@ class page_master_class_main extends Page {
 			$g->addColumn('expander','subject','Associate Subject');
 			$g->addColumn('expander','exam','Associate Exam');
 			$g->addColumn('expander','fees','Associate Fees');
+			$g->addColumn('expander','students','Students');
 
 		}		
 	}

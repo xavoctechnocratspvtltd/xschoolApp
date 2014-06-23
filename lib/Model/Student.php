@@ -88,7 +88,7 @@ public $table="students";
 		// 	$stm->deleteForced();
 		// }
 
-		throw $this->exception('Marks remove for student or any other leftover ????');
+		// throw $this->exception('Marks remove for student or any other leftover ????');
 
 		$this->delete();
 		// check any entry regarding this student
