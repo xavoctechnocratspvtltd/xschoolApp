@@ -23,6 +23,8 @@ public $table="classes";
         	return $m->refSQL('CurrentStudent')->count();
         });
 
+        $this->setOrder('full_name');
+
         $this->addHook('editing',array($this,'editingDefault'));
         $this->addHook('beforeDelete',$this);
         $this->addHook('beforeSave',$this);

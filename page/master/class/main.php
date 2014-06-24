@@ -26,8 +26,9 @@ class page_master_class_main extends Page {
 
 		if($g=$crud->grid){
 
-			$g->addPaginator(10);
+			// $g->addPaginator(10);
 			$g->addQuickSearch(array('branch','full_name'));
+			$g->addTotals(array('no_of_students'));
 
 			$g->addColumn('expander','subject','Associate Subject');
 			$g->addColumn('expander','exam','Associate Exam');

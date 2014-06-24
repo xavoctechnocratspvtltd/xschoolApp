@@ -20,3 +20,4 @@ $config['school']['sub1']="A unit of Padmawati Shikshan Sansthan";
 $config['school']['sub2']="An English Medium Co-Educational Sr. Secendary School";
 $config['school']['fee_date'] = '10'; // Of each month
 $config['school']['late_fee_per_day'] = '10'; // Of each month
+$config['school']['first_installment_month'] = '07'; // Of each month

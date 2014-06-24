@@ -29,7 +29,9 @@ public $table="students";
 
         $this->addHook('beforeDelete',$this);
 
-	    $this->add('dynamic_model/Controller_AutoCreator');
+        $this->setOrder('name');
+
+	    // $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 

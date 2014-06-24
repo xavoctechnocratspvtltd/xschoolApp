@@ -9,6 +9,11 @@ class Model_StudentType extends Model_Table {
 		$this->addField( 'name' )->mandatory(true);
 		$this->hasMany( 'FeesAmountForStudentTypes', 'studenttype_id' );
 		$this->hasMany( 'StudentType', 'previouse_studenttype_id', null, 'LastYearStudentType' );
+
+		// $this->addExpression('fees_applied')->set(function($m,$q){
+		// 	return $m->refSQL('FeesAmountForStudentTypes')->sum('amount');
+		// });
+
 			// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 

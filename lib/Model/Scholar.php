@@ -23,7 +23,7 @@ public $table="scholars";
 		$this->addField('blood_group');
 		$this->addField('brother_sister_name_class')->type('text');
 		$this->addField('form_no');
-		$this->addField('gender')->setValueList(array('m'=>'Male','f'=>'FeMale'));
+		$this->addField('gender')->setValueList(array('m'=>'Male','f'=>'Female'))->display(array('grid'=>'grid/inline'));
 		$this->addField('previous_school_and_class')->type('text');
 
 
@@ -32,11 +32,13 @@ public $table="scholars";
 
 		$this->hasMany('Student','scholar_id');
 
+		$this->setOrder('name');
+
 		$this->addhook('editing',array($this,'defautlEditingMode'));
 
 		$this->addHook('beforeDelete',array($this,'defaultBeforeDelete'));
 
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 
