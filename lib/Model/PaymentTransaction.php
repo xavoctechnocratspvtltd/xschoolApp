@@ -6,10 +6,11 @@ class Model_PaymentTransaction extends Model_Table {
 
 		$this->hasOne('FeesReceipt','fees_receipt_id');
 		
-		$this->addField('amount')->caption('Amount');
-		$this->addField('transaction_date')->type('datetime')->defaultValue($this->api->now)->caption('Date');
+		$this->addField('amount')->caption('Amount')->mandatory(true);
+		$this->addField('transaction_date')->type('datetime')->defaultValue($this->api->now)->caption('Date')->mandatory(true);
 		$this->addField('transaction_type')->enum(array('Expense','Income'));
-		$this->addField('narration');
+		$this->addField('narration')->mandatory(true);
+		$this->addField('mode')->enum(array('Cash','Cheque'))->mandatory(true);
 
 		$this->addHook('beforeDelete',$this);
 
@@ -17,11 +18,12 @@ class Model_PaymentTransaction extends Model_Table {
 	}
 
 
-	function createNew($fees_receipt_id=null,$amount,$transaction_type,$narration="xyz"){
+	function createNew($amount,$transaction_type,$mode,$narration,$fees_receipt_id=null){
 
 		$this['fees_receipt_id']=$fees_receipt_id;
 		$this['transaction_type']=$transaction_type;
 		$this['amount']=$amount;
+		$this['mode']=$mode;
 		$this['narration']=$narration;
 		$this->save();
 	}

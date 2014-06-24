@@ -6,9 +6,9 @@ class page_fees_deposit extends Page {
 	function initMainPage(){
 		
 		$form=$this->add('Form',null,null,array('form_horizontal'));
-		$branch_field=$form->addField('dropdown','branch_id');
-		$class_field=$form->addField('dropdown','class_id');
-		$student_field=$form->addField('dropdown','student_id');
+		$branch_field=$form->addField('dropdown','branch_id')->setEmptyText('Please Select');
+		$class_field=$form->addField('dropdown','class_id')->setEmptyText('Please Select');
+		$student_field=$form->addField('dropdown','student_id')->setEmptyText('Please Select');
 
 		if($_REQUEST[$branch_field->name]){
 			$this->api->stickyGET($branch_field->name);

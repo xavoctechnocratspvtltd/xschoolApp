@@ -13,7 +13,7 @@ class page_accounts extends Page {
 		$payment_received->setOrder('transaction_date','desc');
 		$crud_received=$tab1->add('CRUD');
 
-		$crud_received->setModel($payment_received,array('transaction_date','amount','narration'),array('fees_receipt','transaction_date','amount','narration'));
+		$crud_received->setModel($payment_received,array('transaction_date','amount','mode','narration'),array('fees_receipt','transaction_date','amount','mode','narration'));
 
 		if($crud_received->grid){
 			$crud_received->grid->addPaginator(50);
@@ -39,7 +39,7 @@ class page_accounts extends Page {
 			$crud_paid->grid->addPaginator(50);
 			$crud_paid->grid->addQuickSearch(array('transaction_date','amount'));
 		}
-		$crud_paid->setModel($payment_paid,array('transaction_date','amount','narration'));
+		$crud_paid->setModel($payment_paid,array('transaction_date','amount','mode','narration'));
 
 
 	}

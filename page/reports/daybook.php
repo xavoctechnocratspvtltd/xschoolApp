@@ -20,6 +20,7 @@ class page_reports_daybook extends Page {
 
 		$day_transactions->addCondition('transaction_date','>=',$on_date);
 		$day_transactions->addCondition('transaction_date','<',$this->api->nextDate($on_date));
+		$day_transactions->addCondition('mode','<>','Cheque');
 
 		
 

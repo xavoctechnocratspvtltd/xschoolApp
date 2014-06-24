@@ -63,10 +63,10 @@ class Frontend extends ApiFrontend {
 
             $v=$this->add('View',null,'WelcomeBlock');
             $v->setStyle('width','300px');
-            $v->setHtml('<b>Welcome !</b>'.$this->api->auth->model['name'].'<br/>'
-                .'Current Branch :'.$this->currentBranch['name'].'<br/>'.
-                'Current Session :'.$current_session.'<br/>'.
-                'Current Date :'.$current_date.'<br/>'
+            $v->setHtml('<b>Welcome! </b>'.$this->api->auth->model['name'].'<br/>'
+                .'Current Branch : '.$this->currentBranch['name'].'<br/>'.
+                'Current Session : '.$current_session.'<br/>'.
+                'Current Date : '.$current_date.'<br/>'
                 );
 
             $v->addClass('welcome-block');

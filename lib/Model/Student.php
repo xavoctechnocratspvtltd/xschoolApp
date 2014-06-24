@@ -13,6 +13,7 @@ public $table="students";
 		$this->addField('roll_no');
 		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
         $this->addField('isScholared')->type('boolean')->system(true);
+        $this->addField('given_consession')->type('money')->system(true);
 
         $this->addExpression('name')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('name');
@@ -183,15 +184,48 @@ public $table="students";
 		return $fees_for_this_student;	
 	}
 
-	function submitFees($amount,$late_fees = 0 ){
-	
+	function submitFees($amount,$mode,$narration="",$late_fees = 0 ){
+		
+		$narration .= " :: Fees Received From ".$this['name']." ( ".$this['scholar_no']." ) ";
 		$receipt=$this->add('Model_FeesReceipt');
-		$receipt->createNew($this,$amount);
+		$receipt->createNew($this,$amount,$mode,$narration);
 		
 		$transaction=$this->add('Model_PaymentTransaction');
-		$transaction->createNew($receipt->id,$amount,"Income",'fees submit');
+		$transaction->createNew($amount,"Income",$mode,$narration,$receipt->id);
 		
 		return $receipt;
+	}
+
+	function consessionInFees($amount){
+
+
+		if($amount > $this->getDueFeesAmount() or $amount < 0)
+			throw $this->exception('Cannot give consession more than  remainig amount or negative consession','ValidityCheck')->setField('consession');
+
+		$this_student_applied_fees = $this->appliedFees();
+		$this_student_applied_fees->setOrder('due_on desc, id desc');
+
+		$remaining_amount_to_consession = $amount;
+
+		foreach ($this_student_applied_fees as $junk) {
+			// echo $this_student_applied_fees['due_on'].' ' . $this_student_applied_fees->ref('fees_id')->get('name') . ' ';
+			if($remaining_amount_to_consession >= $this_student_applied_fees['amount']){
+				$remaining_amount_to_consession = $remaining_amount_to_consession - $this_student_applied_fees['amount'];
+				$this_student_applied_fees['amount'] = 0;
+				// echo ' done 0 <br/>';
+				$this_student_applied_fees->save();
+			}else{
+				$this_student_applied_fees['amount'] = $this_student_applied_fees['amount'] - $remaining_amount_to_consession;
+				$remaining_amount_to_consession=0;
+				// echo ' done '.$this_student_applied_fees['amount'].'  <br/>';
+				$this_student_applied_fees->save();
+			}
+			if($remaining_amount_to_consession == 0 ) break; // no need to check more fees.. all amount is adjusted
+		}
+
+		$this['given_consession'] = $this['given_consession'] + $amount;
+		$this->save();
+
 	}
 
 	function feesReceipts(){

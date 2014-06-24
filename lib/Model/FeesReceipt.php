@@ -10,6 +10,8 @@ class Model_FeesReceipt extends Model_Table {
 		$this->addField('name')->caption('Receipt No');
 		$this->addField('amount')->type('money');
 		$this->addField('months')->type('text');
+		$this->addField('mode')->enum(array('Cash','Cheque'));
+		$this->addField('narration');
 		$this->addField('created_at')->type('date')->defaultValue($this->api->today);
 		$this->hasMany('FeesTransaction','fees_receipt_id');
 
@@ -18,12 +20,14 @@ class Model_FeesReceipt extends Model_Table {
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
-	function createNew($student,$amount , $late_fees=0){
+	function createNew($student,$amount , $mode,$narration){
 
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
 		$this['amount']=$amount;
+		$this['mode']=$mode;
+		$this['narration']=$narration;
 		$this->save();
 
 		$to_set_amount = $amount;

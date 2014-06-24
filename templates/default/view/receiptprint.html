@@ -1,116 +1,98 @@
-<div id="<?$_name?>">
-	<div style="padding-top:25px"></div>
-	<div class="row " >
-		<div class="col-md-4" style="border:1px solid black;">
-			<div class="text-center">
-				<h1><?$school_name?></h1>
-				<small> ( <?$sub1?> )</small></br>
-				<small> ( <?$sub2?> )</small>
-			</div>
-			<div style="padding-top:25px">
-				
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-4">Receipt No</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><?$receipt_no?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-4">Name </div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><?$student_name?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-4">Class</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><?$class?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-4">Month</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><?$month?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-4">Scholar No</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><?$scholar_no?></div>
-					</div>
-					<div style="padding-top:10px"></div>
+<div id="<?$_name?>">	
+	<table style='border: 2px solid black'>
+		<tr>
+			<td style='border: 2px solid black' width='300px'>
+				<!-- Counter Area Start -->
+				<h2 align='center'> <?$school_name?><small><small><?$sub1?><br/><?$sub2?></small></small></h2>
+				<table>
+					<tr>
+						<td><b>Receipt No</b></td>
+						<td><?$receipt_no?></td>
+					</tr>
+					<tr>
+						<td><b>Name</b></td>
+						<td><?$student_name?></td>
+					</tr>
+					<tr>
+						<td><b>Class</b></td>
+						<td><?$class?></td>
+					</tr>
+					<tr>
+						<td colspan=2>
+							<b>Month</b> <br/>
+							<?$month?>
+						</td>
+					</tr>
+					<tr>
+						<td><b>Sch. No.</b></td>
+						<td><?$scholar_no?></td>
+					</tr>
+					<tr>
+						<td><b>Transport Code</b></td>
+						<td>Transport code</td>
+					</tr>
+					<tr>
+						<td><b>late Fees</b></td>
+						<td><?$late_fee?></td>
+					</tr>
+					<tr>
+						<td><b>Amount</b></td>
+						<td><?$amount?></td>
+					</tr>
 					
-					<div class="row">
-						<div class="col-md-4">Late Fee</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><?$late_fee?></div>
-					</div>
-					<div class="row pull-right">
-						<div class="col-md-4">&nbsp;&nbsp;</div>
-						<div class="col-md-6">Signature</div>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-		<div class="col-md-1"></div>
-		<div class="col-md-8" style="border:1px solid black;">
-			<div class="text-center">
-				<h1><?$school_name?></h1>
-				<small> ( <?$sub1?> )</small></br>
-				<small> ( <?$sub2?> )</small>
-			</div>
-			<div style="padding-top:25px">
-				
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-3">Receipt No:</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-8"><?$receipt_no?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-3">Name :</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-8"><?$student_name?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-3">Class:</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-8"><?$class?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-3">Month:</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-8"><?$month?></div>
-					</div>
-					<div style="padding-top:10px"></div>
-					<div class="row">
-						<div class="col-md-3">Scholar No:</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-8"><?$scholar_no?></div>
-					</div>
-					<div style="padding-top:10px"></div>
+				</table>
+				<!-- Counter Area End -->
+			</td>
+			<td style='border: 2px solid black'  width='600px'>
+				<!-- Student Portion Start  -->
+				<h2 align='center'> <?$school_name?><small><small><?$sub1?><br/><?$sub2?></small></small></h2>
+				<table width='100%'>
+					<tr>
+						<td><b>Receipt No</b></td>
+						<td><?$receipt_no?></td>
+					</tr>
+					<tr>
+						<td><b>Name</b></td>
+						<td><?$student_name?></td>
+					</tr>
+					<tr>
+						<td><b>Class</b></td>
+						<td><?$class?></td>
+					</tr>
+					<tr>
+						<td colspan=2>
+							<b>Month</b> <br/>
+							<?$month?>
+						</td>
+					</tr>
+					<tr>
+						<td><b>Sch. No.</b></td>
+						<td><?$scholar_no?></td>
+					</tr>
+					<tr>
+						<td><b>Transport Code</b></td>
+						<td>Transport code</td>
+					</tr>
+					<tr>
+						<td><b>Late Fees</b></td>
+						<td><?$late_fee?></td>
+					</tr>
+					<tr>
+						<td colspan=2>
+							<table width='100%'>
+								<tr>
+									<td><b>Amount</b></td>
+									<td><?$amount?></td>
+									<td></td>
+									<td width='60%' align='right'><b>Signature</b></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
 					
-					<div class="row">
-						<div class="col-md-3">Late Fee:</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-8"><?$late_fee?></div>
-					</div>
-					<div class="row pull-right">
-						<div class="col-md-4">&nbsp;&nbsp;</div>
-						<div class="col-md-6">Signature</div>
-					</div>
-				</div>
-				
-			</div>
-		</di
-	</div>
-	</div>
+				</table>
+				<!-- Student Portion End  -->
+			</td>
+		</tr>
+	</table>
+</div>
