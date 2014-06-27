@@ -23,10 +23,27 @@ public $table="students";
         $this->addExpression('scholar_no')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('scholar_no');
         });
+
+        $this->addExpression('total_applied_fees_sum')->set(function($m,$q){
+        	return $m->refSQL('StudentAppliedFees')->sum('amount');
+        });
+
+        $this->addExpression('total_paid_fees_sum')->set(function($m,$q){
+        	return $m->refSQL('FeesTransaction')->sum('amount');
+        });
+
+        $this->addExpression('applied_fees_sum_till_date')->set(function($m,$q){
+        	return $m->refSQL('StudentAppliedFees')->addCondition('due_on','<=',$m->api->today)->sum('amount');
+        });
+
+        $this->addExpression('paid_fees_sum_till_date')->set(function($m,$q){
+        	return $m->refSQL('FeesTransaction')->addCondition('submitted_on','<=',$m->api->today)->sum('amount');
+        });
         
 		$this->hasMany('Student_Attendance','student_id');
         // $this->hasMany('Marks','student_id');
         $this->hasMany('StudentAppliedFees','student_id');
+        $this->hasMany('FeesTransaction','student_id');
         $this->hasMany('FeesReceipt','student_id');
 
         $this->addHook('beforeDelete',$this);
@@ -338,6 +355,68 @@ public $table="students";
 		$to_class->addStudent($this, $this['studenttype_id']);
 
 		return $this;
+	}
+
+	function countByCast(){
+
+		$scholar_join = $this->join('scholars','scholar_id');
+		$class_join = $this->join('classes','class_id');
+
+		$result = $this->_dsql()->del('fields')
+				->field($class_join->table_alias.'.name')
+				->field($class_join->table_alias.'.section')
+				->field($scholar_join->table_alias.'.cast')
+				->field('count(*)')
+				->group("class_id, ".$scholar_join->table_alias.".cast")
+				->get();
+
+
+		$new_array = array();
+		$casts = array();
+
+		foreach ($result as $data) {
+			if(isset($new_array[$data['name'].$data['section']]))
+				$new_array[$data['name'].$data['section']] += array('class'=>$data['name']. '-'. $data['section'], $data['cast']=>$data['count(*)']);
+			else
+				$new_array[$data['name'].$data['section']] = array('class'=>$data['name']. '-'. $data['section'], $data['cast']=>$data['count(*)']);
+
+			if(!in_array($data['cast'], $casts))
+				$casts[] = $data['cast'];
+		}
+
+
+		return array('casts'=>$casts,'count'=>$new_array);
+		
+	}
+
+	function countByCategory(){
+		$scholar_join = $this->join('scholars','scholar_id');
+		$class_join = $this->join('classes','class_id');
+
+		$result = $this->_dsql()->del('fields')
+				->field($class_join->table_alias.'.name')
+				->field($class_join->table_alias.'.section')
+				->field($scholar_join->table_alias.'.category')
+				->field('count(*)')
+				->group("class_id, ".$scholar_join->table_alias.".category")
+				->get();
+
+
+		$new_array = array();
+		$casts = array();
+
+		foreach ($result as $data) {
+			if(isset($new_array[$data['name'].$data['section']]))
+				$new_array[$data['name'].$data['section']] += array('class'=>$data['name']. '-'. $data['section'], $data['category']=>$data['count(*)']);
+			else
+				$new_array[$data['name'].$data['section']] = array('class'=>$data['name']. '-'. $data['section'], $data['category']=>$data['count(*)']);
+
+			if(!in_array($data['category'], $casts))
+				$casts[] = $data['category'];
+		}
+
+
+		return array('category'=>$casts,'count'=>$new_array);
 	}
 
 }

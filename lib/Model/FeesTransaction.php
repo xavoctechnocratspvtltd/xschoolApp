@@ -5,6 +5,7 @@ class Model_FeesTransaction extends Model_Table {
 	function init(){
 		parent::init();
 
+		$this->hasOne('Student','student_id');
 		$this->hasOne('StudentAppliedFees','student_applied_fees_id');
 		$this->hasOne('FeesReceipt','fees_receipt_id');
 		$this->hasOne('Branch','branch_id')->defaultValue($this->api->currentBranch->id);
