@@ -10,6 +10,7 @@ public $table="students";
 		$this->hasOne('Scholar','scholar_id');
 		$this->hasOne('Class','class_id','full_name');
 		$this->hasOne('StudentType','studenttype_id');
+        $this->hasOne('Vehicle','vehicle_id')->defaultValue(0);
 		$this->addField('roll_no');
 		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
         $this->addField('isScholared')->type('boolean')->system(true);
@@ -121,6 +122,34 @@ public $table="students";
 
 	function type(){
 		return $this->ref('studenttype_id');
+	}
+
+	function vehicle(){
+		return $this->ref('vehicle_id');
+	}
+
+	function assignVehicle($vehicle){
+
+		if(!$vehicle instanceof Model_Vehicle)
+			throw $this->exception("assignVehicle Must be passed a loaded Object of Model_Vehicle");
+			
+
+		if(!$this->loaded())
+			throw $this->exception("Specify the student ID, Model Student Must be loaded before traversing");
+		$this['vehicle_id']=$vehicle->id;
+		$this->save();
+		
+		return $this;			
+	}
+
+	function removeVehicle(){
+
+		if(!$this->loaded())
+			throw $this->exception("Specify the student ID, Model Student Must be loaded before traversing");
+		$this['vehicle_id']=0;
+		$this->save();
+		
+		return $this;			
 	}
 
 	function applyFees($fees){

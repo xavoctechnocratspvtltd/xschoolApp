@@ -10,7 +10,7 @@ class page_reports_daybook extends Page {
 
 		$day_transactions = $this->add('Model_PaymentTransaction');
 
-		$grid= $this->add('Grid');
+		$grid= $this->add('MyGrid');
 
 		$on_date = $this->api->today;
 		
@@ -30,23 +30,14 @@ class page_reports_daybook extends Page {
 		$grid->removeColumn('amount');
 		$grid->removeColumn('transaction_type');
 
-		$grid->addTotals(array('income','expense'));
+		$js=array(
+				$this->js()->_selector('#header')->toggle(),
+				$this->js()->_selector('#footer')->toggle(),
+				$form->js()->toggle()
+			);
 
-		$grid->addHook('formatRow',function($grid){
-			
-			$grid->current_row['income'] = $grid->current_row['expense'] = '';
-
-			if($grid->model['transaction_type']=='Income'){
-				$grid->current_row['income'] = $grid->model['amount'];
-				// $income_sum += $grid->current_row['income'];
-			}else{
-				$grid->current_row['expense'] = $grid->model['amount'];
-				// $expense_sum += $grid->current_row['expense'];
-			}
-		});
-
-		$grid->add('misc/Export');
-
+		$grid->addMyTotals(array('income','expense'),'mode');
+		$grid->js('click',$js);
 
 		if($form->isSubmitted()){
 			$grid->js()->reload(array('date'=>$form['date']?:0))->execute();

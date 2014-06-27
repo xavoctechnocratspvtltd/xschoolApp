@@ -11,6 +11,7 @@ class View_Student_PrintReceipt extends View {
 		$this->template->set('sub2',$this->api->getConfig('school/sub2'));
 		$this->template->set('receipt_no',$receipt['name']);
 		$this->template->set('student_name',$receipt['student']);
+		$this->template->set('transport_code',$receipt->ref('student_id')->ref('vehicle_id')->get('name'));
 		$this->template->set('class',$receipt->ref('student_id')->ref('class_id')->get('full_name'));
 		$this->template->set('scholar_no',$receipt->ref('student_id')->ref('scholar_id')->get('scholar_no'));
 		

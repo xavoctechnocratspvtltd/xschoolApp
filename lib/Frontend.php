@@ -92,6 +92,8 @@ class Frontend extends ApiFrontend {
             ->addMenuItem('reports_daybook','Day Book')
             ->addMenuItem('accounts','General Accounting ')
             ->addMenuItem('setdate','Change Date ')
+            ->addMenuItem('transport_main','Transport Management ')
+            ->addMenuItem('reports_main','Reports ')
             ->addMenuItem('logout')
             ;
 

@@ -6,24 +6,24 @@ public $table="scholars";
 	function init(){
 		parent::init();
 
-		$this->addField('admission_date')->type('date')->mandatory(true)->caption('Date Of Joining')->defaultValue(date('d-m-Y'));
-		$this->addField('scholar_no')->mandatory("Scholar Number is Must")->sortable(true)  ;
 		$this->addField('name')->mandatory("Name is Must")->caption('Student Name');
 		$this->addField('father_name')->mandatory("Required Field")->caption('Father`s Name');
 		$this->addField('mother_name')->mandatory("Required Field")->caption('Mother`s Name');                
+		$this->addField('blood_group');
 		$this->addField('dob')->type('date')->mandatory("Required Field")->caption('Date of Birth');
 		$this->addField('phone_no')->mandatory("Required Field");
 		$this->addField('address')->type('text')->mandatory("Required Field");
-
+		$this->addField('admission_date')->type('date')->mandatory(true)->caption('Date Of Joining')->defaultValue(date('d-m-Y'));
 		$this->addField('leaving_date')->type('date')->system(true);
+		$this->addField('scholar_no')->mandatory("Scholar Number is Must")->sortable(true)  ;
+		$this->addField('gender')->setValueList(array('m'=>'Male','f'=>'Female'))->display(array('grid'=>'grid/inline'));
 		$this->addField('category');
 		$this->addField('cast');
 		$this->addField('house');
-
-		$this->addField('blood_group');
 		$this->addField('brother_sister_name_class')->type('text');
+
+
 		$this->addField('form_no');
-		$this->addField('gender')->setValueList(array('m'=>'Male','f'=>'Female'))->display(array('grid'=>'grid/inline'));
 		$this->addField('previous_school_and_class')->type('text');
 
 
