@@ -23,6 +23,23 @@ public $table="classes";
         	return $m->refSQL('CurrentStudent')->count();
         });
 
+
+
+        $this->addExpression('total_girls')->set(function($m,$q){
+        	$student=$m->add('Model_CurrentStudent');
+        	$sc=$student->join('scholars','scholar_id');
+        	$sc->addField('gender');
+        	return $student->addCondition('gender','f')->count();
+        });
+
+
+        $this->addExpression('total_boys')->set(function($m,$q){
+        	$student=$m->add('Model_CurrentStudent');
+        	$sc=$student->join('scholars','scholar_id');
+        	$sc->addField('gender');
+        	return $student->addCondition('gender','m')->count();
+        });
+
         $this->setOrder('full_name');
 
         $this->addHook('editing',array($this,'editingDefault'));
