@@ -18,7 +18,7 @@ public $table="sessions";
 		$this->hasMany('ExamInAClass','session_id');       
 
         $this->addHook('beforeDelete',$this);
-        $this->add('dynamic_model/Controller_AutoCreator');       
+        // $this->add('dynamic_model/Controller_AutoCreator');       
 	}
 
 

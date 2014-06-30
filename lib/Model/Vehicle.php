@@ -20,7 +20,7 @@ class Model_Vehicle extends Model_Table{
 
 
 
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function createNew($name,$capcity,$driver_name,$driver_number){

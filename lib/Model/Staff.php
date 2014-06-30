@@ -10,7 +10,7 @@ class Model_Staff extends Model_Table{
 		$this->addField('username')->mandatory(true);
 		$this->addField('password')->type('password')->mandatory(true);
 
-		 $this->add('dynamic_model/Controller_AutoCreator');
+		 // $this->add('dynamic_model/Controller_AutoCreator');
 
 
 	}
