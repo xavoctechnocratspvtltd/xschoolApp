@@ -4,12 +4,28 @@ class page_master_student_list extends Page {
 	
 	function initMainPage(){
 
+
+		$class_model=$this->api->currentBranch->classes();
+		$class_model->title_field="full_name";
+		$form=$this->add('Form',null,null,array('form_horizontal'));
+		$class_field=$form->addField('dropdown','class');
+		$class_field->setModel($class_model);
+
+		$form->addSubmit('Get List');
+
 		$grid=$this->add('Grid');
 		$current_student_model=$this->add('Model_CurrentStudent');
 		
 		if($_GET['remove_student']){
 			$current_student_model->load($_GET['remove_student'])->deleteForced();
 			$grid->js()->reload()->execute();
+		}
+
+		if($_GET['class_id']){
+			$current_student_model->addCondition('class_id',$_GET['class_id']);
+		}
+		else{
+			$current_student_model->addCondition('id',-1);
 		}
 
 		$grid->setModel($current_student_model);
@@ -24,6 +40,11 @@ class page_master_student_list extends Page {
 		$grid->addQuickSearch(array('scholar','scholar_no','class','roll_no'));
 		// 
 		$grid->removeColumn('name');
+
+
+		if($form->isSubmitted()){
+			$grid->js()->reload(array('class_id'=>$form['class']))->execute();
+		}
 
 	}
 

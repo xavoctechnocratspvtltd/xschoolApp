@@ -44,7 +44,7 @@ public $table="scholars";
 
 
 	function defautlEditingMode(){
-		$this->getElement('scholar_no')->system(true);
+		// $this->getElement('scholar_no')->system(true);
 		$dsql= $this->_dsql();
 		$dsql->sql_templates['update']="update [table] set [set] [where]";
 	}
