@@ -24,6 +24,7 @@ class View_Student_PrintReceipt extends View {
 			$str .= ", ";
 		}
 		$this->template->set('month',$str);
+		$this->template->set('receipt_date',date('d-M-Y',strtotime($receipt['created_at'])));
 	}
 
 	function defaultTemplate(){

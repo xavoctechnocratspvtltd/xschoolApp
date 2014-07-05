@@ -52,7 +52,7 @@ class page_master_scholar_main extends Page {
 			$classes_for_current_branch->title_field='full_name';
 			$class_field->setModel($classes_for_current_branch);
 
-			$scholar_model['scholar_no']= $scholar_model->getNewScholarNumber();
+			// $scholar_model['scholar_no']= $scholar_model->getNewScholarNumber();
 
 			// Set Student Type at the time of scholar addmission
 			

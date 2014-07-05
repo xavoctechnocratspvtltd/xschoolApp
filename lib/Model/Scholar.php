@@ -15,7 +15,7 @@ public $table="scholars";
 		$this->addField('address')->type('text')->mandatory("Required Field");
 		$this->addField('admission_date')->type('date')->mandatory(true)->caption('Date Of Joining')->defaultValue(date('d-m-Y'));
 		$this->addField('leaving_date')->type('date')->system(true);
-		$this->addField('scholar_no')->mandatory("Scholar Number is Must")->sortable(true)  ;
+		$this->addField('scholar_no')->hint('Leave Empty For Auto')->sortable(true)  ;
 		$this->addField('gender')->setValueList(array('m'=>'Male','f'=>'Female'))->display(array('grid'=>'grid/inline'));
 		$this->addField('category');
 		$this->addField('cast');
@@ -37,8 +37,14 @@ public $table="scholars";
 		$this->addhook('editing',array($this,'defautlEditingMode'));
 
 		$this->addHook('beforeDelete',array($this,'defaultBeforeDelete'));
+		$this->addHook('beforeSave',$this);
 
 		// $this->add('dynamic_model/Controller_AutoCreator');
+	}
+
+	function beforeSave(){
+		if(!$this['scholar_no'])
+			$this['scholar_no'] = $this->getNewScholarNumber();
 	}
 
 
