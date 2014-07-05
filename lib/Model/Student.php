@@ -41,7 +41,7 @@ public $table="students";
         });
         
 		$this->hasMany('Student_Attendance','student_id');
-        // $this->hasMany('Marks','student_id');
+        $this->hasMany('Marks','student_id');
         $this->hasMany('StudentAppliedFees','student_id');
         $this->hasMany('FeesTransaction','student_id');
         $this->hasMany('FeesReceipt','student_id');
