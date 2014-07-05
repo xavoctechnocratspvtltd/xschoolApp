@@ -6,11 +6,12 @@ class page_reports_daybook extends Page {
 
 		$form= $this->add('Form');
 		$form->addField('DatePicker','date');
+		$form->addField('checkbox','only_fees_record');
 		$form->addSubmit('DayBook');
 
 		$day_transactions = $this->add('Model_PaymentTransaction');
 
-		$grid= $this->add('MyGrid');
+		$grid= $this->add('MyGrid')->addClass('mygrid');
 
 		$on_date = $this->api->today;
 		
@@ -21,7 +22,9 @@ class page_reports_daybook extends Page {
 		$day_transactions->addCondition('transaction_date','>=',$on_date);
 		$day_transactions->addCondition('transaction_date','<',$this->api->nextDate($on_date));
 		$day_transactions->addCondition('mode','<>','Cheque');
-
+		if($_GET['only_fees_record']){
+			$day_transactions->addCondition('fees_receipt_id','<>',null);
+		}
 		
 
 		$grid->setModel($day_transactions);
@@ -40,7 +43,7 @@ class page_reports_daybook extends Page {
 		$grid->js('click',$js);
 
 		if($form->isSubmitted()){
-			$grid->js()->reload(array('date'=>$form['date']?:0))->execute();
+			$grid->js()->reload(array('date'=>$form['date']?:0,'only_fees_record'=>$form['only_fees_record']?:0))->execute();
 		}
 	}
 }

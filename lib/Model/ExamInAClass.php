@@ -65,7 +65,7 @@ class Model_ExamInAClass extends \Model_Table{
 		}
 
 		$exams=$this->add('Model_Exam');
-		$exams->getAllExam($exam_ids);
+		$exams->filterByID($exam_ids);
 
 		return $exams;
 

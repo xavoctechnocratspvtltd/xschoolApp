@@ -30,7 +30,7 @@ public $table="exams";
 		}
 	}
 
-	function getAllExam($exam_ids_array){
+	function filterByID($exam_ids_array){
 
 		$this->addCondition('id',$exam_ids_array);
 		return $this;
@@ -41,5 +41,11 @@ public $table="exams";
 				throw $this->exception(' You can not delete, It is added in class');
 
 	}
+
+	function filterByIDs($exam_id_array){
+		$this->addCondition('id',$exam_id_array);
+		return $this;
+	}
+
 
 }

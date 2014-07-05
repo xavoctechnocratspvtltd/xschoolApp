@@ -1,6 +1,6 @@
 <?php
 
-class page_class_exam extends \Page {
+class page_class_exam extends Page {
 	function init(){
 		parent::init();
 		$this->api->stickyGET('classes_id');
