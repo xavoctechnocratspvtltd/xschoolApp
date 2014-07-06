@@ -9,7 +9,7 @@ public $table="exams";
 		$this->addField('name')->mandatory(true);
 		$this->hasMany('ExamInAClass','exam_id');
 		$this->addHook('beforeDelete',$this);
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function createNew($exam_name,$all_fields,$form){

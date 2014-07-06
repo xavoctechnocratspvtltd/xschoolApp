@@ -20,7 +20,7 @@ public $table="fees";
 
 		$this->addHook('beforeDelete',$this);
 
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function createNew($fees_name, $default_amount, $distribution, $other_fields=array(),$form){

@@ -10,7 +10,7 @@ class Model_FeesInAClass extends \Model_Table{
 		$this->hasOne('Session','session_id');
 		$this->hasOne('Fees','fees_id');
 		$this->hasOne('Class','class_id');
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 
 		
 	}

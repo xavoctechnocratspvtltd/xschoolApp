@@ -1,10 +1,14 @@
-<div id="<?$_name?>">	
+<div id="<?$_name?>" class='receipt'>	
 	<table style='border: 2px solid black'>
 		<tr>
 			<td style='border: 2px solid black' width='300px'>
 				<!-- Counter Area Start -->
 				<h2 align='center'> <?$school_name?><small><small><?$sub1?><br/><?$sub2?></small></small></h2>
 				<table>
+					<tr>
+						<td><b>Date</b></td>
+						<td><?$receipt_date?></td>
+					</tr>
 					<tr>
 						<td><b>Receipt No</b></td>
 						<td><?$receipt_no?></td>
@@ -54,6 +58,10 @@
 				<!-- Student Portion Start  -->
 				<h2 align='center'> <?$school_name?><small><small><?$sub1?><br/><?$sub2?></small></small></h2>
 				<table width='100%'>
+					<tr>
+						<td><b>Date</b></td>
+						<td><?$receipt_date?></td>
+					</tr>
 					<tr>
 						<td><b>Receipt No</b></td>
 						<td><?$receipt_no?></td>
@@ -111,3 +119,13 @@
 		</tr>
 	</table>
 </div>
+
+<style>
+.receipt table tr{
+	height: 25px;
+}
+
+.receipt table td {
+	padding-left: 5px;
+}
+</style>

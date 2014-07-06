@@ -12,7 +12,7 @@ class Model_FeesAmountForStudentTypes extends Model_Table {
 
 		$this->addField('amount')->display(array('grid'=>'grid/inline'));
 
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 

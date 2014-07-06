@@ -12,7 +12,7 @@ class Model_FeesTransaction extends Model_Table {
 		$this->addField('amount')->type('money');
 		$this->addField('submitted_on')->type('date')->defaultValue($this->api->today);
 
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function createNew($receipt, $student_applied_fee,$amount){

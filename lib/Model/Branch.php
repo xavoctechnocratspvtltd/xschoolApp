@@ -19,7 +19,7 @@ public $table="branches";
 
 		$this->addHook('beforeDelete',$this);
 
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function deleteForced(){

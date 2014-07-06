@@ -24,7 +24,7 @@ public $table="student_fees_applied";
 
 		$this->setOrder('due_on');
 
-	    $this->add('dynamic_model/Controller_AutoCreator');
+	    // $this->add('dynamic_model/Controller_AutoCreator');
 
 	}
 
