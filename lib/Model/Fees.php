@@ -48,6 +48,12 @@ public $table="fees";
 		
 	}
 
+	function loadLateFees(){
+		if($this->loaded()) throw $this->exception('Fee model must not be loaded');
+		$this->tryLoadBy('name','Late Fees');
+		return $this;
+	}
+
 	function beforeDelete(){
 
 		$fafst=$this->ref('FeesAmountForStudentTypes');
