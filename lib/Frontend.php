@@ -93,6 +93,7 @@ class Frontend extends ApiFrontend {
             ->addMenuItem('accounts','General Accounting ')
             ->addMenuItem('setdate','Change Date ')
             ->addMenuItem('transport_main','Transport Management ')
+            ->addMenuItem('transport_library_main','Library Management ')
             ->addMenuItem('reports_main','Reports ')
             ->addMenuItem('logout')
             ;
