@@ -16,6 +16,7 @@ public $table="branches";
 		$this->addField('update_at')->type('date')->system(true);
 
 		$this->hasMany('Class','branch_id');
+		$this->hasMany('Library_Category','branch_id');
 
 		$this->addHook('beforeDelete',$this);
 
@@ -65,7 +66,7 @@ public $table="branches";
 		$subjects->filterByBranch($this);
 
 		return $subjects;
-
+  
 	}
 
 	function classes(){
@@ -76,7 +77,16 @@ public $table="branches";
 		$classes->filterByBranch($this);
 
 		return $classes;
+	}
 
+	function categories(){
+		if(!$this->loaded())
+			throw $this->exception('Branch must be loaded before getting Category');
+
+		$categories = $this->add('Model_Library_Category');
+		$categories->filterByBranch($this);
+
+		return $categories;
 	}
 
 }

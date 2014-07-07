@@ -135,7 +135,7 @@ public $table="classes";
 		$this->addCondition('id',$class_id_array);
 		return $this;
 	}
-
+  
 	function filterByBranch($branch){
 		$this->addCondition('branch_id',$branch->id);
 		return $this;

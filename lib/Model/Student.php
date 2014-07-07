@@ -45,6 +45,7 @@ public $table="students";
         $this->hasMany('StudentAppliedFees','student_id');
         $this->hasMany('FeesTransaction','student_id');
         $this->hasMany('FeesReceipt','student_id');
+        $this->hasMany('Library_transaction','student_id');
 
         $this->addHook('beforeDelete',$this);
 
