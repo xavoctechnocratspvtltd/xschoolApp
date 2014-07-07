@@ -11,8 +11,23 @@ class page_master_student_list_consession extends Page {
 		$form->addField('line','consession');
 		$form->addSubmit('Save');
 
+		// Consessions given 
+		$fees_transactions = $this->add('Model_FeesTransaction');
+		$fees_transactions->addCondition('student_id',$this_student->id);
+		$fees_transactions->addCondition('by_consession',true);
+
+		$fees_transactions->_dsql()->del('fields')
+			->field('submitted_on')
+			->field('SUM(amount) as total_amount')
+			->group('submitted_on');
+
+		$grid = $this->add('Grid');
+		$grid->setSource($fees_transactions->_dsql());
+		$grid->addColumn('text','submitted_on','On Date');
+		$grid->addColumn('text','total_amount');
+
 		if($form->isSubmitted()){
-			$this_student->consessionInFees($form['consession']);
+			$this_student->payByConsession($form['consession']);
 
 			$form->js()->univ()->closeExpander()->execute();
 		}

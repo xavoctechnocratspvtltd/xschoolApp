@@ -23,7 +23,8 @@ class page_scholar_addtoclass extends Page {
 		$grid->setModel($scholar_model);
 
 		$grid->addColumn('expander','assign_class');
-
+		$grid->addPaginator(50);
+		$grid->addQuickSearch(array('name','father_name','phone_no','scholar_no'));
 	}
 
 	function page_assign_class(){

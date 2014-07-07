@@ -79,6 +79,27 @@ public $table="student_fees_applied";
 
 	}
 
+	function payByConsession($amount){
+		if($amount > ($this['amount'] - $this->paidAmount()) )
+			throw $this->exception('Amount Exceeding required amount', 'ValidityCheck')->setField('amount');
+
+		if(($this['amount'] - $this->paidAmount()) == 0)
+			return; // All Fees Paid Already
+
+		$newtransaction = $this->add('Model_FeesTransaction');
+		$newtransaction->createNew(null,$this,$amount);
+
+		// $due_amount = $this['amount'] - $this->paidAmount();
+		
+		// if($this->ref('fees_id')->get('distribution') == 'NO'){
+		// 	$receipt['months']  = $receipt['months'] . ' ' . $this->ref('fees_id')->get('name'). ' ( '. $due_amount .'/- due),';
+		// 	$receipt->save();
+		// }
+
+		
+
+	}
+
 	function submitFees($student){}
 
 	function deleteForced(){
@@ -116,6 +137,7 @@ public $table="student_fees_applied";
 		}
 
 
+		$temp = $this->add('Model_StudentAppliedFees');
 
 		for($i=0; $i < $count; $i++){
 			if($i==0)
@@ -123,12 +145,21 @@ public $table="student_fees_applied";
 			else
 				$add= "+$i months";
 
-			$this['student_id'] = $student->id;
-			$this['fees_id']=$fees->id;
-			$this['amount']= ($i==0)?$first_fee_amount: $fee_amount;
-			$this['due_on'] = date('Y-m-d',strtotime(date("Y-m-d", strtotime($start_date)) . $add));
-			$this->saveAndUnload();
+			$amount = ($i==0)?$first_fee_amount: $fee_amount;
+			$due_on = date('Y-m-d',strtotime(date("Y-m-d", strtotime($start_date)) . $add));
+
+			$temp->addRow($student,$fees,$amount,$due_on);
+			$temp->unload();
 		}
+	}
+
+	function addRow($student,$fees,$amount,$due_on){
+		$this['student_id'] = $student->id;
+		$this['fees_id']=$fees->id;
+		$this['amount']= $amount;
+		$this['due_on'] = $due_on;
+		$this->save();
+		return $this;
 	}
 
 	function hasAssociation($student,$fees){

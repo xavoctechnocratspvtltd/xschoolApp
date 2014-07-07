@@ -94,7 +94,8 @@ class page_fees_deposit extends Page {
 
 		$student = $this->add('Model_Student')->load($data['student_id']);
 		$applied_feeses = $student->appliedFees();
-		$applied_feeses->addCondition('due_on',$data['date']);
+		$applied_feeses->addCondition('due_on','>=',date('Y-m-01',strtotime($data['date'])));
+                $applied_feeses->addCondition('due_on','<=',date('Y-m-t',strtotime($data['date'])));
 		$applied_feeses->setOrder('id');
 
 		$array=array();

@@ -20,15 +20,25 @@ class Model_FeesReceipt extends Model_Table {
 		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
-	function createNew($student,$amount , $mode,$narration){
+	function createNew($student,$amount , $mode,$narration,$late_fees = 0){
+
 
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
-		$this['amount']=$amount;
+		$this['amount']=$amount+$late_fees;
 		$this['mode']=$mode;
 		$this['narration']=$narration;
 		$this->save();
+		
+		if($late_fees){
+			// apply late fees on student first
+			$fees= $this->add('Model_Fees');
+			$late_fees_applied = $this->add('Model_StudentAppliedFees');
+			$late_fees_applied->addRow($student,$fees->loadLateFees(),$late_fees,$this->api->today);
+			// and pay the full amount immediately
+			$late_fees_applied->pay($late_fees,$this);
+		}
 
 		$to_set_amount = $amount;
 		$fees_for_this_student = $student->appliedFees()->setOrder('due_on,id');

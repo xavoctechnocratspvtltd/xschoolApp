@@ -69,7 +69,15 @@ public $table="classes";
 		$this->getElement('name')->system(true);
 	}
 
-
+	/**
+	 * [createNew description]
+	 * @param  [type] $name         [description]
+	 * @param  [type] $section      [description]
+	 * @param  [type] $branch       [description]
+	 * @param  array  $other_fields [description]
+	 * @param  [type] $form         [description]
+	 * @return [type]               [description]
+	 */
 	function createNew($name,$section,$branch,$other_fields=array(),$form=null){
 
 		$this['name']=$name;
