@@ -78,6 +78,18 @@ public $table="students";
 		return $this;
 	}
 
+	function classStudents($class,$session,$count=false){
+		if(!$session) $session=$this->api->currentSession;
+		if(!$class instanceof Model_Class)
+			throw $this->exception(' student must be passed Loaded Class Object');
+		 $this->addCondition('class_id',$class->id);
+		 $this->addCondition('session_id',$session->id);
+		 if($count)
+			return $count= $this->count()->getOne();
+		else
+			return $this;
+	}
+
 	function isInClass($class,$scholar,$session=null){
 		if(!$session) $session = $this->api->currentSession;
 
