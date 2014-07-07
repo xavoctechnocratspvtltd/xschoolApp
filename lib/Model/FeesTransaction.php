@@ -28,6 +28,7 @@ class Model_FeesTransaction extends Model_Table {
 
 		$this['student_applied_fees_id'] = $student_applied_fee->id;
 		$this['amount'] = $amount;
+		$this['student_id'] = $student_applied_fee['student_id'];
 		$this->save();
 		return $this;
 	}

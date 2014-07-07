@@ -28,7 +28,7 @@ class View_Student_FeesSubmitBlock extends View {
 
 		$grid->addColumn('text','month');
 		$grid->addColumn('text','total_fees');
-		$grid->addColumn('text','paid_fees');
+		$grid->addColumn('text','paid_fees','Adjusted Fees');
 		$grid->addColumn('Expander','details');
 		
 		// ======= COL 2
@@ -37,11 +37,24 @@ class View_Student_FeesSubmitBlock extends View {
 		$tabs = $col2->add('Tabs');
 		$fast_deposit_tab = $tabs->addTab('Fast Deposit');
 		$detailed_depot_tab = $tabs->addTab('Payment Details');
+		$consession_details_tab = $tabs->addTab('Consesison Details');
 
 		$fast_deposit_tab->add('View_Student_FastDeposit',array('student'=>$student));
 		$detailed_depot_tab->add('View_Student_Receipts',array('student'=>$student));
 
+		$fees_transactions = $this->add('Model_FeesTransaction');
+		$fees_transactions->addCondition('student_id',$this->student->id);
+		$fees_transactions->addCondition('by_consession',true);
 
+		$fees_transactions->_dsql()->del('fields')
+			->field('submitted_on')
+			->field('SUM(amount) as total_amount')
+			->group('submitted_on');
+
+		$grid = $consession_details_tab->add('Grid');
+		$grid->setSource($fees_transactions->_dsql());
+		$grid->addColumn('text','submitted_on','On Date');
+		$grid->addColumn('text','total_amount');
 
 	}
 

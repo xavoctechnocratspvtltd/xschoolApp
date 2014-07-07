@@ -3,6 +3,7 @@
 class View_FeesReport extends View {
 	public $from_date=null;
 	public $to_date=null;
+
 	function init(){
 		parent::init();
 
@@ -24,7 +25,7 @@ class View_FeesReport extends View {
 			->field('by_consession')
 			->field('SUM(fees_transactions.amount) as total_amount');
 
-		 $fees_transaction->addCondition('by_consession',null);
+		 $fees_transaction->addCondition('by_consession',false);
 
 		$fees_transaction->_dsql()->group('submitted_on, _s.fees_id, fees_transactions.by_consession');
 		
@@ -34,7 +35,10 @@ class View_FeesReport extends View {
 
 		$result_array = array();
 		$grid=$this->add('Grid');
+		
 		$columns_added=array();
+		$consession_stored_4_date=array();
+
 		$grid->addColumn('text','date');
 		$fees = $this->add('Model_Fees');
 		
@@ -48,14 +52,37 @@ class View_FeesReport extends View {
 					'date'=>$data['submitted_on'],
 					$fees['name'] => $data['total_amount']
 				);
+
 			if(!in_array($fees['name'], $columns_added)){
 				$grid->addColumn('text',$fees['name']);
 				$columns_added[] = $fees['name'];
 			}
+
+			// consession time
+			if(!in_array($data['submitted_on'], $consession_stored_4_date)){
+				
+				$result_array[$data['submitted_on']] += array(
+					'consession'=> $this->add('Model_FeesTransaction')
+									->sum('amount')
+									->where('submitted_on',$data['submitted_on'])
+									->where('by_consession',1)
+									->getOne()
+					);
+				$consession_stored_4_date[] = $data['submitted_on'];
+			}
+
 		}
-		
+		$grid->addColumn('text','consession');
 		$grid->setSource($result_array);
 		
+		$js=array(
+			$this->js()->_selector('#header')->toggle(),
+			$this->js()->_selector('#footer')->toggle(),
+			$this->js()->_selector('ul.ui-tabs-nav')->toggle(),
+			$this->js()->_selector('.atk-form')->toggle(),
+			);
+
+		$grid->js('click',$js);
 		// echo "<pre>";
 		// print_r($result_array);
 		// echo "</pre>";
