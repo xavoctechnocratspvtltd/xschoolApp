@@ -16,29 +16,31 @@ public $table="students";
         $this->addField('isScholared')->type('boolean')->system(true);
         $this->addField('given_consession')->type('money')->system(true);
 
-        $this->addExpression('name')->set(function($m,$q){
-        	return $m->refSQL('scholar_id')->fieldQuery('name');
-        });
-
+       
         $this->addExpression('scholar_no')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('scholar_no');
         });
 
+	    $this->addExpression('name')->set(function($m,$q){
+        	return $m->refSQL('scholar_id')->fieldQuery('name');
+        });
+
+
         $this->addExpression('total_applied_fees_sum')->set(function($m,$q){
         	return $m->refSQL('StudentAppliedFees')->sum('amount');
-        });
+        })->system(true);
 
         $this->addExpression('total_paid_fees_sum')->set(function($m,$q){
         	return $m->refSQL('FeesTransaction')->sum('amount');
-        });
+        })->system(true);
 
         $this->addExpression('applied_fees_sum_till_date')->set(function($m,$q){
         	return $m->refSQL('StudentAppliedFees')->addCondition('due_on','<=',$m->api->today)->sum('amount');
-        });
+        })->system(true);
 
         $this->addExpression('paid_fees_sum_till_date')->set(function($m,$q){
         	return $m->refSQL('FeesTransaction')->addCondition('submitted_on','<=',$m->api->today)->sum('amount');
-        });
+        })->system(true);
         
 		$this->hasMany('Student_Attendance','student_id');
         $this->hasMany('Marks','student_id');
