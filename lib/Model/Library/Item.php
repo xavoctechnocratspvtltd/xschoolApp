@@ -8,7 +8,24 @@ class Model_Library_Item extends Model_Table{
 
 		$this->hasOne('Library_Title','title_id');
 		
-		$this->addField('name')->caption('code')->mandatory(false)->display(array('grid'=>'grid/inline'));
+		$this->addField('name')->mandatory(false)->display(array('grid'=>'grid/inline'));
+		$this->addField('book_no');
+		$this->addField('publishe_year');
+		$this->addField('publisher');
+		$this->addField('author');
+		$this->addField('no_of_pages')->type('int');
+		$this->addField('edition');
+		$this->addField('volume');
+		$this->addField('ISBN');
+		$this->addField('bill_no');
+		$this->addField('rate');
+		$this->addField('supplier_name');
+		
+		// $this->addExpression('full_name')->set('concat('.$this->ref('title_id')->get('name').','-',accession_no)');
+		
+		$this->addExpression('is_issued')->set(function($m,$q){
+			 return $m->refSQL('Library_Transaction')->setLimit(1)->setOrder('issue_on','desc')->_dsql()->del('fields')->field($q->expr('IF(submitted_on is null,1,0)'));
+		})->type('boolean');
 
 		$this->hasMany('Library_Transaction','item_id');
 		
@@ -20,25 +37,25 @@ class Model_Library_Item extends Model_Table{
 	}
 
 	function beforeSave(){
+
+		throw $this->exception($this['accession_no'], 'ValidityCheck')->setField('FieldName');
 		$older_items = $this->add('Model_Library_Item');
 		$older_items->addCondition('id','<>',$this->id);
-		$older_items->addCondition('name',$this['name']);
+		$older_items->addCondition('accession_no',$this['accession_no']);
 		$older_items->tryLoadAny();
 		if($older_items->loaded()){
-			throw $this->exception('Code Already Exists','ValidityCheck')->setField('name');
+			throw $this->exception('Code Already Exists','ValidityCheck')->setField('accession_no');
 		}
 	}
 	
-	function createNew($title, $code,$other_fields=array(),$form=null){		
-		if(! ($title instanceof Model_Library_Title) or !$title->loaded())
+	function createNew($title,$other_fields=array(),$form=null){		
+		if(! ($title instanceof Model_Library_Title) )
 			throw $this->exception("Title must be a loaded instance of Model_Library_Title");
 			
 		if($this->loaded())
 			throw $this->exception("You can not use Loaded Model on createNewBranch ");
 
-		$this['name']=$code;
 		$this['title_id']=$title->id;
-		unset($other_fields['name']);
 
 		foreach ($other_fields as $key => $value) {
 			$this[$key]=$value;
