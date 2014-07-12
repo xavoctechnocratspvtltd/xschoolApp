@@ -36,11 +36,11 @@ public $table="students";
 
         $this->addExpression('applied_fees_sum_till_date')->set(function($m,$q){
         	return $m->refSQL('StudentAppliedFees')->addCondition('due_on','<=',$m->api->today)->sum('amount');
-        })->system(true);
+        });//->system(true);
 
         $this->addExpression('paid_fees_sum_till_date')->set(function($m,$q){
         	return $m->refSQL('FeesTransaction')->addCondition('submitted_on','<=',$m->api->today)->sum('amount');
-        })->system(true);
+        });//->system(true);
         
 		$this->hasMany('Student_Attendance','student_id');
         $this->hasMany('Marks','student_id');

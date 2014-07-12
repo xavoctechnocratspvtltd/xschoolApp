@@ -15,7 +15,7 @@ class Model_Vehicle extends Model_Table{
 
 		$this->addExpression('name')->set(function ($m,$q){
 			$vt= $m->add('Model_Vehicle_Type',array('table_alias'=>'mv'));
-			return "(concat((".$vt->_dsql()->del('fields')->field('name')->render()."),'-',".$q->getField('code')."))";
+			return "(concat((".$vt->addCondition('id',$q->getField('vehicle_type_id'))->_dsql()->del('fields')->field('name')->render()."),'-',".$q->getField('code')."))";
 		});
 
 
