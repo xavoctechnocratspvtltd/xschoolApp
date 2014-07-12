@@ -11,7 +11,7 @@ class page_printdefaulterlist extends Page {
 			$student_model->addCondition('class_id',$_GET['class']);
 			$class=$this->add('Model_Class');
 			$class->load($_GET['class']);
-			$this->add('H3')->setHtml('Defaulter List of Class -'.$class['name'].'<small>'.$this->api->today.'</small>')->setAttr('align','center');
+			$this->add('H3')->setHtml('Defaulter List of Class -'.$class['full_name'].'<small>'.$this->api->today.'</small>')->setAttr('align','center');
 		}
 		$student_model->_dsql()->having('applied_fees_sum_till_date <> paid_fees_sum_till_date or paid_fees_sum_till_date is null');
 		$student_model->addExpression('due')->set(function($m,$q){
@@ -31,7 +31,7 @@ class page_printdefaulterlist extends Page {
 		$grid=$this->add('Grid');
 
 
-		$grid->setModel($student_model);
+		$grid->setModel($student_model->debug());
 		// $grid->addMethod('format_due',function($g,$f){
 		// 	$g->current_row[$f]=$g->current_row['applied_fees_sum_till_date']-$g->current_row['paid_fees_sum_till_date'];
 		// });

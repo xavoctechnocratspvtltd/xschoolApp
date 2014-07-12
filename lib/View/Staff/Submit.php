@@ -3,11 +3,11 @@ class View_Staff_Submit extends View {
 	function init(){
 		parent::init();
 
-		$this->add('H3')->set('Issue Library Items');
+		$this->add('H3')->set('Submit Library Items');
 
 		
 
-		$item_model=$this->add('Model_Library_Item');
+		$item_model=$this->api->currentBranch->library_items();
 		$item_model->addCondition('is_issued',true);
 
 		$item_m_j=$item_model->join('library_transactions.item_id','id');

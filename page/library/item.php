@@ -23,8 +23,14 @@ class page_library_item extends Page {
 	
 		if($g=$crud->grid){
 			$g->addPaginator(10);
+			$g->addQuickSearch(array('name'));
 
 		}
 
+	}
+
+	function filterByBranch($branch){
+		$this->addCondition('branch_id',$branch->id);
+		return $this;
 	}
 }

@@ -9,8 +9,6 @@ class Model_Library_Title extends Model_Table{
 		$this->hasOne('Library_Subjects','subject_id');
 		
 		$this->addField('name')->mandatory(true);
-		$this->addField('author')->mandatory(true);
-		$this->addField('publication')->mandatory(true);
 
 		$this->hasMany('Library_Item','title_id');
 		$this->hasMany('Library_StockTransaction','title_id');

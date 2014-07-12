@@ -1,13 +1,11 @@
 <?php
 
 class Model_Library_Subjects extends Model_Table{
-	public $table="library_categories";
+	public $table="library_subjects";
 	function init(){
 		parent::init();
 
 
-		$this->hasOne('Branch','branch_id');
-		
 		$this->addField('name')->mandatory(true);
 		$this->hasMany('Library_Title','subject_id');
 
@@ -22,8 +20,6 @@ class Model_Library_Subjects extends Model_Table{
 			throw $this->exception("You can not use Loaded Model on createNewBranch ");
 		
 		$this['name']=$category_name;
-
-		$this['branch_id']=$this->api->currentBranch->id;
 
 		unset($other_fields['name']);
 
@@ -48,9 +44,6 @@ class Model_Library_Subjects extends Model_Table{
 		$this->delete();
 	}
 
-	function filterByBranch($branch){
-		$this->addCondition('branch_id',$branch->id);
-		return $this;
-	}
+	
 
 }		

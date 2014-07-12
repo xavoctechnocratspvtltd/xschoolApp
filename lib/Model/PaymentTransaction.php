@@ -5,7 +5,7 @@ class Model_PaymentTransaction extends Model_Table {
 		parent::init();
 
 		$this->hasOne('FeesReceipt','fees_receipt_id');
-		$this->hasOne('Branch','branch_id')->display(array('grid'=>'grid/inline'));
+		$this->hasOne('Branch','branch_id')->defaultValue($this->api->currentBranch->id);
 		
 		$this->addField('amount')->caption('Amount')->mandatory(true);
 		$this->addField('transaction_date')->type('datetime')->defaultValue($this->api->now)->caption('Date')->mandatory(true);

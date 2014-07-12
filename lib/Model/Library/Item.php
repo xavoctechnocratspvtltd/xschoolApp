@@ -7,6 +7,7 @@ class Model_Library_Item extends Model_Table{
 		
 
 		$this->hasOne('Library_Title','title_id');
+		$this->hasOne('Branch','branch_id');
 		
 		$this->addField('name')->mandatory(false)->display(array('grid'=>'grid/inline'));
 		$this->addField('book_no');
@@ -27,7 +28,7 @@ class Model_Library_Item extends Model_Table{
 		});
 		
 		$this->addExpression('is_issued')->set(function($m,$q){
-			 return $m->refSQL('Library_Transaction')->_dsql()->where('submitted_on is null')->del('fields')->field('count(*)');
+			 return $m->refSQL('Library_Transaction')->_dsql()->where('submitted_on is not null')->del('fields')->field('count(*)');
 			 // return $m->refSQL('Library_Transaction')->setLimit(1)->setOrder('issue_on','desc')->_dsql()->del('fields')->field($q->expr('IF(submitted_on is null,1,0)'));
 		})->type('boolean');
 
@@ -81,5 +82,9 @@ class Model_Library_Item extends Model_Table{
 		$this->delete();
 	}
 
+	function filterByBranch($branch){
+		$this->addCondition('branch_id',$branch->id);
+		return $this;
+	}
 
 }	

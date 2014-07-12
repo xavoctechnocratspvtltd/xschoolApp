@@ -1,13 +1,13 @@
 <?php
 
-class page_library_category extends Page {
+class page_library_subjects extends Page {
 	function init(){
 		parent::init();
 	
 		$crud=$this->add('xCRUD');
 
 		// $category=$this->add('Model_Library_Category');	
-		$category=$this->api->currentBranch->categories();
+		$category=$this->api->currentBranch->library_subjects();
 
 		$crud->addHook('myupdate',function($crud,$form){
 			if($crud->isEditing('edit')) return false; // Always required to bypass the bellow code in editing crud mode

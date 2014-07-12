@@ -90,14 +90,21 @@ public $table="branches";
 
 		return $staff;
 	}
-	function categories(){
+
+	function library_subjects(){
 		if(!$this->loaded())
 			throw $this->exception('Branch must be loaded before getting Category');
 
 		$categories = $this->add('Model_Library_Subjects');
-		$categories->filterByBranch($this);
+		// $categories->filterByBranch($this);
 
 		return $categories;
+	}
+
+	function library_items(){
+		$li=$this->add('Model_Library_Item');
+		$li->filterByBranch($this->api->currentBranch);
+		return $li;
 	}
 
 }

@@ -7,7 +7,7 @@ class View_Student_Issue extends View {
 
 		$student_model=$this->add('Model_Student');
 
-		$item_model=$this->add('Model_Library_Item');
+		$item_model=$this->api->currentBranch->library_items();
 		$item_model->addCondition('is_issued',false);
 		
 		$issue_form=$this->add('Form');
