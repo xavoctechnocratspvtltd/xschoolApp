@@ -21,10 +21,14 @@ class Model_Library_Item extends Model_Table{
 		$this->addField('rate');
 		$this->addField('supplier_name');
 		
-		// $this->addExpression('full_name')->set('concat('.$this->ref('title_id')->get('name').','-',accession_no)');
+		// $this->addExpression('full_name')->set('concat('.$this->ref('title_id')->get('name').','-',name)');
+		$this->addExpression('full_name')->set(function($m,$q){
+			return '(concat('.$q->getField('name').'," ",('.$m->refSQL('title_id')->fieldQuery('name')->render().')))';
+		});
 		
 		$this->addExpression('is_issued')->set(function($m,$q){
-			 return $m->refSQL('Library_Transaction')->setLimit(1)->setOrder('issue_on','desc')->_dsql()->del('fields')->field($q->expr('IF(submitted_on is null,1,0)'));
+			 return $m->refSQL('Library_Transaction')->_dsql()->where('submitted_on is null')->del('fields')->field('count(*)');
+			 // return $m->refSQL('Library_Transaction')->setLimit(1)->setOrder('issue_on','desc')->_dsql()->del('fields')->field($q->expr('IF(submitted_on is null,1,0)'));
 		})->type('boolean');
 
 		$this->hasMany('Library_Transaction','item_id');
@@ -38,13 +42,12 @@ class Model_Library_Item extends Model_Table{
 
 	function beforeSave(){
 
-		throw $this->exception($this['accession_no'], 'ValidityCheck')->setField('FieldName');
 		$older_items = $this->add('Model_Library_Item');
 		$older_items->addCondition('id','<>',$this->id);
-		$older_items->addCondition('accession_no',$this['accession_no']);
+		$older_items->addCondition('name',$this['name']);
 		$older_items->tryLoadAny();
 		if($older_items->loaded()){
-			throw $this->exception('Code Already Exists','ValidityCheck')->setField('accession_no');
+			throw $this->exception('Code Already Exists','ValidityCheck')->setField('name');
 		}
 	}
 	
@@ -77,5 +80,6 @@ class Model_Library_Item extends Model_Table{
 		}
 		$this->delete();
 	}
+
 
 }	

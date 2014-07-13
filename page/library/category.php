@@ -13,7 +13,7 @@ class page_library_category extends Page {
 			if($crud->isEditing('edit')) return false; // Always required to bypass the bellow code in editing crud mode
 			
 			// Do your stuff by getting $form data
-			$category_model = $crud->add('Model_Library_Category');
+			$category_model = $crud->add('Model_Library_Subjects');
 			// CreatNew Function call
 			$category_model->createNew($form['name'],$form->getAllFields(),$form);
 			return true; // Always required

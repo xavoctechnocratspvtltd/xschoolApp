@@ -6,7 +6,7 @@ class Model_Library_Title extends Model_Table{
 		parent::init();
 
 
-		$this->hasOne('Library_Category','category_id');
+		$this->hasOne('Library_Subjects','subject_id');
 		
 		$this->addField('name')->mandatory(true);
 		$this->addField('author')->mandatory(true);

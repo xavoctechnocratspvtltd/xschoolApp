@@ -9,6 +9,7 @@ class Model_Library_Transaction extends Model_Table{
 		$this->hasOne('Library_Item','item_id');
 		$this->hasOne('Student','student_id');
 		$this->hasOne('Staff','staff_id');
+		$this->hasOne('Branch','branch_id');
 
 		// $this->addField('name');
 		$this->addField('issue_on')->type('date')->defaultValue($this->api->today);
@@ -20,39 +21,39 @@ class Model_Library_Transaction extends Model_Table{
 
 	}
 
-	function issue($issue_on,$item,$student=null,$staff=null,$narration=null,$form=null){
+	function issue($item,$student=null,$staff=null,$narration=null,$form=null){
 		if($this->loaded())
 			throw $this->exception('Please Provide Empty Model of transaction');
+		if($staff)
 		if(!$staff->loaded())
 			throw $this->exception('Please Provide Loaded Model of staff');
+		if($student)
 		if(!$student->loaded())
 			throw $this->exception('Please Provide Loaded Model of student');
-		if(!$item->loaded())
-			throw $this->exception('Please Provide Loaded Model of item');
-		if(!$staff instanceof Model_Staff)
-			throw $this->exception('You can not pass staff model object please check ');
-		if(!$staff instanceof Model_Student)
-			throw $this->exception('You can not pass student model object please check ');
-		if(!$item instanceof Model_Item)
-			throw $this->exception('You can not pass student model object please check ');
+		// if(!$item->loaded())
+		// 	throw $this->exception('Please Provide Loaded Model of item');
+		// if(!$staff instanceof Model_Staff)
+		// 	throw $this->exception('You can not pass staff model object please check ');
+		// if(!$staff instanceof Model_Student)
+		// 	throw $this->exception('You can not pass student model object please check ');
+		// if(!$item instanceof Model_Item)
+		// 	throw $this->exception('You can not pass student model object please check ');
 
 		if($staff==null and $student==null)
 			$this->api->js()->errorMessage('Either Put Roll No or Specify Staff')->execute();
 		$narration.=" Issued".$this['name'].' On '.$this['issue_on'];
+		if($student)
 		$this['student_id']=$student->id;
+		if($staff)
 		$this['staff_id']=$staff->id;
-		$this['issue_on']=$issue_on;
 		$this['item_id']=$item->id;
+		$this['branch_id']=$this->api->currentBranch->id;
 		$this['narration']=$narration;
 		$this->save();
 		return true;
 	}
 
-	function submit($item){
-		if(!$this->isIssued($item))
-			throw $this->exception('This Item Does not issued, Please Check');
-		if(!$this->isIssued($item))
-			throw $this->exception('Not Item Issued');
+	function submit(){
 
 		$submitted_on = strtotime($this->api->getConfig('school/submitted_in_days'),strtotime($this['submitted_on']));
 		$date_array=$this->api->my_date_diff($submitted_on,$this->api->today);

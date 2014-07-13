@@ -10,7 +10,7 @@ class page_reports_daybook extends Page {
 		$form->addSubmit('DayBook');
 
 		$day_transactions = $this->add('Model_PaymentTransaction');
-
+		$day_transactions->addCondition('branch_id',$this->api->currentBranch->id);
 		$grid= $this->add('MyGrid')->addClass('mygrid');
 
 		$on_date = $this->api->today;

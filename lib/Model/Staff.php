@@ -29,13 +29,18 @@ class Model_Staff extends Model_Table{
 			
 	}
 
+	function filterByBranch($branch){
+		$this->addCondition('branch_id',$branch->id);
+		return $this;
+	}
+
 	function issue($item){
 		if(!$this->loaded())
 			throw $this->exception("You can not use Loaded Model on issue ");
 		if(!$item->loaded() or !$item instanceof Model_Library_Item)
 			throw $this->exception("Please pass loaded object of Library_item ");
-		$item=$this->add('Model_Library_Item');
-		$item->issue($item,null,$this);
+		$transaction=$this->add('Model_Library_Transaction');
+		$transaction->issue($item,null,$this);
 	}
 
 

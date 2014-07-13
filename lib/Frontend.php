@@ -69,8 +69,11 @@ class Frontend extends ApiFrontend {
                 'Current Date : '.$current_date.'<br/>'
                 );
 
+            $btn=$this->add('Button',null,'button')->set('Update Branch in Transaction');
             $v->addClass('welcome-block');
             $v->js('reload')->reload();
+
+            $btn->js('click')->univ()->newWindow($this->api->url('correcttransaction'));
 
             // $btn=$this->add('Button')->set('Set Date');
         }

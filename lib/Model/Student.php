@@ -70,6 +70,15 @@ public $table="students";
 		return $this;
 	}
 
+	function issue($item){
+		if(!$this->loaded())
+			throw $this->exception("You can not use Loaded Model on issue ");
+		if(!$item->loaded() or !$item instanceof Model_Library_Item)
+			throw $this->exception("Please pass loaded object of Library_item ");
+		$transaction=$this->add('Model_Library_Transaction');
+		$transaction->issue($item,$this);
+	}
+
 	function shiftToClass($class){
 
 		if($this->isInClass($class, $this->ref('scholar_id')))

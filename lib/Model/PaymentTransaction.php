@@ -5,16 +5,17 @@ class Model_PaymentTransaction extends Model_Table {
 		parent::init();
 
 		$this->hasOne('FeesReceipt','fees_receipt_id');
+		$this->hasOne('Branch','branch_id')->display(array('grid'=>'grid/inline'));
 		
 		$this->addField('amount')->caption('Amount')->mandatory(true);
 		$this->addField('transaction_date')->type('datetime')->defaultValue($this->api->now)->caption('Date')->mandatory(true);
 		$this->addField('transaction_type')->enum(array('Expense','Income'));
 		$this->addField('narration')->mandatory(true);
-		$this->addField('mode')->enum(array('Cash','Cheque'))->mandatory(true);
+		$this->addField('mode')->enum(array('Cash','Cheque'))->display(array('grid'=>'grid/inline'))->mandatory(true);
 
 		$this->addHook('beforeDelete',$this);
 
-		// $this->add('dynamic_model/Controller_AutoCreator');
+		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 

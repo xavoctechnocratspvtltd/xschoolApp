@@ -1,6 +1,6 @@
 <?php
 
-class Model_Library_Category extends Model_Table{
+class Model_Library_Subjects extends Model_Table{
 	public $table="library_categories";
 	function init(){
 		parent::init();
@@ -9,7 +9,7 @@ class Model_Library_Category extends Model_Table{
 		$this->hasOne('Branch','branch_id');
 		
 		$this->addField('name')->mandatory(true);
-		$this->hasMany('Library_Title','category_id');
+		$this->hasMany('Library_Title','subject_id');
 
 		$this->addHook('beforeDelete',$this);
 		

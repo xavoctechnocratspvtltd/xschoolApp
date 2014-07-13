@@ -16,11 +16,12 @@ public $table="branches";
 		$this->addField('update_at')->type('date')->system(true);
 
 		$this->hasMany('Class','branch_id');
-		$this->hasMany('Library_Category','branch_id');
+		$this->hasMany('Library_Subjects','branch_id');
+		$this->hasMany('PaymentTransaction','branch_id');
 
 		$this->addHook('beforeDelete',$this);
 
-		// $this->add('dynamic_model/Controller_AutoCreator');
+		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function deleteForced(){
@@ -79,11 +80,21 @@ public $table="branches";
 		return $classes;
 	}
 
+
+	function staffs(){
+		if(!$this->loaded())
+			throw $this->exception('Branch must be loaded before getting Staffs');
+
+		$staff = $this->add('Model_Staff');
+		$staff->filterByBranch($this);
+
+		return $staff;
+	}
 	function categories(){
 		if(!$this->loaded())
 			throw $this->exception('Branch must be loaded before getting Category');
 
-		$categories = $this->add('Model_Library_Category');
+		$categories = $this->add('Model_Library_Subjects');
 		$categories->filterByBranch($this);
 
 		return $categories;

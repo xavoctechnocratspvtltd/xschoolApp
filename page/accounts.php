@@ -10,6 +10,7 @@ class page_accounts extends Page {
 
 		$payment_received=$this->add('Model_PaymentTransaction');
 		$payment_received->addCondition('transaction_type','Income');
+		$payment_received->addCondition('branch_id',$this->api->currentBranch->id);
 		$payment_received->setOrder('transaction_date','desc');
 		$crud_received=$tab1->add('CRUD');
 
@@ -33,6 +34,7 @@ class page_accounts extends Page {
 
 		$payment_paid=$this->add('Model_PaymentTransaction');
 		$payment_paid->addCondition('transaction_type','Expense');
+		$payment_paid->addCondition('branch_id',$this->api->currentBranch->id);
 		$payment_paid->setOrder('transaction_date','desc');
 		$crud_paid=$tab2->add('CRUD');
 		if($crud_paid->grid){
