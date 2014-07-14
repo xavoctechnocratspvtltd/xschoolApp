@@ -16,7 +16,13 @@ class page_accounts extends Page {
 
 		$crud_received->setModel($payment_received,array('transaction_date','amount','mode','narration'),array('fees_receipt','transaction_date','amount','mode','narration'));
 
+		if($_GET['print_received']){
+			$this->js()->univ()->newWindow($this->api->url('printvoucher',array('transaction_id'=>$_GET['print_received'],'transaction_type'=>'Income')))->execute();
+		}
+
+
 		if($crud_received->grid){
+
 			$crud_received->grid->addPaginator(50);
 			$crud_received->grid->addQuickSearch(array('transaction_date','amount'));
 
@@ -26,7 +32,15 @@ class page_accounts extends Page {
 				}
 			});
 
+			$crud_received->grid->addMethod('format_editme1',function($g,$field){
+				if($g->model['fees_receipt']){
+					$g->current_row_html[$field]='';
+				}
+			});
+
+			$crud_received->grid->addColumn('button','print_received','print');
 			$crud_received->grid->addFormatter('edit','editme');
+			$crud_received->grid->addFormatter('print_received','editme1');
 
 		}
 
@@ -40,8 +54,13 @@ class page_accounts extends Page {
 		if($crud_paid->grid){
 			$crud_paid->grid->addPaginator(50);
 			$crud_paid->grid->addQuickSearch(array('transaction_date','amount'));
+			// $crud_received->grid->addFormatter('print_received','editme1');
+		}
+		if($_GET['print_paid']){
+			$this->js()->univ()->newWindow($this->api->url('printvoucher',array('transaction_id'=>$_GET['print_paid'],'transaction_type'=>'Expense')))->execute();
 		}
 		$crud_paid->setModel($payment_paid,array('transaction_date','amount','mode','narration'));
+			$crud_paid->grid->addColumn('button','print_paid','print');
 
 
 	}
