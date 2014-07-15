@@ -14,7 +14,7 @@ class Model_Term extends Model_Table {
 			throw $this->exception(' Can not delete Term contains subjects');
 	}
 
-	function createNew($name){
+	function createNew($name,$other_fields=array(),$form=null){
 
 		if($this->loaded())
 			throw $this->exception('Can not use loaded object of term on createNew function');
@@ -45,12 +45,16 @@ class Model_Term extends Model_Table {
 
 	function removeExam($exam){
 		if($exam instanceof Model_Exam)
+			throw $this->exception('Please pass Exam Model Only');
+		if(!$exam->loaded())
+			throw $this->exception('Unable To determine which exam you want delete');
+		if(!$exam->isExist($exam))
+			throw $this->exception('This Exam Not Available');
+		$exam->remove($exam);
 
-				
+
 	}
 
-	function hasExam(){
-
-	}
+	
 
 }

@@ -8,8 +8,9 @@ public $table="exams";
 		$this->hasOne('Term','term_id');
 		$this->addField('name')->mandatory(true);
 		$this->hasMany('ExamInAClass','exam_id');
+		$this->hasMany('SubjectInExamClass','exam_id');
 		$this->addHook('beforeDelete',$this);
-		// $this->add('dynamic_model/Controller_AutoCreator');
+		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function createNew($term,$exam_name,$all_fields=array(),$form=null){
@@ -45,6 +46,16 @@ public $table="exams";
 	function filterByIDs($exam_id_array){
 		$this->addCondition('id',$exam_id_array);
 		return $this;
+	}
+
+	function isExist($exam){
+		$this->addCondition($this['name'],$exam['name']);
+		$this->tryLoadAny();
+		if($this->loaded())
+			return $this;
+		else
+			return false;
+
 	}
 
 

@@ -14,7 +14,7 @@ class Model_SubjectInExamClass extends Model_Table {
 	}
 
 
-	function createNew($subject,$exam,$class,$session=null){
+	function createNew($subject,$exam,$class,$other_fields=array(),$session=null){
 
 		if($this->loaded())
 			throw $this->exception('You can not use laoded Model');
@@ -25,11 +25,31 @@ class Model_SubjectInExamClass extends Model_Table {
 		$this['exam_id']=$exam->id;
 		$this['class_id']=$class->id;
 		$this['session_id']=$session->id;
+		$this['max_marks']=$other_fields['max_marks'];
+		$this['min_marks']=$other_fields['min_marks'];
 		$this->save();
 
 		return $this;
 
 	}
 
-	function remove()
+	function isAvailable($subject,$exam,$class){
+
+		$this->addCondition('subject_id',$subject->id);
+		$this->addCondition('exam_id',$exam->id);
+		$this->addCondition('class_id',$class->id);
+		$this->tryLoadAny();
+		if($this->loaded())
+			return $this;
+		else
+			return false;
+
+	}
+
+	function remove(){
+		if(!$this->loaded())
+			throw $this->exception('Unable To determine record');
+		$this->delete();
+	}
+
 }
