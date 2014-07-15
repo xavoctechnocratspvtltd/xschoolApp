@@ -5,14 +5,14 @@ public $table="exams";
 	function init(){
 		parent::init();
 
-		
+		$this->hasOne('Term','term_id');
 		$this->addField('name')->mandatory(true);
 		$this->hasMany('ExamInAClass','exam_id');
 		$this->addHook('beforeDelete',$this);
 		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
-	function createNew($exam_name,$all_fields,$form){
+	function createNew($term,$exam_name,$all_fields=array(),$form=null){
 
 		if($this->loaded())
 			throw $this->exception("You can not use Loaded Model on createNewBranch ");

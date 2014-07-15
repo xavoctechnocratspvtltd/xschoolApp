@@ -51,17 +51,17 @@ class page_accounts extends Page {
 		$payment_paid->addCondition('branch_id',$this->api->currentBranch->id);
 		$payment_paid->setOrder('transaction_date','desc');
 		$crud_paid=$tab2->add('CRUD');
-		if($crud_paid->grid){
-			$crud_paid->grid->addPaginator(50);
-			$crud_paid->grid->addQuickSearch(array('transaction_date','amount'));
-			// $crud_received->grid->addFormatter('print_received','editme1');
-		}
 		if($_GET['print_paid']){
 			$this->js()->univ()->newWindow($this->api->url('printvoucher',array('transaction_id'=>$_GET['print_paid'],'transaction_type'=>'Expense')))->execute();
 		}
 		$crud_paid->setModel($payment_paid,array('transaction_date','amount','mode','narration'));
-			$crud_paid->grid->addColumn('button','print_paid','print');
 
+		if($crud_paid->grid){
+			$crud_paid->grid->addPaginator(50);
+			$crud_paid->grid->addQuickSearch(array('transaction_date','amount'));
+			$crud_paid->grid->addColumn('button','print_paid','print');
+			// $crud_received->grid->addFormatter('print_received','editme1');
+		}
 
 	}
 }
