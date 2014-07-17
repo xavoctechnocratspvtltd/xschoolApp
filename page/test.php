@@ -1,6 +1,17 @@
 <?php
 
 class page_test extends Page {
+
+	function page_result(){
+		$student = $this->add('Model_Class');
+		$student->load(32);
+		$term = $this->add('Model_Term')->load(1);
+		echo "<pre>";
+		print_r($student->getResult());
+		echo "</pre>";
+
+	}
+
 	function page_consession(){
 		/*
 		UPDATE student_fees_applied

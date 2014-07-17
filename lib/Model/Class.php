@@ -401,4 +401,64 @@ public $table="classes";
 		
 	}
 
+	function getResult($term=null){
+
+		$marks_obtained = $this->add('Model_Student_Marks');
+		// $marks_obtained->addCondition('student_id',$this->id);
+
+		if(!$term){
+			$exam_join=$marks_obtained->join('exams','exam_id');
+			$term_join=$exam_join->join('terms','term_id');
+			$subject_join = $marks_obtained->join('subjects','subject_id');
+			$student_join = $marks_obtained->join('students','student_id');
+			$scholar_join = $student_join->join('scholars','scholar_id');
+			
+			$marks_obtained->addCondition('class_id',$this->id);
+
+			$marks_obtained->_dsql()
+							->field($this->dsql()->expr($term_join->table_alias . '.name as title'))
+							->field($this->dsql()->expr($subject_join->table_alias . '.name as subject'))
+							->field($this->dsql()->expr($scholar_join->table_alias . '.name as student'))
+							->field($this->dsql()->expr('term_id'))
+							->field('subject_id')
+							->field('student_id')
+							->field('sum(marks) sum_marks');
+			$marks_obtained->_dsql()->group('student_id,term_id, `subject_id`');
+			$marks_obtained->setOrder('subject, '.$term_join->table_alias . '.name');
+		}else{
+			$exam_join=$marks_obtained->join('exams','exam_id');
+			$term_join=$exam_join->join('terms','term_id');
+			$subject_join = $marks_obtained->join('subjects','subject_id');
+			$student_join = $marks_obtained->join('students','student_id');
+			$scholar_join = $student_join->join('scholars','scholar_id');
+			$marks_obtained->addCondition('class_id',$this->id);
+
+			// $marks_obtained->addCondition($exam_join->table_alias.'.term_id',$term->id);
+			$marks_obtained->_dsql()->del('fields')
+							->field($this->dsql()->expr($exam_join->table_alias . '.name as title'))
+							->field($this->dsql()->expr($subject_join->table_alias . '.name as subject'))
+							->field($this->dsql()->expr($scholar_join->table_alias . '.name as student'))
+							->field('subject_id')
+							->field('student_id')
+							->field('sum(marks) sum_marks');
+			$marks_obtained->_dsql()->group('student_id, '.$exam_join->table_alias.'.name, `subject_id`');
+			$marks_obtained->setOrder('subject ');
+		}
+
+		$result_grouped=array();
+
+		foreach ($marks_obtained->_dsql()->debug() as $junk) {
+			$result = array();
+			$result['student_name'] = $junk['student'];
+			$result[$junk['title'] . ' ' . $junk['subject']] = $junk['sum_marks'];
+			$result['title'] = $junk['title'] . ' ' . $junk['subject'];
+			// $result_grouped[$junk['student_id']] = array_merge(is_array($result_grouped[$junk['student_id']])?:array(),$result);
+			if(!isset($result_grouped[$junk['student_id']]))
+				$result_grouped[$junk['student_id']] = array();
+			$result_grouped[$junk['student_id']] += $result;
+		}
+
+		return $result_grouped;
+	}
+
 }

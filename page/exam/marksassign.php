@@ -3,7 +3,7 @@ class page_exam_marksassign extends Page {
 	function page_index(){
 		// parent::init();
 
-		
+		// $this->owner->js()->reload()->execute();
 
 		$form=$this->add('Form',null,null,array('form_horizontal'));
 		$class_field=$form->addField('dropdown','class');
@@ -59,7 +59,7 @@ class page_exam_marksassign extends Page {
 					$marks->createNew(0,$students,$subject,$exam,$class);
 			}
 
-			$form->js()->univ()->newWindow($this->api->url('marks',array('class'=>$class['full_name'],'exam'=>$exam['name'],'subject'=>$subject['name'])))->execute();
+			$form->js()->univ()->newWindow($this->api->url('marks',array('class'=>$class->id,'exam'=>$exam->id,'subject'=>$subject->id,'class_name'=>$class['full_name'],'subject_name'=>$subject['name'],'exam_name'=>$exam['name'])))->execute();
 		}
 
 	}

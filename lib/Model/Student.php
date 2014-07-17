@@ -480,4 +480,14 @@ public $table="students";
 		return array('category'=>$casts,'count'=>$new_array);
 	}
 
+	function getMarks($terms,$exam,$subject){
+		// return array(
+		// 	'title'=>'FA III English or English as per terms given or not',
+		// 	'marks'=>obtained_marks,
+		// 	'grade' =>$this->api->getGrade(max_marks,obtainde_marks)
+		// 	);
+	}
+
+	
+
 }

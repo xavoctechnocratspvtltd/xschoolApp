@@ -1,5 +1,4 @@
 <?php
-
 class View_FeesReport extends View {
 	public $from_date=null;
 	public $to_date=null;

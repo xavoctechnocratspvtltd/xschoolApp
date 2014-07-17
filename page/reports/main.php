@@ -10,5 +10,6 @@ class page_reports_main extends Page {
 		$tab1=$tabs->addTabUrl('reports_duefees','Defaulter List');
 		$tab1=$tabs->addTabUrl('reports_scholar','Outgoing Student List');
 		$tab1=$tabs->addTabUrl('reports_fees','Fees Collection Report');
+		$tab1=$tabs->addTabUrl('reports_examdata','Exam Report');
 	}
 }

@@ -13,12 +13,13 @@ public $table="exams";
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
-	function createNew($term,$exam_name,$all_fields=array(),$form=null){
+	function createNew($exam_name,$all_fields=array(),$form=null){
 
 		if($this->loaded())
 			throw $this->exception("You can not use Loaded Model on createNewBranch ");
 		
 		$this['name']=$exam_name;
+		$this['term_id']=$all_fields['term_id'];
 		$this->save();
 			
 	}

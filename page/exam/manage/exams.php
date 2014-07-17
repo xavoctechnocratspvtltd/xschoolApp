@@ -40,6 +40,7 @@ class page_exam_manage_exams extends Page {
 		$btn->js('click',$form->js()->toggle());
 
 		$assign_marks=$this->add('Model_SubjectInExamClass');
+		$assign_marks->addCondition('exam_id',$_GET['exams_id']);
 		$grid=$this->add('Grid');
 
 		if($_GET['remove']){
