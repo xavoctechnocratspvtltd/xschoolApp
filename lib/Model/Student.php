@@ -255,7 +255,6 @@ public $table="students";
 	}
 
 	function submitFees($paid_amount,$mode,$narration="", $late_fees = 0 , $consession_amount = 0){
-		
 		$narration .= " :: Fees Received From ".$this['name']." ( ".$this['scholar_no']." ) ";
 		$receipt=$this->add('Model_FeesReceipt');
 		if($consession_amount){
@@ -264,16 +263,14 @@ public $table="students";
 		}
 
 
-		if($paid_amount==0) return;
+		if($paid_amount!=0 or $late_fees !=0) {
+			$receipt->createNew($this,$paid_amount,$mode,$narration,$late_fees);
+			// throw $this->exception($late_fees);
+			$transaction=$this->add('Model_PaymentTransaction');
+			$transaction->createNew($paid_amount+$late_fees,"Income",$mode,$narration,$receipt->id);
+			return $receipt;
+		}
 
-		$receipt->createNew($this,$paid_amount,$mode,$narration,$late_fees);
-		
-		
-		
-		$transaction=$this->add('Model_PaymentTransaction');
-		$transaction->createNew($paid_amount+$late_fees,"Income",$mode,$narration,$receipt->id);
-		
-		return $receipt;
 	}
 
 	function giveConsession($amount){

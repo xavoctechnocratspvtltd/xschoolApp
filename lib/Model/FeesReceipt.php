@@ -22,7 +22,6 @@ class Model_FeesReceipt extends Model_Table {
 
 	function createNew($student,$amount , $mode,$narration,$late_fees = 0){
 
-
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
