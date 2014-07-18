@@ -26,7 +26,9 @@ class page_exam_manage_exams extends Page {
 	function page_subjects(){
 		$btn=$this->add('Button')->set('Add Subject');
 		$this->api->stickyGET('exams_id');
+		$this->api->stickyGET('classes_id');
 		$subjects=$this->class->allSubjects();
+		// $subjects->addCondition('exam_id',$_GET['exam_id']);
 		$form=$this->add('Form',null,null,array('form_horizontal'));
 
 		$subject_field=$form->addField('dropdown','subject');
@@ -41,6 +43,7 @@ class page_exam_manage_exams extends Page {
 
 		$assign_marks=$this->add('Model_SubjectInExamClass');
 		$assign_marks->addCondition('exam_id',$_GET['exams_id']);
+		$assign_marks->addCondition('class_id',$_GET['classes_id']);
 		$grid=$this->add('Grid');
 
 		if($_GET['remove']){
@@ -51,7 +54,7 @@ class page_exam_manage_exams extends Page {
 		$grid->setModel($assign_marks,array('subject','min_marks','max_marks'));
 		$grid->addColumn('button','remove');
 		if($form->isSubmitted()){
-
+			
 			if($form['max_marks']<$form['min_marks'])
 				$form->displayError('max_marks','Max Marks Must be greater than Min Marks');
 			$exam=$this->add('Model_Exam');

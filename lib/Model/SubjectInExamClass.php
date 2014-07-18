@@ -10,8 +10,23 @@ class Model_SubjectInExamClass extends Model_Table {
 		$this->hasOne('Session','session_id');
 		$this->addField('max_marks');
 		$this->addField('min_marks');
+		$this->addHook('beforeDelete',$this);
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
+
+	function beforeDelete(){
+		
+		$marks=$this->add('Model_Student_Marks');
+		$marks->addCondition('exam_id',$this['exam_id']);
+		$marks->addCondition('subject_id',$this['subject_id']);
+		$marks->addCondition('class_id',$this['class_id']);
+		$marks->addCondition('session_id',$this->api->currentSession->id);
+		
+		if($marks->sum('marks')->debug()->getOne()>0)
+			$this->api->js()->univ()->errorMessage('First remove marks assign to student')->execute();		
+		
+	}
+
 
 
 	function createNew($subject,$exam,$class,$other_fields=array(),$session=null){
@@ -50,6 +65,22 @@ class Model_SubjectInExamClass extends Model_Table {
 		if(!$this->loaded())
 			throw $this->exception('Unable To determine record');
 		$this->delete();
+	}
+
+	function maxMarks($exam,$subject,$class){
+		$max_marks=$this->add('Model_SubjectInExamClass');
+		$max_marks->addCondition('subject_id',$subject->id);
+		$max_marks->addCondition('exam_id',$exam->id);
+		$max_marks->addCondition('class_id',$class->id);
+		$max_marks->addCondition('session_id',$this->api->currentSession->id);
+		$max_marks->tryLoadAny();
+		
+		if($max_marks->loaded()){
+			
+			return $max_marks['max_marks'];
+		}
+		else
+			false;
 	}
 
 }

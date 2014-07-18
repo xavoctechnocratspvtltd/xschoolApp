@@ -16,7 +16,13 @@ class Model_Student_Marks extends Model_Table {
 	}
 
 	function beforeSave(){
-		$max_marks=$this->isGreaterthanMaxMarks($this['marks'],$this['subject_id'],$this['exam_id'],$this['class_id']);
+		$subject=$this->add('Model_Subject')->load($this['subject_id']);
+		$exam=$this->add('Model_Exam')->load($this['exam_id']);
+		$class=$this->add('Model_Class')->load($this['class_id']);
+
+		$max_marks=$this->add('Model_SubjectInExamClass')->maxMarks($exam,$subject,$class);
+
+		
 		if($this['marks']>$max_marks)
 			$this->api->js()->univ()->errorMessage('Can Not Give Marks More Than Max Marks')->execute();
 	}
@@ -26,6 +32,7 @@ class Model_Student_Marks extends Model_Table {
 			throw $this->exception('createNew must Call on Empty Model');
 		if(!$session)
 			$session=$this->api->currentSession;
+		
 		$this['marks']=$marks;
 		$this['student_id']=$student->id;
 		$this['class_id']=$class->id;
@@ -56,15 +63,5 @@ class Model_Student_Marks extends Model_Table {
 			return false;
 	}
 
-	function isGreaterthanMaxMarks($marks,$subject_id,$exam_id,$class_id){
-		$max_marks=$this->add('Model_SubjectInExamClass');
-		$max_marks->addCondition('subject_id',$subject_id);
-		$max_marks->addCondition('exam_id',$exam_id);
-		$max_marks->addCondition('class_id',$class_id);
-		$max_marks->tryLoadAny();
-		if($max_marks->loaded())
-			return $max_marks['max_marks'];
-		else
-			false;
-	}
+	
 }

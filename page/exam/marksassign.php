@@ -57,6 +57,7 @@ class page_exam_marksassign extends Page {
 			foreach ($students as $key => $value) {
 				if(!$marks->isAvailable($students,$subject,$exam,$class))
 					$marks->createNew(0,$students,$subject,$exam,$class);
+				
 			}
 
 			$form->js()->univ()->newWindow($this->api->url('marks',array('class'=>$class->id,'exam'=>$exam->id,'subject'=>$subject->id,'class_name'=>$class['full_name'],'subject_name'=>$subject['name'],'exam_name'=>$exam['name'])))->execute();

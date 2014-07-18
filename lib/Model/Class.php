@@ -424,7 +424,7 @@ public $table="classes";
 							->field('student_id')
 							->field('sum(marks) sum_marks');
 			$marks_obtained->_dsql()->group('student_id,term_id, `subject_id`');
-			$marks_obtained->setOrder('subject, '.$term_join->table_alias . '.name');
+			$marks_obtained->setOrder('subject');
 		}else{
 			$exam_join=$marks_obtained->join('exams','exam_id');
 			$term_join=$exam_join->join('terms','term_id');
