@@ -447,14 +447,22 @@ public $table="classes";
 
 		$result_grouped=array();
 
-		foreach ($marks_obtained->_dsql()->debug() as $junk) {
+		foreach ($marks_obtained->_dsql() as $junk) {
 			$result = array();
 			$result['student_name'] = $junk['student'];
 			$result[$junk['title'] . ' ' . $junk['subject']] = $junk['sum_marks'];
 			$result['title'] = $junk['title'] . ' ' . $junk['subject'];
 			// $result_grouped[$junk['student_id']] = array_merge(is_array($result_grouped[$junk['student_id']])?:array(),$result);
+			
+
 			if(!isset($result_grouped[$junk['student_id']]))
 				$result_grouped[$junk['student_id']] = array();
+			
+			if(!isset($result_grouped[$junk['student_id']][$junk['title'] .' total']))
+				$result_grouped[$junk['student_id']][$junk['title'] .' total'] = 0;
+
+			$result_grouped[$junk['student_id']][$junk['title'] .' total'] += $junk['sum_marks'];
+			
 			$result_grouped[$junk['student_id']] += $result;
 		}
 
