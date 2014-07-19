@@ -35,23 +35,23 @@ class Model_Library_Item extends Model_Table{
 
 		$this->hasMany('Library_Transaction','item_id');
 		
-		$this->addHook('beforeSave',$this);
+		// $this->addHook('beforeSave',$this);
 		$this->addHook('beforeDelete',$this);
 
 		$this->add('dynamic_model/Controller_AutoCreator');
 
 	}
 
-	function beforeSave(){
+	// function beforeSave(){
 
-		$older_items = $this->add('Model_Library_Item');
-		$older_items->addCondition('id','<>',$this->id);
-		$older_items->addCondition('name',$this['name']);
-		$older_items->tryLoadAny();
-		if($older_items->loaded()){
-			throw $this->exception('Code Already Exists','ValidityCheck')->setField('name');
-		}
-	}
+	// 	$older_items = $this->add('Model_Library_Item');
+	// 	$older_items->addCondition('id','<>',$this->id);
+	// 	$older_items->addCondition('name',$this['name']);
+	// 	$older_items->tryLoadAny();
+	// 	if($older_items->loaded()){
+	// 		throw $this->exception('Code Already Exists','ValidityCheck')->setField('name');
+	// 	}
+	// }
 	
 	function createNew($title,$other_fields=array(),$form=null){		
 		if(! ($title instanceof Model_Library_Title) )
