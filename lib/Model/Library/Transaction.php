@@ -50,6 +50,8 @@ class Model_Library_Transaction extends Model_Table{
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['narration']=$narration;
 		$this->save();
+
+		$item->markIssued();
 		return true;
 	}
 
@@ -61,7 +63,11 @@ class Model_Library_Transaction extends Model_Table{
 			$this['no_of_day_late_submission']=$date_array['days_total'];
 		$this['submitted_on']=$this->api->today;
 		$this->save();
+
+		$item=$this->add('Model_Library_Item')->load($this['item_id']);
+		$item->markSubmit();
 		return true;
+
 
 	}
 

@@ -9,7 +9,7 @@ class View_Staff_Issue extends View {
 		$staff_model->addCondition('is_application_user',false);
 
 		$item_model=$this->api->currentBranch->library_items();
-		$item_model->addCondition('is_issued',false)->debug();
+		$item_model->addCondition('is_issued',false);
 		$issue_form=$this->add('Form');
 		
 		$staff_field=$issue_form->addField('autocomplete/Basic','staffs')->validateNotNull();

@@ -21,16 +21,17 @@ class Model_Library_Item extends Model_Table{
 		$this->addField('bill_no');
 		$this->addField('rate');
 		$this->addField('supplier_name');
+		$this->addField('is_issued')->type('boolean')->defaultValue(0);
 		
 		// $this->addExpression('full_name')->set('concat('.$this->ref('title_id')->get('name').','-',name)');
 		$this->addExpression('full_name')->set(function($m,$q){
 			return '(concat('.$q->getField('name').'," ",('.$m->refSQL('title_id')->fieldQuery('name')->render().')))';
 		});
 		
-		$this->addExpression('is_issued')->set(function($m,$q){
-			 return $m->refSQL('Library_Transaction')->_dsql()->where('submitted_on is not null')->del('fields')->field('count(*)');
-			 // return $m->refSQL('Library_Transaction')->setLimit(1)->setOrder('issue_on','desc')->_dsql()->del('fields')->field($q->expr('IF(submitted_on is null,1,0)'));
-		})->type('boolean');
+		// $this->addExpression('is_issued')->set(function($m,$q){
+		// 	 return $m->refSQL('Library_Transaction')->_dsql()->where('submitted_on is not null')->del('fields')->field('count(*)');
+		// 	 // return $m->refSQL('Library_Transaction')->setLimit(1)->setOrder('issue_on','desc')->_dsql()->del('fields')->field($q->expr('IF(submitted_on is null,1,0)'));
+		// })->type('boolean');
 
 		$this->hasMany('Library_Transaction','item_id');
 		
@@ -85,6 +86,16 @@ class Model_Library_Item extends Model_Table{
 	function filterByBranch($branch){
 		$this->addCondition('branch_id',$branch->id);
 		return $this;
+	}
+
+	function markIssued(){
+		$this['is_issued']=true;
+		$this->save();
+	}
+
+	function markSubmit(){
+		$this['is_issued']=false;
+		$this->save();
 	}
 
 }	

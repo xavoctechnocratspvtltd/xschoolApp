@@ -29,10 +29,11 @@ class View_Student_Submit extends View {
 
 
 		$transaction=$this->add('Model_Library_Transaction');
+		$transaction->addCondition('staff_id',null);
 
-
-		if($_GET['item'])
+		if($_GET['item']){
 			$transaction->addCondition('item_id',$_GET['item']);
+		}
 		else
 			$transaction->addCondition('item_id',-1);
 		$grid->setModel($transaction,array('student','issue_on'));
