@@ -29,7 +29,7 @@ class View_Staff_Submit extends View {
 
 
 		$transaction=$this->add('Model_Library_Transaction');
-
+		$transaction->addCondition('student_id',null);
 
 		if($_GET['item'])
 			$transaction->addCondition('item_id',$_GET['item']);
