@@ -438,14 +438,20 @@ public $table="classes";
 							->field($this->dsql()->expr($exam_join->table_alias . '.name as title'))
 							->field($this->dsql()->expr($subject_join->table_alias . '.name as subject'))
 							->field($this->dsql()->expr($scholar_join->table_alias . '.name as student'))
+							->field($this->dsql()->expr('exam_id'))
+							->field($this->dsql()->expr($exam_join->table_alias . '.term_id'))
 							->field('subject_id')
 							->field('student_id')
 							->field('sum(marks) sum_marks');
+			$marks_obtained->_dsql()->where($exam_join->table_alias.'.term_id',$term->id);
 			$marks_obtained->_dsql()->group('student_id, '.$exam_join->table_alias.'.name, `subject_id`');
 			$marks_obtained->setOrder('subject ');
 		}
 
 		$result_grouped=array();
+		$max_marks=array();
+
+		$max_marks_model = $this->add('Model_SubjectInExamClass');
 
 		foreach ($marks_obtained->_dsql() as $junk) {
 			$result = array();
@@ -461,8 +467,23 @@ public $table="classes";
 			if(!isset($result_grouped[$junk['student_id']][$junk['title'] .' total']))
 				$result_grouped[$junk['student_id']][$junk['title'] .' total'] = 0;
 
-			$result_grouped[$junk['student_id']][$junk['title'] .' total'] += $junk['sum_marks'];
+			$total = $result_grouped[$junk['student_id']][$junk['title'] .' total'] += $junk['sum_marks'];
+			$max = $max_marks_model->getMaxMarks($junk['subject_id'],$junk['exam_id'],$junk['term_id'],$this->id);
+			// echo '<pre>';
+			// print_r($junk);
+			// echo '</pre>';
 			
+			if(!isset($result_grouped[$junk['student_id']][$junk['title'] .' max_marks']))
+				$result_grouped[$junk['student_id']][$junk['title'] .' max_marks'] =0 ;
+
+			$max= $result_grouped[$junk['student_id']][$junk['title'] .' max_marks'] += $max ;
+			
+
+			if(!isset($result_grouped[$junk['student_id']][$junk['title'] .' grade']))
+				$result_grouped[$junk['student_id']][$junk['title'] .' grade']='F';
+			
+			$result_grouped[$junk['student_id']][$junk['title'] .' grade']=$this->api->currentSession->getGrade($total, $max);
+
 			$result_grouped[$junk['student_id']] += $result;
 		}
 

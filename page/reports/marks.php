@@ -23,7 +23,7 @@ class page_reports_marks extends Page {
 		// print_r($result);
 		// echo "</pre>";
 
-		$grid = $this->add('Grid');
+		$grid = $this->add('Grid',null,null,array('view/marksgrid'));
 		$grid->setSource($result);
 
 		foreach ($columns as $col) {

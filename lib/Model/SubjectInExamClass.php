@@ -8,8 +8,8 @@ class Model_SubjectInExamClass extends Model_Table {
 		$this->hasOne('Exam','exam_id');
 		$this->hasOne('Subject','subject_id');
 		$this->hasOne('Session','session_id');
-		$this->addField('max_marks');
-		$this->addField('min_marks');
+		$this->addField('max_marks')->display(array('grid'=>'grid/inline'));
+		$this->addField('min_marks')->display(array('grid'=>'grid/inline'));
 		$this->addHook('beforeDelete',$this);
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
@@ -81,6 +81,39 @@ class Model_SubjectInExamClass extends Model_Table {
 		}
 		else
 			false;
+	}
+
+	function getMaxMarks($subject_id,$exam_id,$term_id,$class_id,$session_id=null){
+		if(!$session_id) $session_id=$this->api->currentSession->id;
+
+		if($term_id){
+			$exam_id = array();
+			$term_exams = $this->add('Model_Term')->load($term_id)->ref('Exam');
+			foreach ($term_exams as $junk) {
+				$exam_id[] = $term_exams->id;
+			}
+		}
+
+
+		$m=$this->add('Model_SubjectInExamClass');
+		$m->addCondition('subject_id',$subject_id);
+		$m->addCondition('session_id',$session_id);
+		$m->addCondition('class_id',$class_id);
+
+		if(!$term_id){
+			$m->addCondition('exam_id',$exam_id);
+			$m->tryLoadAny();
+			if($m->loaded())
+				return $m['max_marks'];
+			else
+				return 0;
+		}else{
+			$m->join('exams','exam_id')->join('terms','term_id');
+			$m->_dsql()
+				->del('fields')
+				->field($m->dsql()->expr('sum(max_marks)'));
+			return $m->_dsql()->getOne();
+		}
 	}
 
 }

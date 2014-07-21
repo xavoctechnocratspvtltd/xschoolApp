@@ -10,6 +10,7 @@ class page_master extends Page {
 		$tabs->addTabUrl('master_subject_main','Subject');
 		$tabs->addTabUrl('master_term_main','Terms');
 		$tabs->addTabUrl('master_exam_main','Exam');
+		$tabs->addTabUrl('master_grade_main','Grade');
 		$tabs->addTabUrl('master_student_type','Students Type');
 		$tabs->addTabUrl('master_fees_main','Fees');
 		$tabs->addTabUrl('master_class_main','Class');

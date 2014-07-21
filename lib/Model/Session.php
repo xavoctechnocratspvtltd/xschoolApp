@@ -104,4 +104,17 @@ public $table="sessions";
 
 	function deleteSession(){}
 	// function editSession(){} ???
+	
+	function getGrade($received, $from){
+		$g_m = $this->add('Model_Grade');
+		$g_m->addCondition('session_id',$this->id);
+		$g_m->setOrder('percentage','desc');
+
+		foreach ($g_m as $junk) {
+			if(($received/$from*100) >= $g_m['percentage'])
+				return $g_m['name'];
+		}
+
+		return 'F';
+	}
 }	
