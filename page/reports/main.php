@@ -11,7 +11,8 @@ class page_reports_main extends Page {
 		$tab1=$tabs->addTabUrl('reports_scholar','Outgoing Student List');
 		$tab1=$tabs->addTabUrl('reports_fees','Fees Collection Report');
 		$tab1=$tabs->addTabUrl('reports_examdata','Exam Report');
-		$tab1=$tabs->addTabUrl('reports_scholarlist','Scholar List Report');
-		$tab1=$tabs->addTabUrl('reports_studentlist','Student List Report');
+		$tab1=$tabs->addTabUrl('reports_scholarlist','Scholar List');
+		$tab1=$tabs->addTabUrl('reports_studentlist','Student List');
+		$tab1=$tabs->addTabUrl('reports_consession','Consession List');
 	}
 }
