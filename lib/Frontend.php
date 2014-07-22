@@ -70,10 +70,12 @@ class Frontend extends ApiFrontend {
                 );
 
             $btn=$this->add('Button',null,'button')->set('Update Branch in Transaction');
+            $btn1=$this->add('Button',null,'button')->set('Change Date');
             $v->addClass('welcome-block');
             $v->js('reload')->reload();
 
             $btn->js('click')->univ()->newWindow($this->api->url('correcttransaction'));
+            $btn1->js('click')->univ()->frameURL("Change Date",$this->api->url('setdate'));
 
             // $btn=$this->add('Button')->set('Set Date');
         }
@@ -94,11 +96,11 @@ class Frontend extends ApiFrontend {
             ->addMenuItem('fees_main','Fees Management')
             ->addMenuItem('reports_daybook','Day Book')
             ->addMenuItem('accounts','General Accounting ')
-            ->addMenuItem('setdate','Change Date ')
             ->addMenuItem('transport_main','Transport Management ')
             ->addMenuItem('library_main','Library Management ')
             ->addMenuItem('exam_main','Exam Management ')
             ->addMenuItem('reports_main','Reports ')
+            ->addMenuItem('stock_main','Stock ')
             ->addMenuItem('logout')
             ;
 
