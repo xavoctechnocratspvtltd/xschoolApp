@@ -33,7 +33,7 @@ class View_Student_FeesSubmitBlock extends View {
 		
 		// ======= COL 2
 		
-		$col2->add('H3')->setHTML($student['name']. ' <small>[ ' . $student->type()->get('name') .' ]</small>');
+		$col2->add('H3')->setHTML($student['name']. ' <small>[ ' . $student->type()->get('name')." Class ".$student->ref('class_id')->get('full_name') .' ]</small>');
 		$tabs = $col2->add('Tabs');
 		$fast_deposit_tab = $tabs->addTab('Fast Deposit');
 		$detailed_depot_tab = $tabs->addTab('Payment Details');

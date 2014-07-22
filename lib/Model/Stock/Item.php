@@ -11,6 +11,18 @@ Class Model_Stock_Item extends Model_Table{
 
 		$this->add('dynamic_model/Controller_AutoCreator');
 
+	}
 
+	function createNew($name,$other_fields=array(),$form=array()){
+		if($this->loaded())
+			throw $this->exception("please call on loaded object");
+		$this['name']=$name;
+		$this['category_id']=$other_fields['category_id'];
+		$this->save();
+			
+	}
+
+	function remove(){
+		if(!$)
 	}
 }
