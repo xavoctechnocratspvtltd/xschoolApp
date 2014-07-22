@@ -13,13 +13,21 @@ class page_reports_consession extends Page {
 		$transaction=$this->add('Model_FeesTransaction');
 
 		if($_GET['filter']){
-			//TODO 
+			if($_GET['from_date'])
+				$transaction->addCondition('submitted_on','>=',$_GET['from_date']);
+			if($_GET['to_date'])
+				$transaction->addCondition('submitted_on','<',$this->api->nextDate($_GET['from_date']));
 		}else{
 			//TODO
 		}
 
+		$transaction->_dsql()->group('student_id');
+		$transaction->_dsql()->field('sum(amount) as t');
+		$student_join = $transaction->join('students','student_id');
+
 		$grid=$this->add('Grid');
-		$grid->setModel($transaction);
+		$grid->setSource($transaction->_dsql());
+		$grid->addColumn('text','t');
 		$grid->addPaginator(50);
 
 		if($form->isSubmitted()){

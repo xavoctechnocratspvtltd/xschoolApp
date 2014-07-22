@@ -47,7 +47,7 @@ public $table="student_fees_applied";
 		if($via_receipt !== null){
 			$fee_trasactions->addCondition('submitted_on','<',$this->api->nextDate($via_receipt['created_at']));
 			if($include_consessions){
-				$fee_trasactions->_dsql()->where('fees_receipt_id <= '.$via_receipt->id. ' or fees_receipt_id is null');
+				$fee_trasactions->_dsql()->where('(fees_receipt_id <= '.$via_receipt->id . ' or by_consession = 1)');
 			}else{
 				$fee_trasactions->addCondition('fees_receipt_id','<=',$via_receipt->id);
 			}
