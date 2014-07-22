@@ -23,6 +23,5 @@ Class Model_Stock_Item extends Model_Table{
 	}
 
 	function remove(){
-		if(!$)
 	}
 }
