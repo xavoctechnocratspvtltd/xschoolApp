@@ -96,7 +96,7 @@ class Model_FeesReceipt extends Model_Table {
 		$fees_applied_in_required_months->addCondition('student_id',$this['student_id']);
 
 		foreach ($fees_applied_in_required_months as $junk) {
-			$due_amount = $fees_applied_in_required_months->dueAmountAfter($this);
+			$due_amount = $fees_applied_in_required_months->dueAmountAfter($this,true); // $this (recipt) was passing in dueAmountAfter function that is now
 			if($due_amount){
 				$month_print[$in_month_year] += $due_amount;
 			}

@@ -41,12 +41,16 @@ public $table="student_fees_applied";
 		return $amount;
 	}
 
-	function paidAmountTill($via_receipt=null){
+	function paidAmountTill($via_receipt=null,$include_consessions=true){
 		$fee_trasactions = $this->ref('FeesTransaction');
 
 		if($via_receipt !== null){
 			$fee_trasactions->addCondition('submitted_on','<',$this->api->nextDate($via_receipt['created_at']));
-			$fee_trasactions->addCondition('fees_receipt_id','<=',$via_receipt->id);
+			if($include_consessions){
+				$fee_trasactions->_dsql()->where('fees_receipt_id <= '.$via_receipt->id. ' or fees_receipt_id is null');
+			}else{
+				$fee_trasactions->addCondition('fees_receipt_id','<=',$via_receipt->id);
+			}
 		}
 
 		// $amount = $fee_trasactions->_dsql()->del('fields')->field('sum(amount)')->getOne();
@@ -54,8 +58,8 @@ public $table="student_fees_applied";
 		return $amount;
 	}
 
-	function dueAmountAfter($after_receipt){
-		return $this['amount'] - $this->paidAmountTill($after_receipt);
+	function dueAmountAfter($after_receipt,$include_consessions=true){
+		return $this['amount'] - $this->paidAmountTill($after_receipt,$include_consessions);
 	}
 
 	function pay($amount, $receipt){

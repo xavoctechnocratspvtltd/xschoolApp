@@ -1,0 +1,212 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"packins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/var/www/xbank2/page/accounts/Loan.php",
+		"/var/www/xbank2/page/tests/loan/050AccountLoan1.php",
+		"/var/www/xbank2/page/accounts.php",
+		"/var/www/xbank2/page/tests/acc_template_case.php",
+		"/var/www/xbank2/templates/page.jade",
+		"/var/www/xbank2/lib/Page.php",
+		"/var/www/xbank2/public/lib/Model/PendingAccount.php",
+		"/var/www/xbank/administrator/components/com_xbank/controllers/report_2_cont.php",
+		"/var/www/xbank2/testfolder/fd 2.txt",
+		"/var/www/xbank2/page/tests/025AccountFunctions.php",
+		"/var/www/xbank2/public/atk4/js/jquery-2.0.3.min.js",
+		"/var/www/xbank2/public/lib/Model/Account.php",
+		"/var/www/xbank2/public/lib/Model/Member.php",
+		"/var/www/xbank2/lib/Model.php",
+		"/var/www/xbank2/lib/View/ModelDetails.php",
+		"/var/www/xbank/administrator/modules/mod_online/mod_online.php",
+		"/var/www/xbank2/lib/MVCForm.php",
+		"/var/www/xbank2/.gitignore",
+		"/var/www/xbank2/config-default.php",
+		"/var/www/xbank2/page/corrections.php",
+		"/var/www/xbank/configuration.php",
+		"/var/www/xbank2/CONTRIBUTING",
+		"/var/www/xbank2/tools/atk4-model.sublime-snippet",
+		"/var/www/xbank2/atk4-addons/misc/templates/view/model.html",
+		"/var/www/xbank2/atk4-addons/misc/templates/view/model_core.html",
+		"/var/www/xbank2/atk4-addons/dynamic_model/lib/Controller/ModelDumper.php",
+		"/var/www/xbank2/lib/P.php",
+		"/var/www/xbank/plugins/editors/tinymce/jscripts/tiny_mce/plugins/fullscreen/css/page.css",
+		"/home/gowrav/Downloads/suhosin-master/suhosin.c"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "xschool.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"2pageaccounloan",
+				"xbank2/page/accounts/Loan.php"
+			],
+			[
+				"2modelaccount",
+				"xbank2/public/lib/Model/Account.php"
+			],
+			[
+				"2modelmember",
+				"xbank2/public/lib/Model/Member.php"
+			],
+			[
+				"confide",
+				"xbank2/config-default.php"
+			],
+			[
+				"2modelmem",
+				"xbank2/public/lib/Model/Member.php"
+			],
+			[
+				"pagecorrec",
+				"xbank2/page/corrections.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 210.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
