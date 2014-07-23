@@ -10,7 +10,7 @@ class page_setdate extends Page {
 
 		if($form->isSubmitted()){
 			$this->api->setDate($form['date']);
-			$form->js(null,$form->js()->_selector('.welcome-block')->trigger('reload'))->reload()->execute();
+			$form->js(null,array($form->js()->_selector('.welcome-block')->trigger('reload'),$form->js()->univ()->closeDialog()))->reload()->execute();
 		}
 
 	}
