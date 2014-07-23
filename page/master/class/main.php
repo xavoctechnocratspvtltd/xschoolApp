@@ -22,7 +22,7 @@ class page_master_class_main extends Page {
 			return true; // Always required
 		});
 		
-		$crud->setModel($class);		
+		$crud->setModel($class->debug());		
 
 		if($g=$crud->grid){
 

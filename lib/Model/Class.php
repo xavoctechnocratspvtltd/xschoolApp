@@ -29,6 +29,7 @@ public $table="classes";
         	$student=$m->add('Model_CurrentStudent');
         	$sc=$student->join('scholars','scholar_id');
         	$sc->addField('gender');
+        	$student->addCondition('class_id',$q->getField('id'));
         	return $student->addCondition('gender','f')->count();
         });
 
@@ -37,6 +38,7 @@ public $table="classes";
         	$student=$m->add('Model_CurrentStudent');
         	$sc=$student->join('scholars','scholar_id');
         	$sc->addField('gender');
+        	$student->addCondition('class_id',$q->getField('id'));
         	return $student->addCondition('gender','m')->count();
         });
 
