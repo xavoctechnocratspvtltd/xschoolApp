@@ -13,6 +13,7 @@ public $table="sessions";
 
 
         $this->hasMany('Student','session_id');       
+        $this->hasMany('Stock_Transaction','session_id');       
         $this->hasMany('SubjectInAClass','session_id');
         $this->hasMany('FeesInAClass','session_id'); 
 		$this->hasMany('ExamInAClass','session_id');       

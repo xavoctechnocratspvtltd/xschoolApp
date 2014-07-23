@@ -8,6 +8,7 @@ class page_stock_main extends Page{
 		$tab1=$tabs->addTabUrl('stock_category','Stock Category');
 		$tab1=$tabs->addTabUrl('stock_item','Stock Item');
 		$tab1=$tabs->addTabUrl('stock_supplier','Stock Supplier');
-		$tab1=$tabs->addTabUrl('stock_transaction','Stock Transaction');
+		$tab1=$tabs->addTabUrl('stock_inward','Stock Inward');
+		$tab1=$tabs->addTabUrl('stock_consume','Stock Consume');
 	}
 }

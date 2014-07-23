@@ -14,4 +14,31 @@ Class Model_Stock_Supplier extends Model_Table{
 
 
 	}
+
+
+	function createNew($name,$other_fields=array(),$form=array()){
+		if($this->loaded())
+			throw $this->exception("please call on loaded object");
+		$this['name']=$name;
+		$this['address']=$other_fields['address'];
+		$this['ph_no']=$other_fields['ph_no'];
+		$this->save();
+			
+	}
+
+	function remove(){
+		if(!$this->loaded())
+			throw $this->exception("Please call on loaded object");
+		$this->delete();
+	}
+
+	function transaction(){
+		if(!$this->loaded())
+			throw $this->exception("Please call on loaded object");
+
+		$this->ref('Stock_Transaction');
+
+	}
+
+	
 }
