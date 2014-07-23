@@ -7,6 +7,7 @@ Class Model_Stock_Transaction extends Model_Table{
 
 		$this->hasOne('Stock_Item','item_id');
 		$this->hasOne('Session','session_id');
+		$this->hasOne('Branch','branch_id');
 		$this->hasOne('Stock_Supplier','supplier_id');
 		$this->addField('qty');
 		$this->addField('created_at')->type('date')->defaultValue(date('Y-m-d H:i:s'));
@@ -40,6 +41,7 @@ Class Model_Stock_Transaction extends Model_Table{
 		$this['type']='Inward';
 		$this['remark']=$remark;
 		$this['created_at']=$date;
+		$this['branch_id']=$this->api->currentBranch->id;
 		$this->save();
 			
 	}
@@ -54,6 +56,7 @@ Class Model_Stock_Transaction extends Model_Table{
 		$this['item_id']=$item->id;
 		$this['qty']=$qty;
 		$this['type']='Consume';
+		$this['branch_id']=$this->api->currentBranch->id;
 		$this->save();
 
 	}

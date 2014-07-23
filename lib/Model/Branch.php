@@ -18,6 +18,7 @@ public $table="branches";
 		$this->hasMany('Class','branch_id');
 		$this->hasMany('Library_Subjects','branch_id');
 		$this->hasMany('PaymentTransaction','branch_id');
+		$this->hasMany('Stock_Transaction','branch_id');
 
 		$this->addHook('beforeDelete',$this);
 
