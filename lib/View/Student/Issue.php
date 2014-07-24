@@ -11,14 +11,26 @@ class View_Student_Issue extends View {
 		$item_model->addCondition('is_issued',false);
 		
 		$issue_form=$this->add('Form');
-		
-		$student_field=$issue_form->addField('autocomplete/Basic','students')->validateNotNull();
+		$class_model=$this->api->currentBranch->classes();
+		$class_model->title_field='full_name';
+
+		$class_field=$issue_form->addField('dropdown','class')->setEmtyText('Please Select')->validateNotNull();
+		$class_field->setModel($class_model);
+
+		$student_field=$issue_form->addField('dropdown','students')->setEmtyText('Please Select')->validateNotNull();
+
+		if($_GET['class'])
+			$student_model->addCondition('class_id',$_GET['class']);
+		else
+			$student_model->addCondition('id',-1);
 		$student_field->setModel($student_model);
 
 		
 		
 		$item_field=$issue_form->addField('autocomplete/Basic','item','Book / Issue Item')->validateNotNull();
 		$item_field->setModel($item_model);
+
+		$class_field->js('change',$issue_form->js()->atk4_form('reloadField','students',array($this->api->url(),'class'=>$class_field->js()->val())));
 		
 		$issue_form->addSubmit('Issue');
 
