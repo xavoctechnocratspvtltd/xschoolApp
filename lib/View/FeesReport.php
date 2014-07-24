@@ -24,10 +24,12 @@ class View_FeesReport extends View {
 			->field('by_consession')
 			->field('SUM(fees_transactions.amount) as total_amount');
 
-		 $fees_transaction->addCondition('by_consession',false);
+		$fees_transaction->addCondition('by_consession',false);
 
-		$fees_transaction->_dsql()->group('submitted_on, _s.fees_id, fees_transactions.by_consession');
+		$fees_transaction->_dsql()->group('submitted_on,_s.fees_id');
 		
+		// $fees_transaction->_dsql()->where('submitted_on','2014-07-07');
+
 		// echo "<pre>";
 		// print_r($fees_transaction->_dsql()->get());
 		// echo "</pre>";
@@ -38,19 +40,33 @@ class View_FeesReport extends View {
 		$columns_added=array();
 		$consession_stored_4_date=array();
 
+		$fees_used_on_date=array();
+
+
 		$grid->addColumn('text','date');
 		$fees = $this->add('Model_Fees');
+
 		
 		foreach ($fees_transaction->_dsql()->get() as $data) {
+
 			$fees->unload();
 			$fees->load($data['fees_id']);
                         
             if(!isset($result_array[$data['submitted_on']])) $result_array[$data['submitted_on']] = array();
                         
-			$result_array[$data['submitted_on']] += array(
-					'date'=>$data['submitted_on'],
-					$fees['name'] => $data['total_amount']
-				);
+			$result_array[$data['submitted_on']]['date'] = $data['submitted_on'];
+			$result_array[$data['submitted_on']][$fees['name']] = $data['total_amount'];
+			$result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$data['total_amount']);
+
+			$fees_names = $this->add('Model_Fees');
+			foreach ($fees_names as $junk) {
+				if(!isset($result_array[$data['submitted_on']][$fees_names['name']]))
+					$result_array[$data['submitted_on']][$fees_names['name']]=0;
+			}
+
+			// echo "<pre>";
+			// print_r($result_array[$data['submitted_on']]['row_total']);
+			// echo "</pre>";
 
 			if(!in_array($fees['name'], $columns_added)){
 				$grid->addColumn('text',$fees['name']);
@@ -65,14 +81,21 @@ class View_FeesReport extends View {
 									->sum('amount')
 									->where('submitted_on',$data['submitted_on'])
 									->where('by_consession',1)
-									->getOne()
+									->getOne(),
 					);
+				
+				$result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$result_array[$data['submitted_on']]['consession']);
 				$consession_stored_4_date[] = $data['submitted_on'];
 			}
 
 		}
 		$grid->addColumn('text','consession');
+		$grid->addColumn('text','row_total');
 		$grid->setSource($result_array);
+                
+                // echo "<pre>";
+                //     print_r($result_array);
+                // echo "</pre>";
 		
 		$js=array(
 			$this->js()->_selector('#header')->toggle(),

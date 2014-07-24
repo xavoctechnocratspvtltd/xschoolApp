@@ -289,7 +289,7 @@ class Controller_Data_Array extends Controller_Data{
     }
     function next($model){
         $t =& $model->_table[$this->short_name.'__options']['cursor'];
-        
+        unset($model->data);
         list($model->id,$model->data) = each($t);
         
         if ($this->limited) {
