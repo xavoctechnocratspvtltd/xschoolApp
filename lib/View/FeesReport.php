@@ -40,7 +40,6 @@ class View_FeesReport extends View {
 		$columns_added=array();
 		$consession_stored_4_date=array();
 
-		$fees_used_on_date=array();
 
 
 		$grid->addColumn('text','date');
@@ -69,7 +68,7 @@ class View_FeesReport extends View {
 			// echo "</pre>";
 
 			if(!in_array($fees['name'], $columns_added)){
-				$grid->addColumn('text',$fees['name']);
+				$grid->addColumn('money',$fees['name']);
 				$columns_added[] = $fees['name'];
 			}
 
@@ -89,8 +88,22 @@ class View_FeesReport extends View {
 			}
 
 		}
+
+		$fees_totals=array();
+		foreach ($result_array as $date => $row) {
+			foreach ($row as $key => $value) {
+				if($key=='date') continue;
+				if(!isset($fees_totals[$key])) $fees_totals[$key]=0;
+
+				$fees_totals[$key] += $value;
+			}
+		}
+		$fees_totals['date']='Total';
+
+		$result_array['totals'] = $fees_totals;
+
 		$grid->addColumn('text','consession');
-		$grid->addColumn('text','row_total');
+		$grid->addColumn('money','row_total');
 		$grid->setSource($result_array);
                 
                 // echo "<pre>";
