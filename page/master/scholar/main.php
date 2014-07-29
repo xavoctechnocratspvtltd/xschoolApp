@@ -71,6 +71,7 @@ class page_master_scholar_main extends Page {
 
 		if($g=$crud->grid){
 			$g->addPaginator(10);
+			$g->add('misc/Export');
 			$g->addQuickSearch(array('name','address','phone_no','scholar_no','father_name','cast','category'));
 
 		}
