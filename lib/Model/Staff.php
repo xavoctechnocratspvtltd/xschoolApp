@@ -7,8 +7,8 @@ class Model_Staff extends Model_Table{
 
 		$this->hasOne('Branch','branch_id')->mandatory(true);
 		$this->addField('name')->mandatory(true);
-		$this->addField('username')->mandatory(true);
-		$this->addField('password')->type('password')->mandatory(true);
+		$this->addField('username');
+		$this->addField('password')->type('password');
 		$this->addField('fname')->caption('Father / Husband Name')->mandatory(true);
 		$this->addField('is_application_user')->type('boolean')->defaultValue(false);
 		$this->addField('dob')->type('date');
