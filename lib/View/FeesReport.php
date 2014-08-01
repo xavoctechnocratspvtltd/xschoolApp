@@ -2,6 +2,7 @@
 class View_FeesReport extends View {
 	public $from_date=null;
 	public $to_date=null;
+	public $branch_id=null;
 
 	function init(){
 		parent::init();
@@ -10,12 +11,24 @@ class View_FeesReport extends View {
 			$this->from_date = date('Y-m-01',strtotime($this->api->today));
 		if(!$this->to_date)
 			$this->to_date = date('Y-m-t',strtotime($this->api->today));
+		
 
 		$fees_transaction  = $this->add('Model_FeesTransaction');
 		$fees_transaction->addCondition('submitted_on','>=',$this->from_date);
 		$fees_transaction->addCondition('submitted_on','<',$this->api->nextDate($this->to_date));
+		
+		$student_join = $fees_transaction->join('students','student_id',null,'_st');
+		$class_join = $student_join->join('classes','class_id');
+		$class_join->addField('b_id','branch_id');
+
 		$student_applied_fees_join = $fees_transaction->join('student_fees_applied','student_applied_fees_id');
 		$student_applied_fees_join->addField('fees_id');
+
+		if($this->branch_id){
+			$fees_transaction->addCondition('b_id',$this->branch_id);
+		}
+
+
 		// $fees_join = $student_applied_fees_join->join('fees','fees_id');
 
 		$fees_transaction->_dsql()->del('fields')
@@ -43,8 +56,8 @@ class View_FeesReport extends View {
 
 
 		$grid->addColumn('text','date');
-		$fees = $this->add('Model_Fees');
 
+			$fees = $this->add('Model_Fees');
 		
 		foreach ($fees_transaction->_dsql()->get() as $data) {
 
