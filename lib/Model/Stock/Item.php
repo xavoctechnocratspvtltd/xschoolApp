@@ -53,7 +53,7 @@ Class Model_Stock_Item extends Model_Table{
 	function inward($supplier,$qty,$rate,$date,$remark,$session=null){
 
 		$transaction=$this->add('Model_Stock_Transaction');
-		$transaction->inward($this,$supplier,$rate,$qty,$date,$remark,$session,$type);
+		$transaction->inward($this,$supplier,$rate,$qty,$date,$remark,$session);
 
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
 
-class Model_Session extends \Model_Table{
+class Model_Session extends Model_Table{
 public $table="sessions";
 	function init(){
 		parent::init();
@@ -17,6 +17,8 @@ public $table="sessions";
         $this->hasMany('SubjectInAClass','session_id');
         $this->hasMany('FeesInAClass','session_id'); 
 		$this->hasMany('ExamInAClass','session_id');       
+		$this->hasMany('Staff_Attendance','session_id');       
+		$this->hasMany('Student_Attendance','session_id');       
 
         $this->addHook('beforeDelete',$this);
         // $this->add('dynamic_model/Controller_AutoCreator');       

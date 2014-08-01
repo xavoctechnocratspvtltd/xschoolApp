@@ -9,8 +9,16 @@ class Model_Staff extends Model_Table{
 		$this->addField('name')->mandatory(true);
 		$this->addField('username')->mandatory(true);
 		$this->addField('password')->type('password')->mandatory(true);
+		$this->addField('fname')->caption('Father / Husband Name')->mandatory(true);
 		$this->addField('is_application_user')->type('boolean')->defaultValue(false);
+		$this->addField('dob')->type('date');
+		$this->addField('ph_no');
+		$this->addField('mobile_no');
+		$this->addField('address')->type('text');
+		$this->addField('email');
+		$this->addField('code');
 		$this->hasMany('Library_transaction','staff_id');
+		$this->hasMany('Staff_Attendance','staff_id');
 		 $this->add('dynamic_model/Controller_AutoCreator');
 
 
