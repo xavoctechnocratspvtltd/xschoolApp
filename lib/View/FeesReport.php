@@ -95,7 +95,7 @@ class View_FeesReport extends View {
 									->getOne(),
 					);
 				
-				$result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$result_array[$data['submitted_on']]['consession']);
+				// $result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$result_array[$data['submitted_on']]['consession']);
 				$consession_stored_4_date[] = $data['submitted_on'];
 			}
 
