@@ -33,6 +33,14 @@ class Model_Staff extends Model_Table{
 		$this['username']=$username;
 		$this['password']=$password;
 		$this['branch_id']=$other_fields['branch_id'];
+		$this['fname']=$other_fields['fname'];
+		$this['dob']=$other_fields['dob'];
+		$this['ph_no']=$other_fields['ph_no'];
+		$this['mobile_no']=$other_fields['mobile_no'];
+		$this['address']=$other_fields['address'];
+		$this['email']=$other_fields['email'];
+		$this['code']=$other_fields['code'];
+		
 		$this->save();
 			
 	}
