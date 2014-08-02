@@ -11,6 +11,7 @@ class page_reports_fees extends Page {
 		$branch_field->setModel('Branch');
 		$form->addSubmit('Get List');
 
+		
 		$v=$this->add('View_FeesReport',array('from_date'=>$_GET['from_date'],'to_date'=>$_GET['to_date'],'branch_id'=>$_GET['branch']));
 
 		if($form->isSubmitted()){

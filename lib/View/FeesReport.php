@@ -1,11 +1,10 @@
 <?php
 class View_FeesReport extends View {
-	public $from_date=null;
-	public $to_date=null;
-	public $branch_id=null;
+	public $from_date;
+	public $to_date;
+	public $branch_id;
 
-	function init(){
-		parent::init();
+	function recursiveRender(){
 
 		if(!$this->from_date)
 			$this->from_date = date('Y-m-01',strtotime($this->api->today));
@@ -17,15 +16,15 @@ class View_FeesReport extends View {
 		$fees_transaction->addCondition('submitted_on','>=',$this->from_date);
 		$fees_transaction->addCondition('submitted_on','<',$this->api->nextDate($this->to_date));
 		
-		$student_join = $fees_transaction->join('students','student_id',null,'_st');
-		$class_join = $student_join->join('classes','class_id');
-		$class_join->addField('b_id','branch_id');
+		// $student_join = $fees_transaction->leftJoin('students','student_id',null,'_st');
+		// $class_join = $student_join->leftJoin('classes','class_id');
+		// $class_join->addField('b_id','branch_id');
 
-		$student_applied_fees_join = $fees_transaction->join('student_fees_applied','student_applied_fees_id');
+		$student_applied_fees_join = $fees_transaction->leftJoin('student_fees_applied','student_applied_fees_id');
 		$student_applied_fees_join->addField('fees_id');
 
 		if($this->branch_id){
-			$fees_transaction->addCondition('b_id',$this->branch_id);
+			$fees_transaction->addCondition('branch_id',$this->branch_id);
 		}
 
 
@@ -134,6 +133,7 @@ class View_FeesReport extends View {
 		// echo "<pre>";
 		// print_r($result_array);
 		// echo "</pre>";
+		parent::recursiveRender();
 
 	}
 }
