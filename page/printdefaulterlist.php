@@ -31,7 +31,7 @@ class page_printdefaulterlist extends Page {
 		$grid=$this->add('Grid');
 
 
-		$grid->setModel($student_model->debug());
+		$grid->setModel($student_model);
 		// $grid->addMethod('format_due',function($g,$f){
 		// 	$g->current_row[$f]=$g->current_row['applied_fees_sum_till_date']-$g->current_row['paid_fees_sum_till_date'];
 		// });

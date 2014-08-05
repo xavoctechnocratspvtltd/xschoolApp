@@ -22,7 +22,7 @@ class Model_SubjectInExamClass extends Model_Table {
 		$marks->addCondition('class_id',$this['class_id']);
 		$marks->addCondition('session_id',$this->api->currentSession->id);
 		
-		if($marks->sum('marks')->debug()->getOne()>0)
+		if($marks->sum('marks')->getOne()>0)
 			$this->api->js()->univ()->errorMessage('First remove marks assign to student')->execute();		
 		
 	}
