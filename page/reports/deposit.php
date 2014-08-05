@@ -45,6 +45,8 @@ class page_reports_deposit extends Page {
 
 				$receipt->addCondition('month',$_GET['month']);
 			}
+		}else{
+			$receipt->addCondition('id',-1);
 		}
 		$grid->setModel($receipt,array('created_at','scholar_no','student','amount','Narration'));
 
