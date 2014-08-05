@@ -35,7 +35,6 @@ class page_reports_deposit extends Page {
 	 	$receipt->addExpression('full_name')->set('(CONCAT('.$s_c_j->table_alias.'.name, " - ", '.$s_c_j->table_alias.'.section))');
 	 	$receipt->addExpression('month')->set('(MONTH(created_at))');
 
-
 		if($_GET['filter']){
 			if($_GET['class']){
 				$class=$this->add('Model_Class')->load($_GET['class']);
@@ -48,6 +47,8 @@ class page_reports_deposit extends Page {
 		}else{
 			$receipt->addCondition('id',-1);
 		}
+
+
 		$grid->setModel($receipt,array('created_at','scholar_no','student','amount','Narration'));
 
 
@@ -57,5 +58,14 @@ class page_reports_deposit extends Page {
 		if($form->isSubmitted()){
 			$grid->js()->reload(array('class'=>$form['class'],'month'=>$form['month'],'filter'=>1))->execute();
 		}
+
+		$js=array(
+			$this->js()->_selector('#header')->toggle(),
+			$this->js()->_selector('#footer')->toggle(),
+			$this->js()->_selector('ul.ui-tabs-nav')->toggle(),
+			$this->js()->_selector('.atk-form')->toggle(),
+			);
+
+		$grid->js('click',$js);
 	}
 }
