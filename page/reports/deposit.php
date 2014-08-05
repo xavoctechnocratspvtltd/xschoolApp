@@ -29,16 +29,23 @@ class page_reports_deposit extends Page {
 		$receipt=$this->add('Model_FeesReceipt');
 
 		$s_j=$receipt->join('students','student_id');
+		$s_s_j=$s_j->join('scholars','scholar_id');
+		$s_s_j->addField('scholar_no');
 		$s_c_j=$s_j->join('classes','class_id');
-		$s_c_j->addField('class_name','name');
+	 	$receipt->addExpression('full_name')->set('(CONCAT('.$s_c_j->table_alias.'.name, " - ", '.$s_c_j->table_alias.'.section))');
+
 
 		if($_GET['filter']){
 			if($_GET['class']){
 				$class=$this->add('Model_Class')->load($_GET['class']);
-				$receipt->addCondition('class_name',$class['full_name']);
+				$receipt->addCondition('full_name',$class['full_name']);
+			}
+			if($_GET['month']){
+				$month=date("n",strtotime($receipt['created_at']));
+				$receipt->addCondition($month,$_GET['month']);
 			}
 		}
-		$grid->setModel($receipt);
+		$grid->setModel($receipt,array('created_at','scholar_no','student','amount','Narration'));
 
 
 
