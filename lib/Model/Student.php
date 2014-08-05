@@ -231,7 +231,7 @@ public $table="students";
 		if($this->hasFeesApplied($fees)){
 			$fees_for_this_student = $this->appliedFees($fees);
 			foreach ($fees_for_this_student as $junk) {
-				$fees_for_this_student->delete();
+				$fees_for_this_student->deleteForced();
 			}
 		}
 

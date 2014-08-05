@@ -58,7 +58,7 @@ class View_FeesReport extends View {
 
 			$fees = $this->add('Model_Fees');
 		
-		foreach ($fees_transaction->_dsql()->get() as $data) {
+		foreach ($fees_transaction->debug()->_dsql()->get() as $data) {
 
 			$fees->unload();
 			$fees->load($data['fees_id']);
