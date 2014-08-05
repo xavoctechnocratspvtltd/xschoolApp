@@ -116,6 +116,7 @@ class View_FeesReport extends View {
 
 		$grid->addColumn('text','consession');
 		$grid->addColumn('money','row_total');
+		$grid->setStyle('font-size','15px');
 		$grid->setSource($result_array);
                 
                 // echo "<pre>";
