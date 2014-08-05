@@ -59,6 +59,8 @@ class page_reports_deposit extends Page {
 			$grid->js()->reload(array('class'=>$form['class'],'month'=>$form['month'],'filter'=>1))->execute();
 		}
 
+		$grid->setStyle('font-size','15px');
+
 		$js=array(
 			$this->js()->_selector('#header')->toggle(),
 			$this->js()->_selector('#footer')->toggle(),
