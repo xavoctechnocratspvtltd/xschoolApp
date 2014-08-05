@@ -33,6 +33,7 @@ class page_reports_deposit extends Page {
 		$s_s_j->addField('scholar_no');
 		$s_c_j=$s_j->join('classes','class_id');
 	 	$receipt->addExpression('full_name')->set('(CONCAT('.$s_c_j->table_alias.'.name, " - ", '.$s_c_j->table_alias.'.section))');
+	 	$receipt->addExpression('month')->set('(MONTH(created_at))');
 
 
 		if($_GET['filter']){
@@ -41,8 +42,8 @@ class page_reports_deposit extends Page {
 				$receipt->addCondition('full_name',$class['full_name']);
 			}
 			if($_GET['month']){
-				$month=date("n",strtotime($receipt['created_at']));
-				$receipt->addCondition($month,$_GET['month']);
+
+				$receipt->addCondition('month',$_GET['month']);
 			}
 		}
 		$grid->setModel($receipt,array('created_at','scholar_no','student','amount','Narration'));
