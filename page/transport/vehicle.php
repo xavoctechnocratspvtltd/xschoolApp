@@ -5,7 +5,7 @@ class page_transport_vehicle extends Page{
 		parent::init();
 
 		$crud=$this->add('xCRUD');
-		$vehicle=$this->add('Model_Vehicle');//$this->api->currentBranch->classes();
+		$vehicle=$this->api->currentBranch->vehicle();
 
 
 		$crud->addHook('myupdate',function($crud,$form){

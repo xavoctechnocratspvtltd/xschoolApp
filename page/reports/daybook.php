@@ -27,7 +27,7 @@ class page_reports_daybook extends Page {
 		}
 		
 
-		$grid->setModel($day_transactions->debug());
+		$grid->setModel($day_transactions);
 		$grid->addColumn('money','income');
 		$grid->addColumn('money','expense');
 		$grid->removeColumn('amount');

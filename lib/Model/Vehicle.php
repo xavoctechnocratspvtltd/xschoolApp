@@ -6,6 +6,7 @@ class Model_Vehicle extends Model_Table{
 		parent::init();
 
 		$this->hasOne('Vehicle_Type','vehicle_type_id');
+		$this->hasOne('Branch','branch_id');
 		$this->addField('code')->caption('Vehicle Number');
 		$this->addField('capcity');
 		$this->addField('driver_name');
@@ -20,17 +21,19 @@ class Model_Vehicle extends Model_Table{
 
 
 
-		// $this->add('dynamic_model/Controller_AutoCreator');
+		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
-	function createNew($name,$capcity,$driver_name,$driver_number){
+	function createNew($name,$capcity,$driver_name,$driver_number,$branch=null){
 		if($this->loaded())
 			throw $this->exception("You can not use loaded Model");
-			
+		if(!$branch)
+			$branch=$this->api->currentBranch;
 		$this['name']=$name;
 		$this['capcity']=$capcity;
 		$this['driver_name']=$driver_name;
 		$this['driver_number']=$driver_number;
+		$this['branch_id']=$branch->id;
 		$this->save();
 
 		return true;
@@ -42,5 +45,10 @@ class Model_Vehicle extends Model_Table{
 
 	function type(){
 		return $this->ref('vehicle_type_id');
+	}
+
+	function filterByBranch($branch){
+		$this->addCondition('branch_id',$branch->id);
+		return $this;
 	}
 }

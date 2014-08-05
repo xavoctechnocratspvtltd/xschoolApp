@@ -19,6 +19,7 @@ public $table="branches";
 		$this->hasMany('Library_Subjects','branch_id');
 		$this->hasMany('PaymentTransaction','branch_id');
 		$this->hasMany('Stock_Transaction','branch_id');
+		$this->hasMany('Vehicle','vehicle_id');
 
 		$this->addHook('beforeDelete',$this);
 
@@ -79,6 +80,16 @@ public $table="branches";
 		$classes->filterByBranch($this);
 
 		return $classes;
+	}
+
+	function vehicle(){
+		if(!$this->loaded())
+			throw $this->exception('Branch must be loaded before getting Classes');
+
+		$vehicle = $this->add('Model_Vehicle');
+		$vehicle->filterByBranch($this);
+
+		return $vehicle;
 	}
 
 
