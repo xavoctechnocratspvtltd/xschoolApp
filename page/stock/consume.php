@@ -13,7 +13,9 @@ class page_stock_consume extends Page{
 
 		$form=$col1->add('Form');
 		$item_field=$form->addField('Dropdown','item')->setEmptyText('Please Select')->validateNotNull();
+		$staff_field=$form->addField('Dropdown','staff')->setEmptyText('Please Select');
 		$item_field->setModel('Stock_Item');
+		$staff_field->setModel($this->api->currentBranch->staffs());
 
 		$form->addField('line','qty')->validateNotNull();
 
@@ -42,8 +44,8 @@ class page_stock_consume extends Page{
 			
 			if($item->isAvailable($form['qty']))
 				$form->displayError('qty','That Much Item is not available in stock');
-
-			$item->consume($form['qty']);
+			$staff=$this->add('Model_Staff')->load($form['staff']);
+			$item->consume($form['qty'],$staff);
 
 			$form->js(null,array($grid->js()->reload(),$grid->js()->univ()->successMessage('Item Consume Successfully')))->reload()->execute();
 

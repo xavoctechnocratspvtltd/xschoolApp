@@ -13,6 +13,7 @@ class Model_Library_Item extends Model_Table{
 		$this->addField('book_no');
 		$this->addField('publishe_year');
 		$this->addField('publisher');
+		$this->addField('class_no');
 		$this->addField('author');
 		$this->addField('no_of_pages')->type('int');
 		$this->addField('edition');

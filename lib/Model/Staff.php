@@ -60,4 +60,34 @@ class Model_Staff extends Model_Table{
 	}
 
 
+	function issuedQty($item,$on_date=null){
+
+		$transaction_stock_issue=$this->add('Model_Stock_Transaction');
+		$transaction_stock_issue->addCondition('item_id',$item->id);
+		$transaction_stock_issue->addCondition('staff_id',$this->id);
+		$transaction_stock_issue->addCondition('created_at','<',$this->api->nextDate($on_date));
+		$transaction_stock_issue->addCondition('type','Issue');
+		$transaction_stock_issue_qty=$transaction_stock_issue->sum('qty')->getOne();
+		// throw new Exception($transaction_stock_issue_qty);
+		
+		return $transaction_stock_issue_qty?:0;
+
+	}
+
+
+	function submittedQty($item,$on_date=null){
+
+		$transaction_stock_submit=$this->add('Model_Stock_Transaction');
+		$transaction_stock_submit->addCondition('staff_id',$this->id);
+		$transaction_stock_submit->addCondition('item_id',$item->id);
+		$transaction_stock_submit->addCondition('created_at','<',$this->api->nextDate($on_date));
+		$transaction_stock_submit->addCondition('type','Submit');
+		$transaction_stock_submit_qty=$transaction_stock_submit->sum('qty')->getOne();
+		// throw new Exception($transaction_stock_submit_qty);
+		 
+		return $transaction_stock_submit_qty?:0;
+
+	}
+
+
 }

@@ -32,6 +32,9 @@ class page_stock_inward extends Page{
 
 		}
 		$inward_model->addCondition('type','Inward');
+
+		$inward_model->getElement('issue_date')->system(true);
+		$inward_model->getElement('submit_date')->system(true);
 		$grid->setModel($inward_model);
 
 		$grid->addColumn('button','remove');

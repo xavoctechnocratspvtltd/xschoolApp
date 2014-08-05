@@ -7,6 +7,8 @@ Class Model_Stock_Item extends Model_Table{
 
 		$this->hasOne('Stock_Category','category_id');
 		$this->addField('name');
+		$this->addField('is_issued')->type('boolean')->defaultValue(0);
+		$this->addField('is_consumeable')->type('boolean')->defaultValue(0);
 		$this->hasMany('Stock_Transaction','item_id');
 
 		$this->addExpression('total_inward')->set(function($m,$q){
@@ -16,6 +18,14 @@ Class Model_Stock_Item extends Model_Table{
 		$this->addExpression('total_consume')->set(function($m,$q){
 			return $m->refSQL('Stock_Transaction')->addCondition('type','Consume')->sum('qty');
 		});
+
+		// $this->addExpression('total_issued')->set(function($m,$q){
+		// 	return $m->refSQL('Stock_Transaction')->addCondition('type','Issue')->sum('qty');
+		// });
+
+		// $this->addExpression('total_submit')->set(function($m,$q){
+		// 	return $m->refSQL('Stock_Transaction')->addCondition('type','Submit')->sum('qty');
+		// });
 
 		$this->add('dynamic_model/Controller_AutoCreator');
 
@@ -57,18 +67,85 @@ Class Model_Stock_Item extends Model_Table{
 
 	}
 
-	function consume($qty){
+	function consume($qty,$staff){
 
 		$transaction=$this->add('Model_Stock_Transaction');
-		$transaction->consume($this,$qty);
+		$transaction->consume($this,$qty,$staff);
 
 	}
+
+	function issue($staff,$item,$qty,$narration,$branch=null,$session=null){
+
+		$transaction=$this->add('Model_Stock_Transaction');
+		$transaction->issue($staff,$this,$qty,$narration);
+
+	}
+
+	function submit($staff,$item,$qty,$narration,$branch=null,$session=null){
+
+		$transaction=$this->add('Model_Stock_Transaction');
+		$transaction->submit($staff,$this,$qty,$narration);
+
+	}
+
+	function getQty($as_on=null){
+		if(!$as_on) $as_on = $this->api->now;
+
+		$inward_tra = $this->add('Model_Stock_Transaction');
+		$inward_tra->addCondition('item_id',$this->id);
+		$inward_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
+		$inward_tra->addCondition('type','Inward');
+		$inward_tra_qty = ($inward_tra->sum('qty')->getOne())?:0;
+
+		$consume_tra = $this->add('Model_Stock_Transaction');
+		$consume_tra->addCondition('item_id',$this->id);
+		$consume_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
+		$consume_tra->addCondition('type','Consume');
+		$consume_tra_qty = ($consume_tra->sum('qty')->getOne())?:0;
+
+
+		$issue_tra = $this->add('Model_Stock_Transaction');
+		$issue_tra->addCondition('item_id',$this->id);
+		$issue_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
+		$issue_tra->addCondition('type','Issue');
+		$issue_tra_qty = ($issue_tra->sum('qty')->getOne())?:0;
+
+		$submit_tra = $this->add('Model_Stock_Transaction');
+		$submit_tra->addCondition('item_id',$this->id);
+		$submit_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
+		$submit_tra->addCondition('type','Submit');
+		$submit_tra_qty = ($submit_tra->sum('qty')->getOne())?:0;
+
+		return (($inward_tra_qty+$submit_tra_qty)-($consume_tra_qty+$issue_tra_qty));
+	}
+
+
 
 	function isAvailable($qty){
 		if(!$this->loaded())
 			throw $this->exception("Unable to determine the item");
 		$transaction=$this->add('Model_Stock_Transaction');
 		$transaction->isAvailable($this,$qty);			
+	}
+
+
+	function markIssued(){
+		$this['is_issued']=true;
+		$this->save();
+	}
+
+	function markSubmit(){
+		$this['is_issued']=false;
+		$this->save();
+	}
+
+	function canSubmit($from_staff,$qty,$on_date=null){
+		if(!$on_date) $on_date= $this->api->today;
+
+		return (($from_staff->issuedQty($this,$on_date)-$from_staff->submittedQty($this,$on_date)) >= $qty);
+
+		
+		
 	}
 	
 }
