@@ -34,7 +34,7 @@ class page_reports_deposit extends Page {
 		$s_c_j=$s_j->join('classes','class_id');
 	 	$receipt->addExpression('full_name')->set('(CONCAT('.$s_c_j->table_alias.'.name, " - ", '.$s_c_j->table_alias.'.section))');
 	 	$receipt->addExpression('month')->set('(MONTH(created_at))');
-
+	 	
 		if($_GET['filter']){
 			if($_GET['class']){
 				$class=$this->add('Model_Class')->load($_GET['class']);
@@ -49,6 +49,9 @@ class page_reports_deposit extends Page {
 		}
 
 
+		$receipt->setOrder('created_at');
+
+		$grid->add('H3',null,'top_1')->setHTML('Class ' . $class['full_name']);
 		$grid->setModel($receipt,array('created_at','scholar_no','student','amount','Narration'));
 
 
