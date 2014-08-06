@@ -14,10 +14,10 @@ class View_Student_Issue extends View {
 		$class_model=$this->api->currentBranch->classes();
 		$class_model->title_field='full_name';
 
-		$class_field=$issue_form->addField('dropdown','class')->setEmtyText('Please Select')->validateNotNull();
+		$class_field=$issue_form->addField('dropdown','class')->setEmptyText('Please Select')->validateNotNull();
 		$class_field->setModel($class_model);
 
-		$student_field=$issue_form->addField('dropdown','students')->setEmtyText('Please Select')->validateNotNull();
+		$student_field=$issue_form->addField('dropdown','students')->setEmptyText('Please Select')->validateNotNull();
 
 		if($_GET['class'])
 			$student_model->addCondition('class_id',$_GET['class']);

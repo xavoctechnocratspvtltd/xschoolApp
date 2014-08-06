@@ -24,12 +24,21 @@ class page_reports_scholarlist extends Page{
 			return $student_m->_dsql()->del('fields')->field($student_m->dsql()->expr('name'));
 		});
 
+		$scholar_model->addExpression('class')->set(function($m,$q){
+			$student_m = $m->add('Model_Student',array('table_alias'=>'cc'));
+			$class_join = $student_m->join('classes','class_id');
+			$student_m->addCondition('scholar_id',$q->getField('id'));
+			$student_m->addCondition('session_id',$m->api->currentSession->id);
+
+			return $student_m->_dsql()->del('fields')->field($student_m->dsql()->expr('name'));
+		});
+		
 		$grid=$this->add('Grid');
 		if($_GET['class']){
 			$class->load($_GET['class']);
 			$scholar_model->addCondition('class',$class['name']);
 		}
-		$grid->setModel($scholar_model);
+		$grid->setModel($scholar_model,array('name','father_name','mother_name','blood_group','dob','phone_no','address','admission_date','leaving_date','scholar_no','gender','category','class'));
 
 		$grid->addPaginator(50);
 		$grid->add('misc/Export');
