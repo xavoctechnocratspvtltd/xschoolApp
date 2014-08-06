@@ -3,6 +3,8 @@ class View_Student_Issue extends View {
 	function init(){
 		parent::init();
 
+		$this->api->stickyGET('class');
+		$this->api->stickyGET('students');
 		$this->add('H3')->set('Issue Library Items');
 
 		$student_model=$this->add('Model_Student');
@@ -19,10 +21,13 @@ class View_Student_Issue extends View {
 
 		$student_field=$issue_form->addField('dropdown','students')->setEmptyText('Please Select')->validateNotNull();
 
-		if($_GET['class'])
-			$student_model->addCondition('class_id',$_GET['class']);
-		else
+		if($_REQUEST[$class_field->name]){
+			$this->api->stickyGET($_GET[$class_field->name]);
+			$student_model->addCondition('class_id',$_REQUEST[$class_field->name]);
+		}
+		else{			
 			$student_model->addCondition('id',-1);
+		}
 		$student_field->setModel($student_model);
 
 		
@@ -30,7 +35,7 @@ class View_Student_Issue extends View {
 		$item_field=$issue_form->addField('autocomplete/Basic','item','Book / Issue Item')->validateNotNull();
 		$item_field->setModel($item_model);
 
-		$class_field->js('change',$issue_form->js()->atk4_form('reloadField','students',array($this->api->url(),'class'=>$class_field->js()->val())));
+		$class_field->js('change',$issue_form->js()->atk4_form('reloadField','students',array($this->api->url(),$class_field->name=>$class_field->js()->val())));
 		
 		$issue_form->addSubmit('Issue');
 

@@ -8,10 +8,10 @@ class Model_FeesReceipt extends Model_Table {
 		$this->hasOne('Branch','branch_id');
 		$this->hasOne('Student','student_id');
 		$this->addField('name')->caption('Receipt No');
-		$this->addExpression('amount')->set(function($m,$q){
+		$this->addExpression('tr_amount')->set(function($m,$q){
 			return $m->refSQL('FeesTransaction')->sum('amount');
 		})->type('money');
-		// $this->addField('amount')->type('money');
+		$this->addField('amount')->type('money');
 		$this->addField('months')->type('text');
 		$this->addField('mode')->enum(array('Cash','Cheque'));
 		$this->addField('narration');
