@@ -18,6 +18,8 @@ class page_reports_marks extends Page {
 			$columns += array_keys($junk);
 		}
 
+
+
 		array_multisort($columns);
 		// echo "<pre>";
 		// print_r($result);
@@ -31,6 +33,7 @@ class page_reports_marks extends Page {
 		}
 
 		$grid->removeColumn('title');
-
+		// $grid->getElement('student_name')->add('Order')->move('first')->now();
+		$grid->add('Order')->move('student_name','first')->now();
 	}
 }

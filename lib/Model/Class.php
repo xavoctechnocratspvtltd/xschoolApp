@@ -471,6 +471,9 @@ public $table="classes";
 
 			$total = $result_grouped[$junk['student_id']][$junk['title'] .' total'] += $junk['sum_marks'];
 			$max = $max_marks_model->getMaxMarks($junk['subject_id'],$junk['exam_id'],$junk['term_id'],$this->id);
+
+				
+				
 			// echo '<pre>';
 			// print_r($junk);
 			// echo '</pre>';

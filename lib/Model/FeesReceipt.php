@@ -8,7 +8,10 @@ class Model_FeesReceipt extends Model_Table {
 		$this->hasOne('Branch','branch_id');
 		$this->hasOne('Student','student_id');
 		$this->addField('name')->caption('Receipt No');
-		$this->addField('amount')->type('money');
+		$this->addExpression('amount')->set(function($m,$q){
+			return $m->refSQL('FeesTransaction')->sum('amount');
+		})->type('money');
+		// $this->addField('amount')->type('money');
 		$this->addField('months')->type('text');
 		$this->addField('mode')->enum(array('Cash','Cheque'));
 		$this->addField('narration');
@@ -25,7 +28,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
-		$this['amount']=$amount+$late_fees;
+		// $this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
 		$this['mode']=$mode;
 		$this['narration']=$narration;
 		$this->save();
@@ -35,7 +38,7 @@ class Model_FeesReceipt extends Model_Table {
 			$fees= $this->add('Model_Fees');
 			$late_fees_applied = $this->add('Model_StudentAppliedFees');
 			$late_fees_applied->addRow($student,$fees->loadLateFees(),$late_fees,$this->api->today);
-			// and pay the full amount immediately
+			// and pay the full amount immediately in the same receipt
 			$late_fees_applied->pay($late_fees,$this);
 		}
 
