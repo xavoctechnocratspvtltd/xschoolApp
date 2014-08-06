@@ -90,7 +90,7 @@ class Frontend extends ApiFrontend {
         // If you are using a complex menu, you can re-define
         // it and place in a separate class
         $this->add('Menu',null,'Menu')
-            ->addMenuItem('index','Welcome')
+            // ->addMenuItem('index','Welcome')
             ->addMenuItem('master','Masters')
             ->addMenuItem('master_student_main','Student Management')
             ->addMenuItem('fees_main','Fees Management')
@@ -101,6 +101,7 @@ class Frontend extends ApiFrontend {
             ->addMenuItem('exam_main','Exam Management ')
             ->addMenuItem('reports_main','Reports ')
             ->addMenuItem('stock_main','Stock ')
+            ->addMenuItem('sms_main','SMS ')
             ->addMenuItem('logout')
             ;
 
