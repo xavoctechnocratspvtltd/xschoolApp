@@ -35,6 +35,7 @@ class Model_FeesTransaction extends Model_Table {
 
 	function deleteForced(){
 		$my_receipt_id=$this['fees_receipt_id'];
+		$my_amount = $this['amount'];
 
 		$this->delete();
 
@@ -42,7 +43,14 @@ class Model_FeesTransaction extends Model_Table {
 		$fees_receipt=$this->add('Model_FeesReceipt');
 		$fees_receipt->load($my_receipt_id);
 
-		if($fees_receipt->ref('FeesTransaction')->count()->getOne() == 0)
+		if($fees_receipt->ref('FeesTransaction')->count()->getOne() == 0){
+			// Last fee transaction is just deleted .. no receipt required now
 			$fees_receipt->delete();
+		}
+		else{
+			// Subtract the amount from fee receipt
+			$fees_receipt['amount'] = $fees_receipt['amount'] - $my_amount;
+			$fees_receipt->save();
+		}
 	}
 }

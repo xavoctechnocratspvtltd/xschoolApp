@@ -27,7 +27,7 @@ class Export_Basic extends \AbstractController {
                 foreach ($keys as $key){
                     try {
                         if ($o=$m->getField($key)){
-                            $captions[$key] = $o->caption()?:$key;
+                            $captions[$key] = is_object($o)?$o->caption()?:$key:$key;
                         } else {
                             $captions[$key] = $key;
                         }

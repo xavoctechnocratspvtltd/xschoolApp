@@ -9,7 +9,9 @@ class page_correction extends Page {
 		$fees_recept=$this->add('Model_FeesReceipt');
 		$fees_recept->_dsql()->having('amount','<>',$fees_recept->dsql()->expr('tr_amount'));
 
-		$grid->setModel($fees_recept->debug());
+		$grid->setModel($fees_recept);
+
+		$grid->add('misc/Export');
 
 		// $grid->addColumn('button','adjust_amount');
 		// $grid->addColumn('button','adjust_transaction_amount');
