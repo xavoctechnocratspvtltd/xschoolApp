@@ -13,7 +13,7 @@ class page_reports_scholarlist extends Page{
 		$form->addSubmit('GET LIST');
 
 		$student_model=$this->add('Model_Student');
-		$scholar_model=$student_model->join('scholars','scholar_id');
+		$scholar_model=$student_model->Leftjoin('scholars','scholar_id');
 		$scholar_model->addField('father_name');
 		$scholar_model->addField('mother_name');
 		$scholar_model->addField('blood_group');
@@ -27,17 +27,22 @@ class page_reports_scholarlist extends Page{
 
 		
 		$grid=$this->add('Grid');
-		if($_GET['class']){
-			$class->load($_GET['class']);
+		if($_REQUEST[$class_field->name]){
+			$this->api->stickyGET($class_field->name);
+			$class->load($_REQUEST[$class_field->name]);
 			$student_model->addCondition('class',$class['full_name']);
 		}
-		$grid->setModel($student_model);
+		else {
+			# code...
+			// $student_model->addCondition('id',-1);
+		}
+		$grid->setModel($student_model,array('name','class','father_name','mother_name','phone_no','address','category','admission_date','leaving_date'));
 
 		$grid->addPaginator(50);
 		$grid->add('misc/Export');
 
 		if($form->isSubmitted()){
-			$grid->js()->reload(array('class'=>$form['class']))->execute();
+			$grid->js()->reload(array($class_field->name=>$form['class']))->execute();
 
 		}
 
