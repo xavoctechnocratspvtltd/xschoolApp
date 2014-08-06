@@ -9,7 +9,7 @@ class Model_Library_Item extends Model_Table{
 		$this->hasOne('Library_Title','title_id');
 		$this->hasOne('Branch','branch_id');
 		
-		$this->addField('name')->mandatory(false)->display(array('grid'=>'grid/inline'));
+		$this->addField('name')->mandatory(false)->display(array('grid'=>'grid/inline'))->caption('Accession No');
 		$this->addField('book_no');
 		$this->addField('publishe_year');
 		$this->addField('publisher');
