@@ -427,6 +427,7 @@ public $table="classes";
 							->field('sum(marks) sum_marks');
 			$marks_obtained->_dsql()->group('student_id,term_id, `subject_id`');
 			$marks_obtained->setOrder('subject');
+			$marks_obtained->setOrder('student');
 		}else{
 			$exam_join=$marks_obtained->join('exams','exam_id');
 			$term_join=$exam_join->join('terms','term_id');
@@ -448,6 +449,7 @@ public $table="classes";
 			$marks_obtained->_dsql()->where($exam_join->table_alias.'.term_id',$term->id);
 			$marks_obtained->_dsql()->group('student_id, '.$exam_join->table_alias.'.name, `subject_id`');
 			$marks_obtained->setOrder('subject ');
+			$marks_obtained->setOrder('student ');
 		}
 
 		$result_grouped=array();
@@ -472,7 +474,7 @@ public $table="classes";
 			$total = $result_grouped[$junk['student_id']][$junk['title'] .' total'] += $junk['sum_marks'];
 			$max = $max_marks_model->getMaxMarks($junk['subject_id'],$junk['exam_id'],$junk['term_id'],$this->id);
 
-				
+
 				
 			// echo '<pre>';
 			// print_r($junk);
