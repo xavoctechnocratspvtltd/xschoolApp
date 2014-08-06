@@ -10,6 +10,7 @@ class View_Staff_Issue extends View {
 
 		$item_model=$this->api->currentBranch->library_items();
 		$item_model->addCondition('is_issued',false);
+		// $item_model->title_field='full_name';
 		$issue_form=$this->add('Form');
 		
 		$staff_field=$issue_form->addField('autocomplete/Basic','staffs')->validateNotNull();

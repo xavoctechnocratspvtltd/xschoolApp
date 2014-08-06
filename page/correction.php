@@ -11,8 +11,8 @@ class page_correction extends Page {
 
 		$grid->setModel($fees_recept->debug());
 
-		$grid->addColumn('button','adjust_amount');
-		$grid->addColumn('button','adjust_transaction_amount');
+		// $grid->addColumn('button','adjust_amount');
+		// $grid->addColumn('button','adjust_transaction_amount');
 
 		if($_GET['adjust_amount']){
 
