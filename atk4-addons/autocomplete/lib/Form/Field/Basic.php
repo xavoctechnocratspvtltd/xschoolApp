@@ -13,7 +13,7 @@ class Form_Field_Basic extends \Form_Field_Hidden
     public $limit_rows = 20;
 
     // Minimum characters you have to enter to make autocomplete ajax call
-    public $min_length = 3;
+    public $min_length = 1;
 
     // Hint text. If empty/null, then hint will not be shown.
     public $hint = 'Please enter at least %s symbols. Search results will be limited to %s records.';

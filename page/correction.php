@@ -14,7 +14,20 @@ class page_correction extends Page {
 		$grid->addColumn('button','adjust_amount');
 		$grid->addColumn('button','adjust_transaction_amount');
 
+		if($_GET['adjust_amount']){
+
+			$old_transaction=$this->add('Model_FeesReceipt');
+			$old_transaction->load($_GET['adjust_amount']);
+			$old_transaction['amount']=$old_transaction['tr_amount'];
+			$old_transaction->save();
+
+			$grid->js()->reload()->execute();
+
+		}
 		// $grid->addPaginator(50);
 
+		if($_GET['adjust_transaction_amount']){
+			
+		}
 	}
 }
