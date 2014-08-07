@@ -28,7 +28,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
-		// $this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
+		$this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
 		$this['mode']=$mode;
 		$this['narration']=$narration;
 		$this->save();
