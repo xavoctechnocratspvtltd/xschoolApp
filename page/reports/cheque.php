@@ -5,7 +5,8 @@ class page_reports_cheque extends Page {
 		parent::init();
 
 		$form= $this->add('Form',null,null,array('form_horizontal'));
-		$form->addField('DatePicker','date');
+		$form->addField('DatePicker','from_date');
+		$form->addField('DatePicker','to_date');
 		$form->addField('checkbox','only_fees_record');
 		$form->addSubmit('GET LIST');
 
@@ -15,14 +16,16 @@ class page_reports_cheque extends Page {
 
 		$on_date = $this->api->today;
 		
-		if($_GET['date']){
-			$on_date = $_GET['date'];
+		if($_GET['filter']){
+			if($_GET['from_date'])
+				$day_transactions->addCondition('transaction_date','>=',$_GET['from_date']);
+			if($_GET['to_date'])
+				$day_transactions->addCondition('transaction_date','<=',$_GET['to_date']);
 		}
 
-		$day_transactions->addCondition('transaction_date','>=',$on_date);
 		$day_transactions->addCondition('transaction_date','<',$this->api->nextDate($on_date));
 		$day_transactions->addCondition('mode','<>','Cash');
-		if($_GET['only_fees_record']){
+		if($_GET['filter']){
 			$day_transactions->addCondition('fees_receipt_id','<>',null);
 		}
 		
@@ -43,7 +46,7 @@ class page_reports_cheque extends Page {
 		$grid->js('click',$js);
 
 		if($form->isSubmitted()){
-			$grid->js()->reload(array('date'=>$form['date']?:0,'only_fees_record'=>$form['only_fees_record']?:0))->execute();
+			$grid->js()->reload(array('from_date'=>$form['from_date']?:0,'to_date'=>$form['to_date']?:0,'only_fees_record'=>$form['only_fees_record']?:0,'filter'=>1))->execute();
 		}
 	}
 }
