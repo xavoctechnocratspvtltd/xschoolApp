@@ -10,7 +10,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this->addField('name')->caption('Receipt No');
 		$this->addExpression('tr_amount')->set(function($m,$q){
 			return $m->refSQL('FeesTransaction')->sum('amount');
-		})->type('money');
+		})->type('money')->system(true);
 		$this->addField('amount')->type('money');
 		$this->addField('months')->type('text');
 		$this->addField('mode')->enum(array('Cash','Cheque'));
