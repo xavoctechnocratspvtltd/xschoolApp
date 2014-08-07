@@ -58,7 +58,11 @@ class Model_Sms extends Model_Table {
 
 		$this['message']=$message;
 		$this['numbers']=$numbers;
-		$this->save();			
+		$this->save();		
+
+		$log=$this->add('Model_Log');
+		$log->createNew("sms entry created");
+		$log->save();	
 	}
 
 	function sendMessage($message,$numbers=null,$class=null){
@@ -76,6 +80,10 @@ class Model_Sms extends Model_Table {
 		// else
 		// 	$no=$this['numberr'];
 		$this->add('Controller_Sms')->sendMessage($no, $this['message']);
+
+		$log=$this->add('Model_Log');
+		$log->createNew("sms send");
+		$log->save();
 
 	}
 }

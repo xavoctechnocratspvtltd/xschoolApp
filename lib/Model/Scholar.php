@@ -66,6 +66,10 @@ public $table="scholars";
 				throw $this->exception('you can not delete, It contain student');
 			$st->delete();
 		}
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Scholar deleted");
+		$log->save();
 	}
 
 

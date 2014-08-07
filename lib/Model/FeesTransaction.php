@@ -30,6 +30,9 @@ class Model_FeesTransaction extends Model_Table {
 		$this['amount'] = $amount;
 		$this['student_id'] = $student_applied_fee['student_id'];
 		$this->save();
+		$log=$this->add('Model_Log');
+		$log->createNew("fees transaction Created for receipt No".$receipt['name']);
+		$log->save();
 		return $this;
 	}
 
@@ -52,5 +55,9 @@ class Model_FeesTransaction extends Model_Table {
 			$fees_receipt['amount'] = $fees_receipt['amount'] - $my_amount;
 			$fees_receipt->save();
 		}
+
+		$log=$this->add('Model_Log');
+		$log->createNew("fees transaction deleted receipt No".$fees_receipt['name']);
+		$log->save();
 	}
 }

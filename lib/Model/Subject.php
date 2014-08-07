@@ -16,6 +16,10 @@ public $table="subjects";
 	function createNew($name,$other_fields=array(),$form=null){
 		$this['name']=$name;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("subject created");
+		$log->save();
 		return $this;
 	}
 

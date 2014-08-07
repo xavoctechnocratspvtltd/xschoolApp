@@ -20,6 +20,9 @@ public $table="exams";
 		
 		$this['name']=$exam_name;
 		$this['term_id']=$all_fields['term_id'];
+		$log=$this->add('Model_Log');
+		$log->createNew("Exam Created");
+		$log->save();
 		$this->save();
 			
 	}

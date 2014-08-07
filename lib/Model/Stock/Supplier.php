@@ -23,6 +23,12 @@ Class Model_Stock_Supplier extends Model_Table{
 		$this['address']=$other_fields['address'];
 		$this['ph_no']=$other_fields['ph_no'];
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("supplier Created");
+		$log->save();
+
+		
 			
 	}
 
@@ -30,6 +36,10 @@ Class Model_Stock_Supplier extends Model_Table{
 		if(!$this->loaded())
 			throw $this->exception("Please call on loaded object");
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("supplier removed");
+		$log->save();
 	}
 
 	function transaction(){

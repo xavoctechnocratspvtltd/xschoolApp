@@ -38,6 +38,10 @@ public $table="fees";
 			$fees_amount=$this->add('Model_FeesAmountForStudentTypes');
 			$fees_amount->createNew($this->id,$st->id,null,$default_amount);
 		}
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Fees Created");
+		$log->save();
 	}
 
 	function deleteForced(){
@@ -45,6 +49,10 @@ public $table="fees";
 			foreach ($fafst as $junk) {
 				$fafst->delete($force);
 			}
+
+			$log=$this->add('Model_Log');
+			$log->createNew("fees removed");
+			$log->save();
 		
 	}
 

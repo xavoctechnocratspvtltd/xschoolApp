@@ -36,6 +36,9 @@ class Model_Vehicle extends Model_Table{
 		$this['branch_id']=$branch->id;
 		$this->save();
 
+		$log=$this->add('Model_Log');
+		$log->createNew("vehicle created");
+		$log->save();
 		return true;
 	}
 

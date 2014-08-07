@@ -37,7 +37,9 @@ Class Model_Stock_Item extends Model_Table{
 		$this['name']=$name;
 		$this['category_id']=$other_fields['category_id'];
 		$this->save();
-			
+		$log=$this->add('Model_Log');
+		$log->createNew("Stock Item Created");
+		$log->save();
 	}
 
 	function remove(){
@@ -64,7 +66,7 @@ Class Model_Stock_Item extends Model_Table{
 
 		$transaction=$this->add('Model_Stock_Transaction');
 		$transaction->inward($this,$supplier,$rate,$qty,$date,$remark,$session);
-
+		
 	}
 
 	function consume($qty,$staff){

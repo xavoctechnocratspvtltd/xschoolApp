@@ -32,6 +32,10 @@ public $table="sessions";
 		$this['end_date']=$end_date;
 		$this->save();
 
+		$log=$this->add('Model_Log');
+		$log->createNew("Session created");
+		$log->save();
+
 	}
 
 
@@ -58,6 +62,10 @@ public $table="sessions";
 		}
 
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("session removed");
+		$log->save();
 		
 	}
 
@@ -102,6 +110,9 @@ public $table="sessions";
 			$this->api->currentSession =  $this;
 			// throw new \Exception($this->api->currentSession, 1);
 			
+			$log=$this->add('Model_Log');
+			$log->createNew("change session");
+			$log->save();
 		}
 
 

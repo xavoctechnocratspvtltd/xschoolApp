@@ -21,6 +21,10 @@ class Model_Term extends Model_Table {
 		$this['name']=$name;
 		$this->save();
 
+		$log=$this->add('Model_Log');
+		$log->createNew("term created");
+		$log->save();
+
 	}
 
 	function remove(){
@@ -29,7 +33,9 @@ class Model_Term extends Model_Table {
 			throw $this->exception('Unable to determine the term, which remove');
 		$this->delete();
 
-
+		$log=$this->add('Model_Log');
+		$log->createNew("term removed");
+		$log->save();
 
 	}
 

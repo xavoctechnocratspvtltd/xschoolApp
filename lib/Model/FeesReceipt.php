@@ -60,9 +60,16 @@ class Model_FeesReceipt extends Model_Table {
 			$to_set_amount = $to_set_amount - $to_pay_for_this_fees;
 
 		}
+
+		$log=$this->add('Model_Log');
+		$log->createNew("fees receipt Created receipt No".$this['name']);
+		$log->save();
 	}
 
 	function beforeDelete(){
+		$log=$this->add('Model_Log');
+		$log->createNew("fees receipt fees delete receipt No".$this['name']);
+		$log->save();
 		$this->ref('FeesTransaction')->deleteAll();
 	}
 
@@ -120,5 +127,9 @@ class Model_FeesReceipt extends Model_Table {
 
 		$max_receipt_no=$old_receipts->_dsql()->del('fields')->field('max(name)')->getOne();
 		return $max_receipt_no+1;
+
+		$log=$this->add('Model_Log');
+		$log->createNew("fees receipt genrated receipt No".$max_receipt_no+1);
+		$log->save();
 	}
 }

@@ -33,6 +33,10 @@ class Model_Supplier extends Model_Table{
 		}
 
 		$this->save();			
+
+		$log=$this->add('Model_Log');
+		$log->createNew("library_suppliers created");
+		$log->save();
 	}
 
 	function beforeDelete(){
@@ -46,5 +50,9 @@ class Model_Supplier extends Model_Table{
 			$st->delete($force);
 		}
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("library_suppliers deleted");
+		$log->save();
 	}
 }	

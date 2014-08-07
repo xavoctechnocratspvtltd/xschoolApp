@@ -112,6 +112,9 @@ class Frontend extends ApiFrontend {
         $this->api->memorize('current_date',$date);
         $this->now = date('Y-m-d H:i:s',strtotime($date));
         $this->today = date('Y-m-d',strtotime($date));
+        $log=$this->add('Model_Log');
+        $log->createNew("software Date change Manualy");
+        $log->save();
     }
 
     function nextDate($date=null){

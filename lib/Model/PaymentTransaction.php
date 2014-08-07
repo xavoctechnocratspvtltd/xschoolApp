@@ -27,9 +27,16 @@ class Model_PaymentTransaction extends Model_Table {
 		$this['mode']=$mode;
 		$this['narration']=$narration;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Payemt transaction created");
+		$log->save();
 	}
 
 	function beforeDelete(){
+		$log=$this->add('Model_Log');
+		$log->createNew("Payemt transaction deleted");
+		$log->save();
 		if($this['fees_receipt_id']){
 			$this->ref('fees_receipt_id')->delete();
 		}

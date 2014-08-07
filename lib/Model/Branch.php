@@ -56,8 +56,11 @@ public $table="branches";
 		foreach ($other_fields as $key => $value) {
 			$this[$key]=$value;
 		}
+		$log=$this->add('Model_Log');
+		$log->createNew("Branch Created");
+		$log->save();		
 
-		$this->save();			
+		$this->save();	
 	}
 
 	function subjects($session=null){

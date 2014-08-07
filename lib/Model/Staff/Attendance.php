@@ -17,7 +17,13 @@ class Model_Staff_Attendance extends Model_Table{
 
 	function swapPresent(){
 		$this['is_present']=!$this['is_present'];
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Mark Staff Attendance");
+		$log->save();
 		$this->save();
+
+
 	}
 
 }

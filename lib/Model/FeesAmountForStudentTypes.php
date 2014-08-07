@@ -29,5 +29,9 @@ class Model_FeesAmountForStudentTypes extends Model_Table {
 
 		$this->save();
 
+		$log=$this->add('Model_Log');
+		$log->createNew("apply fees on student type");
+		$log->save();
+
 	}
 }

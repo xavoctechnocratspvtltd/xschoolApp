@@ -17,7 +17,11 @@ class Model_Vehicle_Type extends Model_Table{
 		$this['name']=$name;
 		$this->save();
 
+		$log=$this->add('Model_Log');
+		$log->createNew("Vehicle Type Created");
+		$log->save();
 		return true;
+
 	}
 
 	function vehicle(){
