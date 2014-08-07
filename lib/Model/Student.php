@@ -21,8 +21,8 @@ public $table="students";
         	return $m->refSQL('scholar_id')->fieldQuery('scholar_no');
         });
 
-         $this->addExpression('ph_no')->set(function($m,$q){
-        	return $m->refSQL('scholar_id')->fieldQuery('ph_no');
+         $this->addExpression('phone_no')->set(function($m,$q){
+        	return $m->refSQL('scholar_id')->fieldQuery('phone_no');
         });
 
 	    $this->addExpression('name')->set(function($m,$q){
