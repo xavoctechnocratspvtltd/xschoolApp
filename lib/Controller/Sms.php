@@ -5,11 +5,10 @@ class Controller_Sms extends AbstractController{
 
 	}
 
-	function sendMessage($no,$name='',$code=''){
+	function sendMessage($no,$msg){
 		$curl=$this->add('Controller_CURL');
-		$msg="Dear $name, Welcome to sabkuch24.com.Your confirmation code is $code";
 		$msg=urlencode($msg);
-		$url="http://sms.alakh.co/sendsms?uname=sabkuch24&pwd=sabkuch24&senderid=SBKUCH&to=$no&msg=$msg&route=T";
+		$url="http://enterprise.smsgupshup.com/GatewayAPI/rest?method=SendMessage&send_to=$no&msg=$msg&msg_type=TEXT&userid=2000059879&auth_scheme=plain&password=ant55&v=1.1&format=text";
 		$curl->get($url);
 	}
 }
