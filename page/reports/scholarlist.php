@@ -18,7 +18,7 @@ class page_reports_scholarlist extends Page{
 		$scholar_model->addField('mother_name');
 		$scholar_model->addField('blood_group');
 		$scholar_model->addField('dob');
-		$scholar_model->addField('phone_no');
+		// $scholar_model->addField('phone_no');
 		$scholar_model->addField('address');
 		$scholar_model->addField('gender');
 		$scholar_model->addField('category');
