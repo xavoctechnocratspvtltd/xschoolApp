@@ -39,6 +39,7 @@ class page_sms_defaulter extends Page {
 			$student_model->_dsql()->having('due > 0 ');
 
 			foreach ($student_model as $junk) {
+				if(!$student_model['phone_no']) continue;
 				$numbers[]=$student_model['phone_no'];
 			}
 

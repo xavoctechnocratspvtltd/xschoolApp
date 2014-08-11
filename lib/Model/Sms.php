@@ -23,27 +23,52 @@ class Model_Sms extends Model_Table {
 		if($sms['class_id']){
 			$class=$this->add('Model_Class');
 			$class->load($sms['class_id']);
+
 			foreach ($class->ref('Student') as $junk) {
-				$numbers[]=$this->senitizeNumber($junk['ph_no']);
+				$numbers[]=trim($junk['phone_no']);
 			}
 		}
 		elseif($sms['numbers']){
-			$numbers=explode(',', $sms['numbers']);
-			// foreach ($no as $junk) {
-			// 	$numbers[]=trim($junk['ph_no']);
-			// }
+			$no=explode(',', $sms['numbers']);
+			foreach ($no as $junk) {
+				$numbers[]=trim($junk['phone_no']);
+			}
 		}else
 			throw new Exception("Required Proper Data", 1);
 			
 		foreach ($numbers as $number) {
-			$this->sendSMS($this->senitizeNumber($number),$sms['message']);
+			$number_s = $this->senitizeNumber($number);
+			if(count($number_s))
+				echo $number." =>". print_r($number_s,true) .'<br/>';
+			// 	$this->sendSMS($number,$sms['message']);
 		}
+
 	}
 
 	function senitizeNumber($number){
-		$number = trim($number);
+		// Check situations like
+		// 234564 9783807100
+		// 9783807100, 9782300801
+		// 9782300801 234543, 9782300801
+		
+		// replace space with comma
+		// explode with comma
+		// foreach loop
+		// if length==10 or 11 return number
+		// else continue
+		// at last return false
+		
+		$ok_numbers=array();
 
-		return $number;
+		$number_single_space = preg_replace("/\s+/", ' ', $number);
+		$number_orig=str_replace(' ', ',', $number_single_space);
+		$numbers_arr=explode(',', $number_orig);
+		foreach ($numbers_arr as $n) {
+			$n=trim($n);
+			if(strlen($n) == 10 or strlen($n)==11)
+				$ok_numbers[] = $n;
+		}
+		return $ok_numbers;
 	}
 
 	function createNew($message,$numbers=null,$class=null){
@@ -60,7 +85,6 @@ class Model_Sms extends Model_Table {
 
 		if(is_array($numbers))
 			$numbers = implode(",", $numbers);
-		
 		$this['message']=$message;
 		$this['numbers']=$numbers;
 		$this->save();		

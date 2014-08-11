@@ -15,6 +15,7 @@ public $table="classes";
         $this->hasMany('ExamInAClass','class_id');
         $this->hasMany('SubjectInAClass','class_id');
         $this->hasMany('FeesInAClass','class_id');
+        $this->hasMany('Student','class_id');
         // $this->hasMany('ClassPrev','previous_class_id');
 
         $this->addExpression('full_name')->set('(concat(name," - ",section))');
