@@ -10,7 +10,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this->addField('name')->caption('Receipt No');
 		$this->addExpression('tr_amount')->set(function($m,$q){
 			return $m->refSQL('FeesTransaction')->sum('amount');
-		})->type('money');
+		})->type('money')->system(true);
 		$this->addField('amount')->type('money');
 		$this->addField('months')->type('text');
 		$this->addField('mode')->enum(array('Cash','Cheque'));
@@ -28,7 +28,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
-		// $this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
+		$this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
 		$this['mode']=$mode;
 		$this['narration']=$narration;
 		$this->save();
@@ -60,9 +60,16 @@ class Model_FeesReceipt extends Model_Table {
 			$to_set_amount = $to_set_amount - $to_pay_for_this_fees;
 
 		}
+
+		$log=$this->add('Model_Log');
+		$log->createNew("fees receipt Created receipt No".$this['name']);
+		$log->save();
 	}
 
 	function beforeDelete(){
+		$log=$this->add('Model_Log');
+		$log->createNew("fees receipt fees delete receipt No".$this['name']);
+		$log->save();
 		$this->ref('FeesTransaction')->deleteAll();
 	}
 
@@ -120,5 +127,9 @@ class Model_FeesReceipt extends Model_Table {
 
 		$max_receipt_no=$old_receipts->_dsql()->del('fields')->field('max(name)')->getOne();
 		return $max_receipt_no+1;
+
+		$log=$this->add('Model_Log');
+		$log->createNew("fees receipt genrated receipt No".$max_receipt_no+1);
+		$log->save();
 	}
 }

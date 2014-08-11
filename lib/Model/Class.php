@@ -94,6 +94,10 @@ public $table="classes";
 			$this[$key] = $value;
 		}
 
+		$log=$this->add('Model_Log');
+		$log->createNew("Class Created");
+		$log->save();
+
 		$this->save();
 
 	}
@@ -121,6 +125,10 @@ public $table="classes";
 		}
 
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Class deleted");
+		$log->save();
 	}
 
 	function beforeDelete(){
@@ -171,6 +179,10 @@ public $table="classes";
 
 		$newsub = $this->add('Model_SubjectInAClass');
 		$newsub->createNew($this,$subject,$session);
+
+		$log=$this->add('Model_Log');
+		$log->createNew("add Subjects in class");
+		$log->save();
 	}
 
 	function removeSubject($subject,$force=false){
@@ -180,8 +192,12 @@ public $table="classes";
 
 		if(!($sub_in_class=$this->hasSubject($subject))) // returning SubjectInClass --- Not subject Model
 			throw $this->exception('This Subject is not Available in Class');
-
+		$log=$this->add('Model_Log');
+		$log->createNew("remove Subject from Class");
+		$log->save();
 		$sub_in_class->delete($force);
+
+		
 	}
 
 	function hasSubject($subject,$session=null){
@@ -221,13 +237,20 @@ public $table="classes";
 		
 		$feesInClass= $this->add('Model_FeesInAClass');
 		$feesInClass->createNew($this,$fees);
-
+		$log=$this->add('Model_Log');
+		$log->createNew("Add fees in class");
+		$log->save();
 		if($applyOnAllClassStudents){
 			foreach ($student=$this->allStudents() as $junk) {
 					// $student->createStudentFeesAssociation($fees);
 					$student->addFees($fees);
+					$log=$this->add('Model_Log');
+					$log->createNew("add fees on student id ".$student->id);
+					$log->save();
 			}
 		}
+
+		
 	}
 
 	function removeFees($fees,$removeFromAllClassStudents=true){
@@ -239,15 +262,23 @@ public $table="classes";
 			throw $this->exception('Fees Not Apply in the class');
 
 		// TODO ASK FOR DELETE FUNCTION
-			
+		$log=$this->add('Model_Log');
+		$log->createNew("remove fees from class");
+		$log->save();
 		if($removeFromAllClassStudents){
 			
 			foreach ($student=$this->allStudents() as $junk) {
 						$student->removeFees($fees);
+
+						$log=$this->add('Model_Log');
+						$log->createNew("remove fees from student id ".$student->id);
+						$log->save();
 			}
 		}
 
 		$f->delete();
+
+		
 
 	}
 
@@ -288,9 +319,14 @@ public $table="classes";
 		if($this->hasExam($exam,$session))
 			throw $this->exception('Already in the class');
 		// throw new Exception($session->id);
+		$log=$this->add('Model_Log');
+		$log->createNew("Exam added in class");
+		$log->save();
 
 		$examnew = $this->add('Model_ExamInAClass');
 		$examnew->createNew($exam,$this,$session);
+
+		
 
 	}
 
@@ -302,8 +338,13 @@ public $table="classes";
 		if(!($exam_in_class=$this->hasExam($exam)))
 			throw $this->exception('This Exam is not Available in Class');		
 
+		$log=$this->add('Model_Log');
+		$log->createNew("exam removed from class");
+		$log->save();
+
 		$exam_in_class->delete($force);
 
+		
 	}
 
 	function hasExam($exam,$session=null){
@@ -352,12 +393,19 @@ public $table="classes";
 
 		$student = $this->add('Model_Student');
 		$student->createNew($scholar,$this,$student_type);
-
+		$log=$this->add('Model_Log');
+		$log->createNew("add student in class");
+		$log->save();
 		if($apply_class_fee){
 			foreach ($f=$this->feeses() as $junk) {
+				$log=$this->add('Model_Log');
+				$log->createNew("after add student in a class apply all fees of class to this student");
+				$log->save();
 				$student->addFees($f);
 			}
 		}
+
+		
 
 	}
 
@@ -368,8 +416,12 @@ public $table="classes";
 
 		if(!($s=$this->hasStudent($scholar)))
 			throw $this->exception('This Student is not Available in Class');		
-
+		$log=$this->add('Model_Log');
+		$log->createNew("removed student from class");
+		$log->save();
 		$s->delete($force);
+
+		
 	}
 
 	function hasStudent($scholar,$session=null){

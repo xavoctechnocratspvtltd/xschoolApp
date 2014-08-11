@@ -50,7 +50,9 @@ class Model_Library_Transaction extends Model_Table{
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['narration']=$narration;
 		$this->save();
-
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Item Issue");
+		$log->save();
 		$item->markIssued();
 		return true;
 	}
@@ -66,6 +68,10 @@ class Model_Library_Transaction extends Model_Table{
 
 		$item=$this->add('Model_Library_Item')->load($this['item_id']);
 		$item->markSubmit();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Item Submit");
+		$log->save();
 		return true;
 
 

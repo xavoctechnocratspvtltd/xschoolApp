@@ -68,6 +68,9 @@ class Model_Library_Item extends Model_Table{
 		}
 
 		$this->save();			
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Item Created");
+		$log->save();
 	}
 
 	function beforeDelete(){
@@ -82,6 +85,10 @@ class Model_Library_Item extends Model_Table{
 			$lt->delete($force);
 		}
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Item Delete");
+		$log->save();
 	}
 
 	function filterByBranch($branch){

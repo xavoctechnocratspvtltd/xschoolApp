@@ -34,6 +34,10 @@ class Model_StudentType extends Model_Table {
 			$fees_amount=$this->add('Model_FeesAmountForStudentTypes');
 			$fees_amount->createNew($fe->id,$this->id);
 		}
+
+		$log=$this->add('Model_Log');
+		$log->createNew("studenttypp created");
+		$log->save();
 	}
 
 

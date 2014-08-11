@@ -30,7 +30,12 @@ class Model_Library_Title extends Model_Table{
 			$this[$key]=$value;
 		}
 
-		$this->save();			
+		$this->save();		
+
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Title Created");
+		$log->save();	
 	}
 
 	function beforeDelete(){
@@ -44,6 +49,10 @@ class Model_Library_Title extends Model_Table{
 			$lt->delete($force);
 		}
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Title Deleted");
+		$log->save();
 	}
 
 	function addItem($qty){

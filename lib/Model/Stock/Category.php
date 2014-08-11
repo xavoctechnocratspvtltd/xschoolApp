@@ -37,12 +37,20 @@ Class Model_Stock_Category extends Model_Table{
 			throw $this->exception("Please call on empty Model")->addMoreInfo();
 		$this['name']=$name;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Stoc Category Created");
+		$log->save();
 	}
 
 	function remove(){
 		if(!$this->loaded())
 			throw $this->exception('Unable To dtermine the record');
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("stock Category Removed");
+		$log->save();
 
 	}
 

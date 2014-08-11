@@ -24,6 +24,8 @@ class Model_ExamInAClass extends \Model_Table{
 			$this['exam_id']=$exam->id;
 			$this['class_id']=$class->id;
 			$this['session_id']=$session->id;
+
+			
 			$this->save();
 			
 	}

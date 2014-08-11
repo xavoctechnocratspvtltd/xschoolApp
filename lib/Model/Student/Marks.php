@@ -40,6 +40,10 @@ class Model_Student_Marks extends Model_Table {
 		$this['subject_id']=$subject->id;
 		$this['session_id']=$session->id;
 		$this->saveAndUnload();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Student Marks Created");
+		$log->save();
 	}
 
 	function remove(){

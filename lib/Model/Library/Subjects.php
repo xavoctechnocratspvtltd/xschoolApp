@@ -27,7 +27,11 @@ class Model_Library_Subjects extends Model_Table{
 			$this[$key]=$value;
 		}
 
-		$this->save();			
+		$this->save();	
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Subject Created");
+		$log->save();		
 	}
 
 	function beforeDelete(){
@@ -42,6 +46,10 @@ class Model_Library_Subjects extends Model_Table{
 			$lt->delete($force);
 		}
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Library Subject Deleted");
+		$log->save();
 	}
 
 	

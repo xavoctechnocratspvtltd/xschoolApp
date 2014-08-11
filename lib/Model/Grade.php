@@ -23,5 +23,9 @@ class Model_Grade extends Model_Table {
 		}
 
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Grade created");
+		$log->save();
 	}
 }

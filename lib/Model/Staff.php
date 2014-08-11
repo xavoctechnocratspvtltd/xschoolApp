@@ -42,7 +42,10 @@ class Model_Staff extends Model_Table{
 		$this['code']=$other_fields['code'];
 		
 		$this->save();
-			
+		
+		$log=$this->add('Model_Log');
+		$log->createNew("staff created");
+		$log->save();	
 	}
 
 	function filterByBranch($branch){

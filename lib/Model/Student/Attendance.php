@@ -46,6 +46,10 @@ class Model_Student_Attendance extends Model_Table{
 		$this['total_attendance']=$total_attendance;
 		$this->save();
 		return $this;
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Attendance Created");
+		$log->save();
 	}
 
 	function students($class,$month,$session=null,$count=fales){

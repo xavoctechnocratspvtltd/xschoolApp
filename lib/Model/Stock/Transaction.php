@@ -46,6 +46,10 @@ Class Model_Stock_Transaction extends Model_Table{
 		$this['created_at']=$date;
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Stock Inward");
+		$log->save();
 			
 	}
 
@@ -67,6 +71,10 @@ Class Model_Stock_Transaction extends Model_Table{
 		$this['qty']=$qty;
 		$this['type']='Consume';
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("stock  consume");
+		$log->save();
 
 	}
 
@@ -96,6 +104,10 @@ Class Model_Stock_Transaction extends Model_Table{
 		$item=$this->add('Model_Stock_Item');
 		$item->load($this['item_id']);
 		$item->markIssued();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Stock Issue");
+		$log->save();
 	}
 
 
@@ -125,6 +137,10 @@ Class Model_Stock_Transaction extends Model_Table{
 		$item=$this->add('Model_Stock_Item');
 		$item->load($this['item_id']);
 		$item->markIssued();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Stock Submit");
+		$log->save();
 	}
 
 
@@ -132,6 +148,10 @@ Class Model_Stock_Transaction extends Model_Table{
 		if(!$this->loaded())
 			throw $this->exception("Please call on loaded object");
 		$this->delete();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Stock Removed");
+		$log->save();
 	}
 
 	function isAvailable($item,$qty,$session=null){

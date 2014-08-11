@@ -71,6 +71,10 @@ public $table="students";
 		$this['session_id'] = $session->id;
 		$this['studenttype_id'] = ($studenttype instanceof Model_StudentType) ? $studenttype->id : $studenttype;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Student created");
+		$log->save();
 		return $this;
 	}
 
@@ -90,6 +94,10 @@ public $table="students";
 		
 		$this['class_id']=$class->id;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Student Shift To  new class ".$class['name']);
+		$log->save();
 		return $this;
 	}
 
@@ -141,6 +149,10 @@ public $table="students";
 
 		$this->delete();
 		// check any entry regarding this student
+		// 
+		$log=$this->add('Model_Log');
+		$log->createNew("student deleted");
+		$log->save();
 		
 	}
 
@@ -183,6 +195,10 @@ public $table="students";
 			throw $this->exception("Specify the student ID, Model Student Must be loaded before traversing");
 		$this['vehicle_id']=$vehicle->id;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("assign vehicle to student id".$this->id );
+		$log->save();
 		
 		return $this;			
 	}
@@ -193,12 +209,20 @@ public $table="students";
 			throw $this->exception("Specify the student ID, Model Student Must be loaded before traversing");
 		$this['vehicle_id']=0;
 		$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("remove assign vehicle to student id".$this->id );
+		$log->save();
 		
 		return $this;			
 	}
 
 	function applyFees($fees){
 		return $this->addFees($fees);
+
+		$log=$this->add('Model_Log');
+		$log->createNew("applied fees on student id".$this->id);
+		$log->save();
 	}
 
 	function addFees($fees){
@@ -206,6 +230,7 @@ public $table="students";
 			throw $this->exception('Student is already applied with the fees');
 		$fees_for_this_student = $this->add('Model_StudentAppliedFees');
 		$fees_for_this_student->createNew($this,$fees);
+		
 		return $this;
 	}
 
@@ -238,6 +263,10 @@ public $table="students";
 				$fees_for_this_student->deleteForced();
 			}
 		}
+
+		$log=$this->add('Model_Log');
+		$log->createNew("removed fess from student id".$this->id);
+		$log->save();
 
 	}
 
