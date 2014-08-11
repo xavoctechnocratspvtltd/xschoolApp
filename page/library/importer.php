@@ -17,12 +17,14 @@ class page_library_importer extends Page {
 			if ( $_FILES["subscribers_file"]["error"] > 0 ) {
 				$this->add( 'View_Error' )->set( "Error: " . $_FILES["subscribers_file"]["error"] );
 			}else{
-				if($_FILES['subscribers_file']['type'] != 'text/csv'){
+				if($_FILES['subscribers_file']['type'] != 'text/csv' and $_FILES['subscribers_file']['type'] != 'application/csv'){
+					throw new Exception($_FILES['subscribers_file']['type'], 1);
+					
 					$this->add('View_Error')->set('Only CSV Files allowed');
 					return;
 				}
 
-				$importer = new CSVImporter($_FILES['subscribers_file']['tmp_name'],true,",");
+				$importer = new CSVImporter($_FILES['subscribers_file']['tmp_name'],true);
 				$data = $importer->get(); 
 
 				$existing_subjects = $this->add('Model_Library_Subjects');
@@ -42,7 +44,9 @@ class page_library_importer extends Page {
 					$stored_titles[$et['id']] = $et['name'];
 				}
 				
-
+				// print_r($data);
+				// throw new Exception("Error Processing Request", 1);
+				
 
 				foreach ($data as $d) {
 					foreach ($d as $key => $value) {
@@ -69,7 +73,6 @@ class page_library_importer extends Page {
 
 						$new_title->destroy();
 					}
-
 
 					$new_item = $this->add('Model_Library_Item');
 					$new_item->addCondition('title_id', array_search($d['Title'], $stored_titles));

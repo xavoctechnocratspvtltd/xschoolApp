@@ -56,6 +56,9 @@ class Model_Sms extends Model_Table {
 		if(!$message)
 			throw new Exception("Please specify the message");
 
+		if(is_array($numbers))
+			$numbers = implode(",", $numbers);
+		
 		$this['message']=$message;
 		$this['numbers']=$numbers;
 		$this->save();		
@@ -66,7 +69,9 @@ class Model_Sms extends Model_Table {
 	}
 
 	function sendMessage($message,$numbers=null,$class=null){
-		
+		// echo "<pre>";
+		// print_r($numbers);
+		// echo "</pre>";
 		$this->createNew($message,$numbers,$class);
 	}
 

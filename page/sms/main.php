@@ -7,5 +7,6 @@ class page_sms_main extends Page {
 		$tabs=$this->add('Tabs');
 		$tabs->addTabUrl('sms_class','Send SMS Students');
 		$tabs->addTabUrl('sms_general','Send SMS General');
+		$tabs->addTabUrl('sms_defaulter','Send SMS Defaulter');
 	}
 }
