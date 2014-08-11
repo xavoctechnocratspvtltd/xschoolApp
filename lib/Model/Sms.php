@@ -24,24 +24,26 @@ class Model_Sms extends Model_Table {
 			$class=$this->add('Model_Class');
 			$class->load($sms['class_id']);
 			foreach ($class->ref('Student') as $junk) {
-				$numbers[]=trim($junk['ph_no']);
+				$numbers[]=$this->senitizeNumber($junk['ph_no']);
 			}
 		}
 		elseif($sms['numbers']){
-			$no=explode(',', $sms['numbers']);
-			foreach ($no as $junk) {
-				$numbers[]=trim($junk['ph_no']);
-			}
+			$numbers=explode(',', $sms['numbers']);
+			// foreach ($no as $junk) {
+			// 	$numbers[]=trim($junk['ph_no']);
+			// }
 		}else
 			throw new Exception("Required Proper Data", 1);
 			
 		foreach ($numbers as $number) {
-			$this->sendSMS($number,$sms['message']);
+			$this->sendSMS($this->senitizeNumber($number),$sms['message']);
 		}
+	}
 
+	function senitizeNumber($number){
+		$number = trim($number);
 
-
-
+		return $number;
 	}
 
 	function createNew($message,$numbers=null,$class=null){

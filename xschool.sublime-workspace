@@ -7,6 +7,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "lib/Model/Sms.php",
+			"settings":
+			{
+				"buffer_size": 2035,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -40,6 +48,45 @@
 	},
 	"file_history":
 	[
+		"/var/www/xschool/page/reports/duefees.php",
+		"/var/www/xschool/atk4/lib/Dummy.php",
+		"/var/www/xschool/config-default.php",
+		"/var/www/xschool/lib/Model/Sms.php",
+		"/var/www/xschool/lib/Controller/Sms.php",
+		"/var/www/xschool/lib/Controller/CURL.php",
+		"/var/www/index.php",
+		"/var/www/xschool/lib/Model/StudentAppliedFees.php",
+		"/var/www/xschool/lib/Model/FeesReceipt.php",
+		"/var/www/xschool/lib/View/Student/PrintReceipt.php",
+		"/var/www/xschool/lib/Model/FeesTransaction.php",
+		"/var/www/xschool/page/reports/consession.php",
+		"/var/www/xschool/atk4/lib/Model.php",
+		"/var/www/xschool/page/marks.php",
+		"/var/www/xschool/atk4-addons/mvc/ModelException.php",
+		"/var/www/xschool/lib/Model/FeesInAClass.php",
+		"/var/www/xschool/lib/View/Student/FastDeposit.php",
+		"/var/www/xschool/lib/View/Student/FeesSubmitBlock.php",
+		"/var/www/xschool/lib/View/Staff/Submit.php",
+		"/var/www/xschool/atk4/lib/View.php",
+		"/var/www/xschool/atk4/VERSION",
+		"/var/www/xschool/page/fees/printreceipt.php",
+		"/var/www/xschool/page/feestype.php",
+		"/var/www/xschool/atk4-addons/misc/lib/PageInFrame.php",
+		"/var/www/xschool/atk4/lib/Page.php",
+		"/var/www/xschool/templates/default/css/pick-a-color-1.1.8.min.css",
+		"/var/www/xschool/atk4/lib/P.php",
+		"/var/www/xschool/lib/Model/Fees.php",
+		"/var/www/xschool/atk4/tests/page/modeldef.php",
+		"/var/www/xschool/lib/Model/PaymentTransaction.php",
+		"/var/www/xschool/atk4/tools/atk4-model.sublime-snippet",
+		"/var/www/xschool/atk4/lib/View/ModelDetails.php",
+		"/var/www/xschool/atk4-addons/misc/templates/view/model_core.html",
+		"/var/www/xschool/atk4-addons/mvc/Page/ModelGenerator.php",
+		"/var/www/xschool/atk4/templates/shared/form_empty.html",
+		"/var/www/xschool/lib/Frontend.php",
+		"/var/www/xschool/page/student.php",
+		"/var/www/xschool/atk4/lib/Exception/SkipTests.php",
+		"/var/www/xschool/page/setdate.php",
 		"/var/www/xbank2/page/accounts/Loan.php",
 		"/var/www/xbank2/page/tests/loan/050AccountLoan1.php",
 		"/var/www/xbank2/page/accounts.php",
@@ -103,8 +150,38 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "lib/Model/Sms.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2035,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								726,
+								726
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 264.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -155,6 +232,46 @@
 		"selected_items":
 		[
 			[
+				"duefee",
+				"page/reports/duefees.php"
+			],
+			[
+				"modelstud",
+				"lib/Model/StudentAppliedFees.php"
+			],
+			[
+				"modelreceip",
+				"lib/Model/FeesReceipt.php"
+			],
+			[
+				"viewstuprint",
+				"lib/View/Student/PrintReceipt.php"
+			],
+			[
+				"pagefeeprintre",
+				"page/fees/printreceipt.php"
+			],
+			[
+				"modelfeetrans",
+				"lib/Model/FeesTransaction.php"
+			],
+			[
+				"modelstudeapplifee",
+				"lib/Model/StudentAppliedFees.php"
+			],
+			[
+				"modelpaymetra",
+				"lib/Model/PaymentTransaction.php"
+			],
+			[
+				"feetransa",
+				"lib/Model/FeesTransaction.php"
+			],
+			[
+				"studeappli",
+				"lib/Model/StudentAppliedFees.php"
+			],
+			[
 				"2pageaccounloan",
 				"xbank2/page/accounts/Loan.php"
 			],
@@ -183,11 +300,15 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"xbank",
+				"/var/www/xbank2/xbank2.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{

@@ -1,4 +1,4 @@
-<?
+<?php
 /*
   Class: MyCurl
   Author: Skakunov Alex (i1t2b3@gmail.com)
