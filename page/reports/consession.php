@@ -9,18 +9,7 @@ class page_reports_consession extends Page {
 		$from_date = 'Start';
 		$to_date = 'Last Entry';
 
-		if($_GET['filter']){
-			if($_GET['from_date']){
-				$transaction->addCondition('submitted_on','>=',$_GET['from_date']);
-				$from_date = $_GET['from_date'];
-			}
-			if($_GET['to_date']){
-				$transaction->addCondition('submitted_on','<',$this->api->nextDate($_GET['from_date']));
-				$to_date = $_GET['to_date'];
-			}
-		}else{
-			//TODO
-		}
+		
 
 
 
@@ -30,6 +19,19 @@ class page_reports_consession extends Page {
 
 		$form->addSubmit('GET LIST');
 
+		if($_GET['filter']){
+			if($_GET['from_date']){
+				$transaction->addCondition('submitted_on','>=',$_GET['from_date']);
+				$from_date = $_GET['from_date'];
+			}
+			if($_GET['to_date']){
+				$transaction->addCondition('submitted_on','<',$this->api->nextDate($_GET['to_date']));
+				$to_date = $_GET['to_date'];
+			}
+		}else{
+			//TODO
+		}
+
 
 		$transaction->_dsql()->field('sum(amount) as amount');
 		$student_join = $transaction->join('students','student_id');
@@ -37,12 +39,15 @@ class page_reports_consession extends Page {
 		$transaction->_dsql()->field($scholar_join->table_alias.'.name student_name');
 		$transaction->_dsql()->field($scholar_join->table_alias.'.scholar_no scholar_no');
 		$transaction->_dsql()->field('submitted_on');
+		// $transaction->_dsql()->field('branch_id');
 		$transaction->_dsql()->field('student_id');
 		$transaction->_dsql()->where('by_consession=1');
 		$transaction->_dsql()->group('submitted_on,student_id');
 
+		$transaction->addCondition('branch_id',$this->api->currentBranch->id);
+
 		$grid=$this->add('Grid');
-		
+				
 		$grid->add('H1',null,'top_1')->set($from_date .' to ' . $to_date);
 
 		$grid->setSource($transaction->_dsql());

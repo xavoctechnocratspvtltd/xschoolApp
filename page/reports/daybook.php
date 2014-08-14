@@ -26,10 +26,14 @@ class page_reports_daybook extends Page {
 			$day_transactions->addCondition('fees_receipt_id','<>',null);
 		}
 		
+		$grid->addMethod('format_bal',function($g,$f){
+			$g->current_row_html[$f]=$g->current_row['income']-$g->current_row['expense'];
+		});
 
 		$grid->setModel($day_transactions);
 		$grid->addColumn('money','income');
 		$grid->addColumn('money','expense');
+		// $grid->addColumn('bal','balance');
 		$grid->removeColumn('amount');
 		$grid->removeColumn('transaction_type');
 
