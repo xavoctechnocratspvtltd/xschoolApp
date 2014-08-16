@@ -14,7 +14,16 @@ class page_library_supplier extends Page {
 			// Do your stuff by getting $form data
 			$supplier_model = $crud->add('Model_Supplier');
 			// CreatNew Function call
-			$supplier_model->createNew($form['name'],$form->getAllFields(),$form);
+			try{
+
+				$this->api->db->beginTransaction();
+				$supplier_model->createNew($form['name'],$form->getAllFields(),$form);
+				
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+			}
+				
 			return true; // Always required
 		});
 

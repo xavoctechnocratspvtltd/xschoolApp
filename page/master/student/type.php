@@ -14,7 +14,15 @@ class page_master_student_type extends Page {
 			// Do your stuff by getting $form data
 			$student_type_model = $crud->add('Model_StudentType');
 			// CreatNew Function call
-			$student_type_model->createNew($form['name'],$form['previouse_studenttype_id'],$form->getAllFields(),$form);
+			// 
+			try{
+				$crud->api->db->beginTransaction();
+				$student_type_model->createNew($form['name'],$form['previouse_studenttype_id'],$form->getAllFields(),$form);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 

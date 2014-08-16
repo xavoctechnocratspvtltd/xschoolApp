@@ -40,7 +40,15 @@ class page_master_student_list_consession extends Page {
 
 
 		if($form->isSubmitted()){
-			$this_student->payByConsession($form['consession']);
+			try{
+				$this->api->db->beginTransaction();
+				$this_student->payByConsession($form['consession']);
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
+				
 
 			$form->js()->univ()->closeExpander()->execute();
 		}

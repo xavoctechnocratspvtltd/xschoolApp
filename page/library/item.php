@@ -18,8 +18,15 @@ class page_library_item extends Page {
 		// 	$title->load($form['title_id']);
 		// 	$item_model->createNew($title,$form->getAllFields(),$form);
 		// 	return true; // Always required
-		// });		
-		$crud->setModel($item);		
+		// });	
+		try{
+			$this->api->db->beginTransaction();
+			$crud->setModel($item);		
+		}catch(Exception $e){
+			$this->api->db->rollBack();
+			throw $e;
+			
+		}	
 	
 		if($g=$crud->grid){
 			$g->addPaginator(10);

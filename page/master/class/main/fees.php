@@ -1,6 +1,6 @@
 <?php
 
-class page_master_class_main_fees extends \Page {
+class page_master_class_main_fees extends Page {
 	function init(){
 		parent::init();
 		

@@ -16,15 +16,25 @@ class page_master_session_main extends Page {
 			$session_model_new = $crud->add('Model_Session');
 			
 			// CreatNew Function call
-			$session_model_new->createNew($form['name'],$form['start_date'],$form['end_date'],$form->getAllFields(),$form);
-			$session_model_new->markCurrent();
+			// 
 
-			// DEFAULT SESSION BEAHVIOURS
-			// 1. Add feeses to calsses as per prev session as base			
-			foreach ($c=$crud->add('Model_Class') as $junk_class) {
-				foreach ($feeses = $c->feeses($prev_session) as $junk_fees) {
-						$c->addFees($feeses);
-					}	
+			try{
+
+				$crud->api->db->beginTransaction();
+				$session_model_new->createNew($form['name'],$form['start_date'],$form['end_date'],$form->getAllFields(),$form);
+				$session_model_new->markCurrent();
+
+				// DEFAULT SESSION BEAHVIOURS
+				// 1. Add feeses to calsses as per prev session as base			
+				foreach ($c=$crud->add('Model_Class') as $junk_class) {
+					foreach ($feeses = $c->feeses($prev_session) as $junk_fees) {
+							$c->addFees($feeses);
+						}	
+				}
+			}catch(Exception $e){
+				$crud->api->db->rollback();
+				throw $e;
+				
 			}
 
 			return true; // Always required

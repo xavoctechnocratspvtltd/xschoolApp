@@ -14,7 +14,16 @@ class page_library_title extends Page {
 			// Do your stuff by getting $form data
 			$title_model = $crud->add('Model_Library_Title');
 			// CreatNew Function call
-			$title_model->createNew($form['name'],$form->getAllFields(),$form);
+			try{
+
+				$crud->api->db->beginTransaction();
+				$title_model->createNew($form['name'],$form->getAllFields(),$form);
+				
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 

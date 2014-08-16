@@ -16,7 +16,14 @@ class page_transport_type extends Page{
 			// Do your stuff by getting $form data
 			$vehicle_type = $crud->add('Model_Vehicle_Type');
 			// CreatNew Function call
-			$vehicle_type->createNew($form['name']);
+			try{
+				$crud->api->db->beginTransaction();
+				$vehicle_type->createNew($form['name']);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 		

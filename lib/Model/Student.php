@@ -138,7 +138,7 @@ public $table="students";
 		}
 
 		foreach ($sta as $junk) {
-			$stf->deleteForced();
+			$sta->deleteForced();
 		}
 
 		// foreach ($stm as $junk) {

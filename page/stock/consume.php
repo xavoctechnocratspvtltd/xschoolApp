@@ -45,7 +45,14 @@ class page_stock_consume extends Page{
 			if($item->isAvailable($form['qty']))
 				$form->displayError('qty','That Much Item is not available in stock');
 			$staff=$this->add('Model_Staff')->load($form['staff']);
-			$item->consume($form['qty'],$staff);
+			try{
+				$this->api->db->beginTransaction();
+				$item->consume($form['qty'],$staff);
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+			}
+				
 
 			$form->js(null,array($grid->js()->reload(),$grid->js()->univ()->successMessage('Item Consume Successfully')))->reload()->execute();
 

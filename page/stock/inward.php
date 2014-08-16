@@ -26,9 +26,13 @@ class page_stock_inward extends Page{
 		$inward_model=$this->add('Model_Stock_Transaction');
 		$inward_model->setOrder('id','desc');
 		if($_GET['remove']){
+			
 			$inward_model->load($_GET['remove']);
 			$inward_model->delete();
 			$grid->js()->reload()->execute();
+
+
+				
 
 		}
 		$inward_model->addCondition('type','Inward');
@@ -46,8 +50,14 @@ class page_stock_inward extends Page{
 
 			$supplier=$this->add('Model_Stock_Supplier');
 			$supplier->load($form['supplier']);
-
-			$item->inward($supplier,$form['qty'],$form['rate'],$form['date'],$form['remark']);
+			try{
+				$this->api->db->beginTransaction();
+				$item->inward($supplier,$form['qty'],$form['rate'],$form['date'],$form['remark']);
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
 
 			$form->js(null,array($grid->js()->reload(),$grid->js()->univ()->successMessage('Item Inward Successfully')))->reload()->execute();
 

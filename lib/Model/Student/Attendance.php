@@ -84,4 +84,16 @@ class Model_Student_Attendance extends Model_Table{
 			return false;
 	}
 
+	function deleteForced(){
+		// if(!$this->loaded())
+		// 	throw new Exception("Error Processing Request", 1);
+			
+		// 
+
+		$this->delete();
+
+
+
+	}
+
 }

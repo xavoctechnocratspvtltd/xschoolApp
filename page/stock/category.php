@@ -14,7 +14,17 @@ class page_stock_category extends Page {
 			// Do your stuff by getting $form data
 			$category_model = $crud->add('Model_Stock_Category');
 			// CreatNew Function call
-			$category_model->createNew($form['name'],$form->getAllFields(),$form);
+			try{
+
+				$crud->api->db->beginTransaction();
+				$category_model->createNew($form['name'],$form->getAllFields(),$form);
+				
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+			}
+				
+
 			return true; // Always required
 		});
 		

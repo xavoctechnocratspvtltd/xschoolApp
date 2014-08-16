@@ -15,7 +15,15 @@ class page_master_exam_main extends Page {
 			// Do your stuff by getting $form data
 			$exam_model = $crud->add('Model_Exam');
 			// CreatNew Function call
-			$exam_model->createNew($form['name'],$form->getAllFields(),$form);
+			// 
+			try{
+				$crud->api->db->beginTransaction();
+				$exam_model->createNew($form['name'],$form->getAllFields(),$form);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});		
 

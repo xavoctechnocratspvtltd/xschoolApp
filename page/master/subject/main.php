@@ -14,7 +14,14 @@ class page_master_subject_main extends Page {
 			// Do your stuff by getting $form data
 			$subject_model = $crud->add('Model_Subject');
 			// CreatNew Function call
-			$subject_model->createNew($form['name'],$form->getAllFields(),$form);
+			try{
+				$crud->api->db->beginTransaction();
+				$subject_model->createNew($form['name'],$form->getAllFields(),$form);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 		$crud->setModel($subject);	

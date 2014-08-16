@@ -23,7 +23,15 @@ class View_Student_FastDeposit extends View{
 		if($form->isSubmitted()){
 			if(($due_amount = $student->getDueFeesAmount()) < $form['amount'])
 				$form->displayError('amount','Amount cannot exceed than '. $due_amount.'/-' );
-			$student->submitFees($form['amount'],$form['mode'],$form['narration'],$form['late_fees']);
+			try{
+				$this->api->db->beginTransaction();
+				$student->submitFees($form['amount'],$form['mode'],$form['narration'],$form['late_fees']);
+				
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
 			$form->js()->_selector('.fee_submit_block')->trigger('reload_me')->execute();
 		}
 	}

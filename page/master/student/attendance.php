@@ -31,30 +31,35 @@ class page_master_student_attendance extends Page {
 		if($form->isSubmitted()){
 			$class_model=$this->add('Model_Class')->load($form['class']);
 			$attendance=$this->add('Model_Student_Attendance');
-			
-			$total_students_in_attendance_table=
-			$attendance->students($class_model,$form['month'],null,true);
+			try{
+				$total_students_in_attendance_table=
+				$attendance->students($class_model,$form['month'],null,true);
 
-			$student=$this->add('Model_Student');
-			$total_student_in_class_table=$student->classStudents($class_model,null,true);
-			if($total_students_in_attendance_table!=$total_student_in_class_table){
-				foreach ($st=$class_model->allStudents() as $junk) {
-					$att=$this->add('Model_Student_Attendance');
-					if(!$att->isExist($class_model,$st,$form['month']))
-							$att->createNew($class_model,$st,$form['month'],$form['att']);
+				$student=$this->add('Model_Student');
+				$total_student_in_class_table=$student->classStudents($class_model,null,true);
+				if($total_students_in_attendance_table!=$total_student_in_class_table){
+					foreach ($st=$class_model->allStudents() as $junk) {
+						$att=$this->add('Model_Student_Attendance');
+						if(!$att->isExist($class_model,$st,$form['month']))
+								$att->createNew($class_model,$st,$form['month'],$form['att']);
 
+					}
+				}else{
+					if($form['att'] and $form['change_total_attendance']==false)
+	                        $form->displayError('att','Please Check the CheckBox for Fill Attendance');
+	                    if($form['att'] and $form['att']!=$attendance['total_attendance'] and $form['change_total_attendance'] == true){
+	                        $attendance->unload();
+	                        $attendance->_dsql()->set('total_attendance',$form['att'])->update();
+	                    }
 				}
-			}else{
-				if($form['att'] and $form['change_total_attendance']==false)
-                        $form->displayError('att','Please Check the CheckBox for Fill Attendance');
-                    if($form['att'] and $form['att']!=$attendance['total_attendance'] and $form['change_total_attendance'] == true){
-                        $attendance->unload();
-                        $attendance->_dsql()->set('total_attendance',$form['att'])->update();
-                    }
-			}
 
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
+				
 			$grid->js()->reload()->execute();
-			//} 
 		}
 
 		$grid->setModel('Student_Attendance');

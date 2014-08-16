@@ -16,7 +16,7 @@ class page_transport_studentlist extends Page {
 		}
 		
 		$grid=$this->add('Grid');
-		$grid->add('H3',null,'top_1')->setHTML('vehicle ' . $vehicle['name'] . '<small> Driver Name '.$vehicle['driver_name'].'Driver Number'.$vehicle['driver_number'].'</small>');
+		$grid->add('H3',null,'top_1')->setHTML('vehicle ' . $vehicle['name'] . '<small> Driver Name  '.$vehicle['driver_name'].' Driver Number '.$vehicle['driver_number'].'</small>');
 
 		$students=$this->add('Model_Student');
 		$s_j_v=$students->join('vehicles','vehicle_id');

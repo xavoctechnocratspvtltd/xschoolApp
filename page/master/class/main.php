@@ -18,7 +18,15 @@ class page_master_class_main extends Page {
 			// Do your stuff by getting $form data
 			$class_model = $crud->add('Model_Class');
 			// CreatNew Function call
-			$class_model->createNew($form['name'],$form['section'],$form->api->currentBranch,$form->getAllFields(),$form);
+			try{
+				$crud->api->db->beginTransaction();
+				$class_model->createNew($form['name'],$form['section'],$form->api->currentBranch,$form->getAllFields(),$form);
+				
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 		

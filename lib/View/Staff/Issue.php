@@ -28,7 +28,15 @@ class View_Staff_Issue extends View {
 			$staff->load($issue_form['staffs']);
 			$item=$this->add('Model_Library_Item');
 			$item->load($issue_form['item']);
-			$staff->issue($item,null,$staff);
+			try{
+				$this->api->db->beginTransaction();
+				$staff->issue($item,null,$staff);
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+			}
+				
+				
 				$issue_form->js(null,array($issue_form->js()->reload(),$issue_form->js()->_selector('.recentgrid')->trigger('reload')))->univ()->successMessage("Issued Successfully")->execute();
 
 		}

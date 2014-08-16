@@ -44,8 +44,15 @@ class page_scholar_addtoclass extends Page {
 		$form->addSubmit('Assign');
 
 		if($form->isSubmitted()){
-			$class_model->load($form['class']);
-			$scholar->assignClass($class_model,$form['student_type']);
+			try{
+				$this->api->db->beginTransaction();
+				$class_model->load($form['class']);
+				$scholar->assignClass($class_model,$form['student_type']);
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
 
 			$form->js(null,$form->js()->univ()->closeExpander())->_selector('.free-scholar-grid')->trigger('reload')->execute();
 		}

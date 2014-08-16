@@ -14,7 +14,14 @@ class page_master_user_main extends Page {
 			// Do your stuff by getting $form data
 			$staff_model = $crud->add('Model_Staff');
 			// CreatNew Function call
-			$staff_model->createNew($form['name'],$form['username'],$form['password'],$form->getAllFields(),$form);
+			try{
+				$crud->api->db->beginTransaction();
+				$staff_model->createNew($form['name'],$form['username'],$form['password'],$form->getAllFields(),$form);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 		

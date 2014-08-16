@@ -54,7 +54,15 @@ class page_transport_assign extends Page{
 
 		if($_GET['remove_vehicle']){
 			$student->load($_GET['remove_vehicle']);
-			$student->removeVehicle();
+			try{
+				$this->api->db->beginTransaction();
+				$student->removeVehicle();
+				
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
 			$grid->js()->reload()->execute();
 		}
 		// $grid->add('Order')->move('last','vehicle')->now();
@@ -85,7 +93,14 @@ class page_transport_assign extends Page{
 			$vehicle->load($form['vehicle']);
 			$student=$this->add('Model_Student');
 			$student->load($_GET['students_id']);
-			$student->assignVehicle($vehicle);
+			try{
+				$this->api->db->beginTransaction();
+				$student->assignVehicle($vehicle);
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
 			$form->js(null,array($form->js()->univ()->closeExpander(),$form->js()->_selector('.assign')->trigger('reload')))->univ()->successMessage('Assigned Successfully')->execute();
 		}
 

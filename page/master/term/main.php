@@ -14,7 +14,14 @@ class page_master_term_main extends Page {
 			// Do your stuff by getting $form data
 			$term_model = $crud->add('Model_Term');
 			// CreatNew Function call
-			$term_model->createNew($form['name'],$form->getAllFields(),$form);
+			try{
+				$crud->api->db->beginTransaction();
+				$term_model->createNew($form['name'],$form->getAllFields(),$form);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 		

@@ -16,7 +16,15 @@ class page_transport_vehicle extends Page{
 			// Do your stuff by getting $form data
 			$vehicle_model = $crud->add('Model_Vehicle');
 			// CreatNew Function call
-			$vehicle_model->createNew($form['name'],$form['capcity'],$form['driver_name'],$form['driver_number']);
+			// 
+			try{
+				$crud->api->db->beginTransaction();
+				$vehicle_model->createNew($form['name'],$form['capcity'],$form['driver_name'],$form['driver_number']);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 		

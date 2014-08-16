@@ -14,7 +14,14 @@ class page_master_grade_main extends Page {
 			// Do your stuff by getting $form data
 			$grade_model = $crud->add('Model_Grade');
 			// CreatNew Function call
-			$grade_model->createNew($form['name'],$form['percentage'],$form->getAllFields(),$form);
+			try{
+				$crud->api->db->beginTransaction();
+				$grade_model->createNew($form['name'],$form['percentage'],$form->getAllFields(),$form);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 		

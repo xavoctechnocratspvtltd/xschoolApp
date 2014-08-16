@@ -44,7 +44,14 @@ class View_Student_Issue extends View {
 			$student->load($issue_form['students']);
 			$item=$this->add('Model_Library_Item');
 			$item->load($issue_form['item']);
-			$student->issue($item,$student);
+			try{
+				$this->api->db->beginTransaction();
+				$student->issue($item,$student);
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
 				$issue_form->js(null,array($issue_form->js()->reload(),$issue_form->js()->_selector('.recentgrid')->trigger('reload')))->univ()->successMessage("Issued Successfully")->execute();
 
 		}

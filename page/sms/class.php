@@ -17,7 +17,15 @@ class page_sms_class extends Page {
 			$class=$this->add('Model_Class');
 			$class->load($form['class']);
 			$sms=$this->add('Model_Sms');
-			$sms->sendMessage($form['message'],null,$class);
+			try{
+				$this->api->db->beginTransaction();
+				$sms->sendMessage($form['message'],null,$class);
+			}catch(Exception $e){
+
+				$this->api->db->rollBack();
+				throw $e;
+				
+			}
 			$form->js()->reload(null,$form->js()->univ()->successMessage('Message Send Successfully'))->execute();
 		}
 	}

@@ -14,7 +14,15 @@ class page_stock_item extends Page {
 			// Do your stuff by getting $form data
 			$item_model = $crud->add('Model_Stock_Item');
 			// CreatNew Function call
-			$item_model->createNew($form['name'],$form->getAllFields(),$form);
+			// 
+			try{
+				$crud->api->db->beginTransaction();
+				$item_model->createNew($form['name'],$form->getAllFields(),$form);
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+			}
+				
 			return true; // Always required
 		});
 		

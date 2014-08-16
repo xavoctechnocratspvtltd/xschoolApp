@@ -1,7 +1,7 @@
 <?php
 
 
-class Model_StudentAppliedFees extends \Model_Table{
+class Model_StudentAppliedFees extends Model_Table{
 public $table="student_fees_applied";
 	function init(){
 		parent::init();
@@ -107,7 +107,9 @@ public $table="student_fees_applied";
 	function submitFees($student){}
 
 	function deleteForced(){
-
+		// if(!$this->loaded())
+		// 	throw new Exception("Error Processing Request", 1);
+			
 		foreach ($ft=$this->ref('FeesTransaction') as $junk) {
 			$ft->deleteForced();
 		}

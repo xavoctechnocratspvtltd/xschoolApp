@@ -13,7 +13,16 @@ class page_master_fees_main extends Page {
 			// Do your stuff by getting $form data
 			$fees_model = $crud->add('Model_Fees');
 			// CreatNew Function call
-			$fees_model->createNew($form['name'],$form['default_amount'],$form['distribution'],$form->getAllFields(),$form);
+			try{
+
+				$crud->api->db->beginTransaction();
+				$fees_model->createNew($form['name'],$form['default_amount'],$form['distribution'],$form->getAllFields(),$form);
+				
+			}catch(Exception $e){
+				$crud->api->db->rolllBack();
+				throw $e;
+				
+			}
 			return true; // Always required
 		});
 

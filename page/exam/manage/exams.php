@@ -48,7 +48,14 @@ class page_exam_manage_exams extends Page {
 
 		if($_GET['remove']){
 			$assign_marks->load($_GET['remove']);
-			$assign_marks->remove();
+			try{
+				$this->api->db->beginTransaction();
+				$assign_marks->remove();
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+			}
+				
 			$grid->js(null,$grid->js()->reload())->univ()->successMessage('Removed Successfully')->execute();
 		}
 		$grid->setModel($assign_marks,array('subject','min_marks','max_marks'));
@@ -63,7 +70,16 @@ class page_exam_manage_exams extends Page {
 			$subject->load($form['subject']);
 
 			if(!$assign_marks->isAvailable($subject,$exam,$this->class)){
-				$assign_marks->createNew($subject,$exam,$this->class,$form->getAllFields());
+				try{
+
+					$this->api->db->beginTransaction();
+					$assign_marks->createNew($subject,$exam,$this->class,$form->getAllFields());
+					
+				}catch(Exception $e){
+					$this->api->db->rollBack();
+					throw $e;
+				}
+					
 				$form->js(null,$grid->js()->reload())->univ()->successMessage('Added Successfully')->execute();
 				
 			}else{

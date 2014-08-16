@@ -21,15 +21,23 @@ class page_master_user_attendance extends Page{
 			
 			$this->api->stickyGET('for_date');
 			if($this->add('Model_Staff')->count()->getOne() != $this->add('Model_Staff_Attendance')->addCondition('attendence_on',$_GET['for_date'])->count()->getOne() ){
-				foreach($s=$this->add('Model_Staff') as $junk){
-					$attendance_temp= $this->add('Model_Staff_Attendance');
-					$attendance_temp->addCondition('staff_id',$s->id);
-					$attendance_temp->addCondition('attendence_on',$_GET['for_date']);
-					$attendance_temp->tryLoadAny();
-					if(!$attendance_temp->loaded()){
-						$attendance_temp->save();
+				try{
+					$this->api->db->beginTransaction();
+					foreach($s=$this->add('Model_Staff') as $junk){
+						$attendance_temp= $this->add('Model_Staff_Attendance');
+						$attendance_temp->addCondition('staff_id',$s->id);
+						$attendance_temp->addCondition('attendence_on',$_GET['for_date']);
+						$attendance_temp->tryLoadAny();
+						if(!$attendance_temp->loaded()){
+							$attendance_temp->save();
+						}
 					}
+				}catch(Exception $e){
+					$this->api->db->rollBack();
+					throw $e;
+					
 				}
+					
 			}
 			$attendance->addCondition('attendence_on',$_GET['for_date']);
 		}else{

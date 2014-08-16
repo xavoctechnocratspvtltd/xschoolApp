@@ -40,9 +40,16 @@ class View_Staff_Submit extends View {
 
 		if($_GET['submit_item']){
 			$transaction_model=$this->add('Model_Library_Transaction');
-
 			$transaction_model->load($_GET['submit_item']);
-			$transaction_model->submit();
+			try{
+				$this->api->db->beginTransaction();
+				$transaction_model->submit();
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+			}
+				
+
 			$grid->js(null,$grid->js()->_selector('.recentgrid')->trigger('reload'))->reload()->execute();
 		}
 		if($form->isSubmitted()){

@@ -29,10 +29,19 @@ class page_master_scholar_main extends Page {
 			// Do your stuff by getting $form data
 			$new_scholar = $crud->add('Model_Scholar');
 			// CreatNew Function call
-			$new_scholar->createNew($form['name'],$form['father_name'],$other_fields=$form->getAllFields(),$form);
-			if($form['enroll_in_class']){
-				$class = $form->add('Model_Class')->load($form['enroll_in_class']);
-				$class->addStudent($new_scholar, $form['student_type']);
+			try{
+
+				$crud->api->db->beginTransaction();
+				$new_scholar->createNew($form['name'],$form['father_name'],$other_fields=$form->getAllFields(),$form);
+				if($form['enroll_in_class']){
+					$class = $form->add('Model_Class')->load($form['enroll_in_class']);
+					$class->addStudent($new_scholar, $form['student_type']);
+				}
+				
+			}catch(Exception $e){
+				$crud->api->db->rollBack();
+				throw $e;
+				
 			}
 
 			return true; // Always required

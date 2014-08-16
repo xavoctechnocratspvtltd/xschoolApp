@@ -16,8 +16,17 @@ class page_master_student_list extends Page {
 		$current_student_model=$this->add('Model_CurrentStudent');
 		
 		if($_GET['remove_student']){
-			$current_student_model->load($_GET['remove_student'])->deleteForced();
+			$this->api->stickyGET('remove_student');
+			try{
+				$this->api->db->beginTransaction();
+				$current_student_model->load($_GET['remove_student'])->deleteForced();
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+			}
 			$grid->js()->reload()->execute();
+				
+				
 		}
 
 		if($_GET['class_id']){
@@ -64,11 +73,17 @@ class page_master_student_list extends Page {
 			}
 
 			if($btn->isClicked("Are you sure")){
-				if($fee_applied){
-					$this_student->removeFees($feeses);
-				}else{
-					$this_student->addFees($feeses);
+				try{
+					if($fee_applied){
+						$this_student->removeFees($feeses);
+					}else{
+						$this_student->addFees($feeses);
+					}
+				}catch(Exception $e){
+					$this->api->db->rollBack();
+					throw $e;
 				}
+					
 				$btn->js()->reload()->execute();
 			}
 
@@ -114,7 +129,14 @@ class page_master_student_list extends Page {
 
 		// $branch_field->js('change',$form->js()->atk4_form('reloadField','class',array($this->api->url(),'branch_id'=>$branch_field->js()->val())));
 		if($form->isSubmitted()){
-			$this_student->shiftToClass($this->add('Model_Class')->load($form['class']));
+			try{
+				$this->api->db->beginTransaction();
+				$this_student->shiftToClass($this->add('Model_Class')->load($form['class']));
+			}catch(Exception $e){
+				$this->api->db->rollBack();
+				throw $e;
+			}
+				
 			$form->js(null,$form->js()->_selector('.student-grid')->trigger('reload'))->univ()->closeExpander()->execute();
 		}
 
