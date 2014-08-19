@@ -23,6 +23,8 @@ public $table="fees";
 		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
+	
+
 	function createNew($fees_name, $default_amount, $distribution, $other_fields=array(),$form){
 
 		if($this->loaded())

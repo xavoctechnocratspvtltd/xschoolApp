@@ -67,10 +67,14 @@ class Model_FeesReceipt extends Model_Table {
 	}
 
 	function beforeDelete(){
+
 		$log=$this->add('Model_Log');
 		$log->createNew("fees receipt fees delete receipt No".$this['name']);
 		$log->save();
-		$this->ref('FeesTransaction')->deleteAll();
+		foreach ($fees=$this->ref('FeesTransaction') as $junk) {
+				$fees->delete();
+		}
+
 	}
 
 	function satisfiedMonths(){

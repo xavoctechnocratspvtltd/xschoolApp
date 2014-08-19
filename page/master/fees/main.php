@@ -43,12 +43,21 @@ class page_master_fees_main extends Page {
 
 			$grid->addPaginator(10);
 			$grid->addQuickSearch(array('name'));
+
+			$grid->addMethod('format_edit',function($g,$f){
+				if($g->model['name']=="Late Fess")
+					$g->current_row_html[$f]='';
+			});
+			
+			$grid->setFormatter('edit','edit');
 		}
 
 		if($crud->isEditing()){
 			$crud->form->getElement('distribution')->setEmptyText('Please select');
 			$o->now();
 		}
+
+
 		
 	}
 
