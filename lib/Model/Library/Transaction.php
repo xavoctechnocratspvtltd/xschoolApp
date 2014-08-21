@@ -15,7 +15,8 @@ class Model_Library_Transaction extends Model_Table{
 		$this->addField('issue_on')->type('date')->defaultValue($this->api->today);
 		$this->addField('submitted_on')->type('date');
 		$this->addField('narration')->type('text');
-		$this->addField('no_of_day_late_submission');
+		// $this->addField('type')->enum(array('Issue','Submit'));
+		$this->addField('no_of_day_late_submission')->system(true);
 
 		$this->add('dynamic_model/Controller_AutoCreator');
 

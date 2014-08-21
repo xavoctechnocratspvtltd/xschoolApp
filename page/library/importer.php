@@ -24,7 +24,7 @@ class page_library_importer extends Page {
 					return;
 				}
 
-				$importer = new CSVImporter($_FILES['subscribers_file']['tmp_name'],true);
+				$importer = new CSVImporter($_FILES['subscribers_file']['tmp_name'],true,',');
 				$data = $importer->get(); 
 
 				$existing_subjects = $this->add('Model_Library_Subjects');
