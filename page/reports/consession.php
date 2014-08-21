@@ -57,6 +57,15 @@ class page_reports_consession extends Page {
 		$grid->addColumn('text','amount');
 		$grid->addPaginator(50);
 
+		$js=array(
+			$this->js()->_selector('#header')->toggle(),
+			$this->js()->_selector('#footer')->toggle(),
+			$this->js()->_selector('ul.ui-tabs-nav')->toggle(),
+			$this->js()->_selector('.atk-form')->toggle(),
+			);
+
+		$grid->js('click',$js);
+
 		if($form->isSubmitted()){
 			$grid->js()->reload(array('from_date'=>$form['from_date']?:0,'to_date'=>$form['to_date']?:0,'filter'=>1))->execute();
 		}
