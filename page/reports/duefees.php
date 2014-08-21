@@ -51,7 +51,7 @@ class page_reports_duefees extends Page {
 		$grid->removeColumn('class');
 		$grid->removeColumn('session');
 		$grid->removeColumn('scholar');
-		$grid->removeColumn('studenttype');
+		// $grid->removeColumn('studenttype');
 		$grid->removeColumn('vehicle');
 		$grid->removeColumn('roll_no');
 

@@ -10,6 +10,10 @@ class page_reports_marks extends Page {
 			$term = $this->add('Model_Term')->load($_GET['term_id']);
 		}
 
+		$this->add('H3')->set('Exam Marks Reports For '.$class['full_name'])->setAttr('align','center');
+		$this->js(true)->_selector('#header')->hide();
+
+		
 		$result = $class->getResult($term);
 
 		$columns=array();

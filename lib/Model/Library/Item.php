@@ -28,7 +28,7 @@ class Model_Library_Item extends Model_Table{
 		$this->addExpression('full_name')->set(function($m,$q){
 			return '(concat('.$q->getField('name').'," ",('.$m->refSQL('title_id')->fieldQuery('name')->render().')))';
 		});
-		
+
 		// $this->addExpression('is_issued')->set(function($m,$q){
 		// 	 return $m->refSQL('Library_Transaction')->_dsql()->where('submitted_on is not null')->del('fields')->field('count(*)');
 		// 	 // return $m->refSQL('Library_Transaction')->setLimit(1)->setOrder('issue_on','desc')->_dsql()->del('fields')->field($q->expr('IF(submitted_on is null,1,0)'));

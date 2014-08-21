@@ -21,6 +21,7 @@ class View_Staff_Issue extends View {
 		$item_field=$issue_form->addField('autocomplete/Basic','item','Book / Issue Item')->validateNotNull();
 		$item_field->setModel($item_model);
 		
+
 		$issue_form->addSubmit('Issue');
 
 		if($issue_form->isSubmitted()){

@@ -97,7 +97,8 @@ class Form_Field_Basic extends \Form_Field_Hidden
                 ->where($this->model->getElement( $this->id_field), 'like', $this->model->dsql()->getField('id','test'))
         )->debug();
         */
-        $this->model->setOrder($this->title_field); // order ascending by title field
+        // $this->model->setOrder($this->title_field); // order ascending by title field
+        $this->model->_dsql()->order('length('.$this->title_field.')'); // order ascending by title field
         if ($this->limit_rows) {
             $this->model->_dsql()->limit($this->limit_rows); // limit resultset
         }

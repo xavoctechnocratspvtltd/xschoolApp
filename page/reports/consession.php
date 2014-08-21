@@ -48,7 +48,7 @@ class page_reports_consession extends Page {
 
 		$grid=$this->add('Grid');
 				
-		$grid->add('H1',null,'top_1')->set($from_date .' to ' . $to_date);
+		$grid->add('H1',null,'top_1')->set('Consession List '.$from_date .' to ' . $to_date);
 
 		$grid->setSource($transaction->_dsql());
 		$grid->addColumn('text','submitted_on');

@@ -51,6 +51,21 @@ class MyGrid extends Grid_Advanced{
 		$data[$this->total_text_in_field] = 'Total';
 
 		$this->insertBefore($data);
+
+		$data[$this->total_text_in_field] = 'Balance';
+		$total=$this->my_totals['income'] - $this->my_totals['expense'];
+		if($total<0){
+
+			$data['income'] =$total ;
+			$data['expense'] = '';
+		}
+		else{
+			$data['income'] ='' ;
+			$data['expense'] = $total;
+
+		}
+
+		$this->insertBefore($data);
 	}
 
 	function insertBefore($data){

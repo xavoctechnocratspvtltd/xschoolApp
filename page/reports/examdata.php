@@ -19,5 +19,7 @@ class page_reports_examdata extends Page {
 		if($form->isSubmitted()){
 			$form->js()->univ()->newWindow($this->api->url('reports_marks',array('class_id'=>$form['class'],'term_id'=>$form['term'])))->execute();
 		}
+
+	
 	}
 }
