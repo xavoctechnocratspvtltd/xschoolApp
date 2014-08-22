@@ -9,6 +9,8 @@ class View_Staff_Issue extends View {
 		$staff_model->addCondition('is_application_user',false);
 
 		$item_model=$this->api->currentBranch->library_items();
+		// $item_model=$this->add('Model_Library_Item');
+		// $item_model->addCondition('branch_id',$this->api->currentBranch->id);
 		$item_model->addCondition('is_issued',false);
 		// $item_model->title_field='full_name';
 		$issue_form=$this->add('Form');

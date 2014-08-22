@@ -7,7 +7,9 @@ class View_Staff_Submit extends View {
 
 		
 
-		$item_model=$this->api->currentBranch->library_items();
+		// $item_model=$this->api->currentBranch->library_items();
+		$item_model=$this->add('Model_Library_Item');
+		$item_model->addCondition('branch_id',$this->api->currentBranch->id);
 		$item_model->addCondition('is_issued',true);
 
 		$item_m_j=$item_model->join('library_transactions.item_id','id');

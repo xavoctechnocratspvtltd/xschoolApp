@@ -20,6 +20,9 @@ class page_reports_consession extends Page {
 		$form->addSubmit('GET LIST');
 
 		if($_GET['filter']){
+			$this->api->stickyGET('filter');
+			$this->api->stickyGET('from_date');
+			$this->api->stickyGET('to_date');
 			if($_GET['from_date']){
 				$transaction->addCondition('submitted_on','>=',$_GET['from_date']);
 				$from_date = $_GET['from_date'];

@@ -8,7 +8,7 @@ class page_reports_duefees extends Page {
 		$class_model->title_field = 'full_name';
 		
 		$form=$this->add('Form',null,null,array('form_horizontal'));
-		$class_field=$form->addField('dropdown','class');
+		$class_field=$form->addField('dropdown','class')->setEmptyText('All');
 		$class_field->setModel($class_model);
 
 		$form->addSubmit('Get List');
@@ -29,9 +29,15 @@ class page_reports_duefees extends Page {
 		})->type('money');
 		
 		$selected_class=$this->add('Model_Class');
-		if($_GET['class']){
-			$selected_class->load($_GET['class']);
-			$student_model->addCondition('class_id',$_GET['class']);
+		if($_GET['filter']){
+			if($_GET['class']){
+				$selected_class->load($_GET['class']);
+				$student_model->addCondition('class_id',$_GET['class']);
+			}
+			if(!$_GET['class']){
+				
+			}
+
 		}else{
 			$student_model->addCondition('class_id',-1);
 		}
@@ -60,7 +66,7 @@ class page_reports_duefees extends Page {
 		// $grid->js('click',$this->js()->univ()->newWindow($this->api->url('printdefaulterlist',array('class'=>$_GET['class']))));
 
 		if($form->isSubmitted()){
-			$grid->js()->reload(array('class'=>$form['class']))->execute();
+			$grid->js()->reload(array('filter'=>1,'class'=>$form['class']))->execute();
 		}
 
 		$js=array(
