@@ -70,15 +70,15 @@ class page_exam_manage_exams extends Page {
 			$subject->load($form['subject']);
 
 			if(!$assign_marks->isAvailable($subject,$exam,$this->class)){
-				try{
+				// try{
 
-					$this->api->db->beginTransaction();
+					// $this->api->db->beginTransaction();
 					$assign_marks->createNew($subject,$exam,$this->class,$form->getAllFields());
 					
-				}catch(Exception $e){
-					$this->api->db->rollBack();
-					throw $e;
-				}
+				// }catch(Exception $e){
+				// 	$this->api->db->rollBack();
+				// 	throw $e;
+				// }
 					
 				$form->js(null,$grid->js()->reload())->univ()->successMessage('Added Successfully')->execute();
 				

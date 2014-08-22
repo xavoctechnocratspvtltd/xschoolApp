@@ -21,11 +21,20 @@ public $table="student_fees_applied";
 		});
 
 		$this->hasMany('FeesTransaction','student_applied_fees_id');
-
 		$this->setOrder('due_on');
+		// $this->addHook('beforeSave',$this);
+		$this->addHook('beforeDelete',$this);
 
-	    // $this->add('dynamic_model/Controller_AutoCreator');
 
+	    $this->add('dynamic_model/Controller_AutoCreator');
+
+	}
+
+	function beforeDelete(){
+		// $old_fees=$this->add('Model_StudentAppliedFees');
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Fees Applied Deleted For Student Student ID is " .$this['student_id']." Fees ID is ".$this['fees_id']." amount is ".$this['amount']);
 	}
 
 	function paidAmount($via_receipt=null){
@@ -118,6 +127,8 @@ public $table="student_fees_applied";
 
 
 
+
+
 	}
 
 	function createNew($student, $fees){
@@ -192,6 +203,21 @@ public $table="student_fees_applied";
 
 		return $this;
 
+	}
+
+
+	function changeFees($fees,$amount=null){
+		if(!$this->loaded())
+				throw new Exception("Please Call On Loaded Object");
+			$this['fees_id']=$fees->id;
+			if($amount)
+				$this['amount']=$amount;
+			$this->save();
+
+		$log=$this->add('Model_Log');
+		$log->createNew("Fees Change For Student Student_ID is " .$this['student_id']." Fees ID is ".$this['fees_id']." amount is ".$this['amount']);
+
+				
 	}
 
 }

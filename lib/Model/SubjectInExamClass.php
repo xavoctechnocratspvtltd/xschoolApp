@@ -33,7 +33,7 @@ class Model_SubjectInExamClass extends Model_Table {
 
 		if($this->loaded())
 			throw $this->exception('You can not use laoded Model');
-
+		
 		if(!$session)
 			$session=$this->api->currentSession;
 		$this['subject_id']=$subject->id;
@@ -43,6 +43,7 @@ class Model_SubjectInExamClass extends Model_Table {
 		$this['max_marks']=$other_fields['max_marks'];
 		$this['min_marks']=$other_fields['min_marks'];
 		$this->save();
+		// throw new Exception($class->id, 1);
 
 		return $this;
 

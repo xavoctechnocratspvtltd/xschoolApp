@@ -9,7 +9,8 @@ class Model_Log extends Model_Table {
 		$this->addField('staff_id');
 		$this->addField('session_id');
 		$this->addField('activity');
-		$this->addField('on_date')->type('datetime')->defaultValue(date('Y-m-d H:i:s'));
+		$this->addField('created_at')->type('datetime')->defaultValue(date('Y-m-d H:i:s'));
+		$this->addField('on_date')->type('datetime')->defaultValue($this->api->now);
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
