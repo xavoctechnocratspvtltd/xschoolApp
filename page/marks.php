@@ -10,8 +10,8 @@ class page_marks extends Page {
 		$student_marks->addCondition('class_id',$_GET['class']);
 		$student_marks->addCondition('subject_id',$_GET['subject']);
 		$student_marks->addCondition('exam_id',$_GET['exam']);
-		$st_join=$student_marks->join('students','student_id');
-		$sc_join=$st_join->join('scholars','scholar_id');
+		$st_join=$student_marks->leftJoin('students','student_id');
+		$sc_join=$st_join->leftJoin('scholars','scholar_id');
 		$sc_join->addField('scholar_name','name');
 
 		$student_marks->setOrder('scholar_name');
@@ -23,7 +23,7 @@ class page_marks extends Page {
 		$cols=$this->add('Columns');
 		$col1=$cols->addColumn(8);
 		$grid=$col1->add('Grid');
-		$grid->setModel($student_marks,array('student','marks'));
+		$grid->setModel($student_marks->debug(),array('student','marks'));
 
 
 

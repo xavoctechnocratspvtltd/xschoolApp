@@ -47,7 +47,7 @@ public $table="students";
         })->system(true);
         
 		$this->hasMany('Student_Attendance','student_id');
-        $this->hasMany('Marks','student_id');
+        $this->hasMany('Student_Marks','student_id');
         $this->hasMany('StudentAppliedFees','student_id');
         $this->hasMany('FeesTransaction','student_id');
         $this->hasMany('FeesReceipt','student_id');
@@ -94,6 +94,11 @@ public $table="students";
 		
 		$this['class_id']=$class->id;
 		$this->save();
+
+		$student_marks=$this->ref('Student_Marks');
+		foreach ($student_marks as $junk) {
+			$student_marks->updateClass($class);
+		}
 
 		$log=$this->add('Model_Log');
 		$log->createNew("Student Shift To  new class ".$class['name']);

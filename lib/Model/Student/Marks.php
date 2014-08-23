@@ -11,6 +11,7 @@ class Model_Student_Marks extends Model_Table {
 		$this->hasOne('Subject','subject_id');
 		$this->hasOne('Session','session_id');
 		$this->addField('marks')->type('money')->display(array('grid'=>'grid/inline'));
+		$this->addField('created_at')->type('datetime')->defaultValue($this->api->now)->system(true);
 		$this->addHook('beforeSave',$this);
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
@@ -65,6 +66,11 @@ class Model_Student_Marks extends Model_Table {
 			return true;
 		else
 			return false;
+	}
+
+	function updateClass($class){
+		$this['class_id']=$class->id;
+		$this->save();
 	}
 
 	
