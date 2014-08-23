@@ -23,7 +23,7 @@ class page_marks extends Page {
 		$cols=$this->add('Columns');
 		$col1=$cols->addColumn(8);
 		$grid=$col1->add('Grid');
-		$grid->setModel($student_marks->debug(),array('student','marks'));
+		$grid->setModel($student_marks,array('student','marks'));
 
 
 
