@@ -7,16 +7,16 @@ class Model_Staff extends Model_Table{
 
 		$this->hasOne('Branch','branch_id')->mandatory(true);
 		$this->addField('name')->mandatory(true);
-		$this->addField('username');
-		$this->addField('password')->type('password');
 		$this->addField('fname')->caption('Father / Husband Name')->mandatory(true);
-		$this->addField('is_application_user')->type('boolean')->defaultValue(false);
 		$this->addField('dob');
 		$this->addField('ph_no');
 		$this->addField('mobile_no');
 		$this->addField('address')->type('text');
 		$this->addField('email');
+		$this->addField('username');
+		$this->addField('password')->type('password');
 		$this->addField('code');
+		$this->addField('is_application_user')->type('boolean')->defaultValue(false);
 		$this->hasMany('Library_transaction','staff_id');
 		$this->hasMany('Staff_Attendance','staff_id');
 		 $this->add('dynamic_model/Controller_AutoCreator');
