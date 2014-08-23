@@ -4,7 +4,7 @@ class page_change extends Page{
 	function init(){
 		parent::init();
 
-		$crud=$this->add('CRUD',array('allow_add'=>false,'allow_del'=>fam_close(fam)));
+		$crud=$this->add('CRUD',array('allow_add'=>false,'allow_del'=>false));
 		$marks=$this->add('Model_Student_Marks');
 		$marks->getElement('class_id')->display(array('form'=>'autocomplete/Basic'));
 		$marks->getElement('student_id')->display(array('form'=>'autocomplete/Basic'));
