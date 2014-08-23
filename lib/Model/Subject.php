@@ -7,8 +7,9 @@ public $table="subjects";
 		parent::init();
 
 	 $this->addField('name')->mandatory(true);
+	 $this->addField('order')->type('int');
 	 $this->hasMany('SubjectInAClass','subject_id');
-	 // $this->add('dynamic_model/Controller_AutoCreator');
+	 $this->add('dynamic_model/Controller_AutoCreator');
 
 
 	}

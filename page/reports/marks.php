@@ -24,7 +24,7 @@ class page_reports_marks extends Page {
 
 
 
-		array_multisort($columns);
+		// array_multisort($columns);
 		// echo "<pre>";
 		// print_r($result);
 		// echo "</pre>";

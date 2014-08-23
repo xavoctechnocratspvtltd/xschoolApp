@@ -472,6 +472,7 @@ public $table="classes";
 
 			$marks_obtained->_dsql()
 							->field($this->dsql()->expr($term_join->table_alias . '.name as title'))
+							// ->field($this->dsql()->expr($subject_join->table_alias . '.order as subject_order'))
 							->field($this->dsql()->expr($subject_join->table_alias . '.name as subject'))
 							->field($this->dsql()->expr($scholar_join->table_alias . '.name as student'))
 							->field($this->dsql()->expr('term_id'))
@@ -479,7 +480,7 @@ public $table="classes";
 							->field('student_id')
 							->field('sum(marks) sum_marks');
 			$marks_obtained->_dsql()->group('student_id,term_id, `subject_id`');
-			$marks_obtained->setOrder('subject');
+			$marks_obtained->_dsql()->order($subject_join->table_alias . '.order');
 			$marks_obtained->setOrder('student');
 		}else{
 			$exam_join=$marks_obtained->join('exams','exam_id');
@@ -492,6 +493,7 @@ public $table="classes";
 			// $marks_obtained->addCondition($exam_join->table_alias.'.term_id',$term->id);
 			$marks_obtained->_dsql()->del('fields')
 							->field($this->dsql()->expr($exam_join->table_alias . '.name as title'))
+							->field($this->dsql()->expr($subject_join->table_alias . '.order as subject_order'))
 							->field($this->dsql()->expr($subject_join->table_alias . '.name as subject'))
 							->field($this->dsql()->expr($scholar_join->table_alias . '.name as student'))
 							->field($this->dsql()->expr('exam_id'))
@@ -501,7 +503,7 @@ public $table="classes";
 							->field('sum(marks) sum_marks');
 			$marks_obtained->_dsql()->where($exam_join->table_alias.'.term_id',$term->id);
 			$marks_obtained->_dsql()->group('student_id, '.$exam_join->table_alias.'.name, `subject_id`');
-			$marks_obtained->setOrder('subject ');
+			$marks_obtained->_dsql()->order($subject_join->table_alias . '.order');
 			$marks_obtained->setOrder('student ');
 		}
 
@@ -510,7 +512,7 @@ public $table="classes";
 
 		$max_marks_model = $this->add('Model_SubjectInExamClass');
 
-		foreach ($marks_obtained->_dsql() as $junk) {
+		foreach ($marks_obtained->_dsql()->debug() as $junk) {
 			$result = array();
 			$result['student_name'] = $junk['student'];
 			$result[$junk['title'] . ' ' . $junk['subject']] = $junk['sum_marks'];
@@ -527,8 +529,6 @@ public $table="classes";
 			$total = $result_grouped[$junk['student_id']][$junk['title'] .' total'] += $junk['sum_marks'];
 			$max = $max_marks_model->getMaxMarks($junk['subject_id'],$junk['exam_id'],$junk['term_id'],$this->id);
 
-
-				
 			// echo '<pre>';
 			// print_r($junk);
 			// echo '</pre>';
