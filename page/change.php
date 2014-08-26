@@ -4,18 +4,22 @@ class page_change extends Page{
 	function init(){
 		parent::init();
 
-		$crud=$this->add('CRUD');
+		$crud=$this->add('CRUD',array('allow_add'=>false,'allow_del'=>false));
 		$marks=$this->add('Model_Student_Marks');
+		$marks->getElement('class_id')->display(array('form'=>'autocomplete/Basic'));
+		$marks->getElement('student_id')->display(array('form'=>'autocomplete/Basic'));
+		$marks->getElement('exam_id')->display(array('form'=>'autocomplete/Basic'));
+		$marks->getElement('class_id')->getModel()->title_field='full_name';
+		$marks_join=$marks->join('students','student_id');
+		$s_marks_join=$marks_join->join('scholars','scholar_id');
+		$s_marks_join->addField('scholar_no');
 
-		// $marks_join=$marks->join('students','student_id');
-		// $s_marks_join=$marks_join->join('scholars','scholar_id');
-		// $s_marks_join->addField('scholar_no');
+		$crud->setModel($marks,array('class_id'),array('student','class','scholar_no'));
 
-		$crud->setModel($marks,array('student_id','class_id','scholar_no'),array('student','class','scholar_no'));
 
-		if($crud->grid){
+		if(!$crud->isEditing()){
 			$crud->grid->addPaginator(50);
-			// $crud->grid->addQuickSearch(array('scholar_no'));
+			$crud->grid->addQuickSearch(array('scholar_no'));
 		}
 	}
 }
