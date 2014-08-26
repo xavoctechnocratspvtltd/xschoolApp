@@ -22,6 +22,7 @@ class page_stock_issue extends Page{
 
 		$grid=$col2->add('Grid');
 		$issue_model=$this->add('Model_Stock_Transaction');
+		$issue_model->addCondition('branch_id',$this->api->currentBranch->id)
 		$issue_model->setOrder('id','desc');
 	
 		$issue_model->addCondition('type','Issue');

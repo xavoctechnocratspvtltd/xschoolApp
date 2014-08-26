@@ -8,10 +8,18 @@
 	"buffers":
 	[
 		{
-			"file": "lib/Model/Sms.php",
+			"file": "page/reports/marks.php",
 			"settings":
 			{
-				"buffer_size": 2035,
+				"buffer_size": 964,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/Model/Class.php",
+			"settings":
+			{
+				"buffer_size": 16327,
 				"line_ending": "Unix"
 			}
 		}
@@ -19,9 +27,25 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 75.0,
 		"selected_items":
 		[
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"git sta",
+				"Git: Stash"
+			],
+			[
+				"gitpull",
+				"Git: Pull"
+			],
+			[
+				"git pul",
+				"Git: Pull"
+			],
 			[
 				"packins",
 				"Package Control: Install Package"
@@ -48,20 +72,29 @@
 	},
 	"file_history":
 	[
+		"/var/www/xschool/README.md",
+		"/var/www/xschool/atk4-addons/misc/templates/view/model_core.html",
+		"/var/www/xschool/lib/Model/FeesReceipt.php",
+		"/var/www/xschool/atk4/lib/Model.php",
+		"/var/www/xschool/page/marks.php",
+		"/var/www/xschool/page/reports/main.php",
+		"/var/www/xschool/page/reports/scholar.php",
+		"/var/www/xschool/lib/View/FeesReport.php",
+		"/var/www/xschool/atk4/lib/ApiCLI.php",
+		"/var/www/xschool/atk4/lib/ApiInstall.php",
+		"/var/www/xschool/atk4/tools/atk4-page.sublime-snippet",
+		"/var/www/xschool/page/accounts.php",
+		"/var/www/xschool/lib/Model/Sms.php",
 		"/var/www/xschool/page/reports/duefees.php",
 		"/var/www/xschool/atk4/lib/Dummy.php",
 		"/var/www/xschool/config-default.php",
-		"/var/www/xschool/lib/Model/Sms.php",
 		"/var/www/xschool/lib/Controller/Sms.php",
 		"/var/www/xschool/lib/Controller/CURL.php",
 		"/var/www/index.php",
 		"/var/www/xschool/lib/Model/StudentAppliedFees.php",
-		"/var/www/xschool/lib/Model/FeesReceipt.php",
 		"/var/www/xschool/lib/View/Student/PrintReceipt.php",
 		"/var/www/xschool/lib/Model/FeesTransaction.php",
 		"/var/www/xschool/page/reports/consession.php",
-		"/var/www/xschool/atk4/lib/Model.php",
-		"/var/www/xschool/page/marks.php",
 		"/var/www/xschool/atk4-addons/mvc/ModelException.php",
 		"/var/www/xschool/lib/Model/FeesInAClass.php",
 		"/var/www/xschool/lib/View/Student/FastDeposit.php",
@@ -80,7 +113,6 @@
 		"/var/www/xschool/lib/Model/PaymentTransaction.php",
 		"/var/www/xschool/atk4/tools/atk4-model.sublime-snippet",
 		"/var/www/xschool/atk4/lib/View/ModelDetails.php",
-		"/var/www/xschool/atk4-addons/misc/templates/view/model_core.html",
 		"/var/www/xschool/atk4-addons/mvc/Page/ModelGenerator.php",
 		"/var/www/xschool/atk4/templates/shared/form_empty.html",
 		"/var/www/xschool/lib/Frontend.php",
@@ -155,19 +187,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "lib/Model/Sms.php",
+					"file": "page/reports/marks.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2035,
+						"buffer_size": 964,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								726,
-								726
+								461,
+								461
 							]
 						],
 						"settings":
@@ -176,10 +208,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 264.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "lib/Model/Class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16327,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13851,
+								13851
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11577.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -191,7 +252,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 38.0
 	},
 	"layout":
 	{
@@ -220,6 +281,10 @@
 	{
 		"height": 0.0
 	},
+	"output.git-pull":
+	{
+		"height": 142.0
+	},
 	"project": "xschool.sublime-project",
 	"replace":
 	{
@@ -231,6 +296,22 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"reportmarks",
+				"page/reports/marks.php"
+			],
+			[
+				"modelclass",
+				"lib/Model/Class.php"
+			],
+			[
+				"reportsmarks",
+				"page/reports/marks.php"
+			],
+			[
+				"apicli",
+				"atk4/lib/ApiCLI.php"
+			],
 			[
 				"duefee",
 				"page/reports/duefees.php"
@@ -303,6 +384,10 @@
 		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"xbank2",
+				"/var/www/xbank2/xbank2.sublime-project"
+			],
 			[
 				"xbank",
 				"/var/www/xbank2/xbank2.sublime-project"

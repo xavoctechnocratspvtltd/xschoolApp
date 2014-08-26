@@ -24,6 +24,7 @@ class page_stock_inward extends Page{
 
 		$grid=$col2->add('Grid');
 		$inward_model=$this->add('Model_Stock_Transaction');
+		$inward_model->addCondition('branch_id',$this->api->currentBranch->id);
 		$inward_model->setOrder('id','desc');
 		if($_GET['remove']){
 			

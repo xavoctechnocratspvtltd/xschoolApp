@@ -24,6 +24,7 @@ class page_stock_consume extends Page{
 
 		$grid=$col2->add('Grid');
 		$consume_model=$this->add('Model_Stock_Transaction');
+		$consume_model->addCondition('branch_id',$this->api->currentBranch->id);
 		$consume_model->setOrder('id','desc');
 		if($_GET['remove']){
 			$consume_model->load($_GET['remove']);
