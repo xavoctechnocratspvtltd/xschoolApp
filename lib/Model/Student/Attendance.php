@@ -21,7 +21,7 @@ class Model_Student_Attendance extends Model_Table{
             							'11'=>'Nov',
             							'12'=>'Dec'
             							));
-		$this->addField('total_attendance');
+		$this->addField('total_attendance')->display(array('grid'=>'grid/inline'));
 		$this->addField('present')->display(array('grid'=>'grid/inline'));
 
 		$this->addExpression("roll_no")->set(function($m,$q){

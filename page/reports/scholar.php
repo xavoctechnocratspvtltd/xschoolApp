@@ -10,7 +10,7 @@ class page_reports_scholar extends Page {
 
 
 		$scholar_model->addExpression('previous_class')->set(function($m,$q){
-			$student_m = $m->add('Model_Student',array('table_alias'=>'cc'));
+			$student_m = $m->add('Model_Student',array('table_alias'=>'pc'));
 			$student_m->addCondition('scholar_id',$q->getField('id'));
 			$student_m->setOrder('id','desc');
 			$student_m->setLimit(1);

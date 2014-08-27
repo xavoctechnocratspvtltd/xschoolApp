@@ -29,7 +29,7 @@ class page_reports_student extends Page {
 			$scholar->addCondition('id',-1);
 		$grid->setModel($scholar);
 
-		// $grid->add('misc/Export');
+		$grid->add('misc/Export');
 
 		if($form->isSubmitted()){
 			$grid->js()->reload(array('class_id'=>$form['class']))->execute();

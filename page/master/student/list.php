@@ -16,17 +16,18 @@ class page_master_student_list extends Page {
 		$current_student_model=$this->add('Model_CurrentStudent');
 		
 		if($_GET['remove_student']){
-			$this->api->stickyGET('remove_student');
+			// $this->api->stickyGET('remove_student');
 			try{
 				$this->api->db->beginTransaction();
 				$current_student_model->load($_GET['remove_student'])->deleteForced();
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;
 			}
-			$grid->js()->reload()->execute();
 				
-				
+			$grid->js(true)->reload()->execute();
+			exit;
 		}
 
 		if($_GET['class_id']){

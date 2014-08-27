@@ -36,7 +36,7 @@ class page_master_class_main extends Page {
 
 			// $g->addPaginator(10);
 			$g->addQuickSearch(array('branch','full_name'));
-			$g->addTotals(array('no_of_students'));
+			$g->addTotals(array('no_of_students','total_girls','total_boys'));
 
 			$g->addColumn('expander','subject','Associate Subject');
 			$g->addColumn('expander','exam','Associate Exam');

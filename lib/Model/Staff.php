@@ -17,6 +17,7 @@ class Model_Staff extends Model_Table{
 		$this->addField('password')->type('password');
 		$this->addField('code');
 		$this->addField('is_application_user')->type('boolean')->defaultValue(false);
+		$this->addField('is_active')->type('boolean')->defaultValue(true);
 		$this->hasMany('Library_transaction','staff_id');
 		$this->hasMany('Staff_Attendance','staff_id');
 		 $this->add('dynamic_model/Controller_AutoCreator');
@@ -40,6 +41,7 @@ class Model_Staff extends Model_Table{
 		$this['address']=$other_fields['address'];
 		$this['email']=$other_fields['email'];
 		$this['code']=$other_fields['code'];
+		$this['is_active']=true;
 		
 		$this->save();
 		
@@ -90,6 +92,16 @@ class Model_Staff extends Model_Table{
 		 
 		return $transaction_stock_submit_qty?:0;
 
+	}
+
+	function deactive(){
+		$this['is_active']=false;
+		$this->save();
+	}
+
+	function active(){
+		$this['is_active']=true;
+		$this->save();
 	}
 
 
