@@ -32,6 +32,7 @@ class page_master_user_attendance extends Page{
 							$attendance_temp->save();
 						}
 					}
+					$this->api->db->commit();
 				}catch(Exception $e){
 					$this->api->db->rollBack();
 					throw $e;
@@ -53,8 +54,10 @@ class page_master_user_attendance extends Page{
 
 		if($_GET['swap_present']){
 			$att = $this->add('Model_Staff_Attendance');
-			if($_GET['for_date'])
+			if($_GET['for_date']){
+				$this->api->stickyGET('for_date');
 				$att->addCondition('attendence_on',$_GET['for_date']);
+			}
 			else
 				$att->addCondition('attendence_on',date('Y-m-d'));
 			$att->load($_GET['swap_present']);

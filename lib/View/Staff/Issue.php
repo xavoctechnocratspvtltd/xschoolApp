@@ -4,9 +4,9 @@ class View_Staff_Issue extends View {
 		parent::init();
 
 		$this->add('H3')->set('Issue Library Items');
-
-		$staff_model=$this->api->currentBranch->staffs();
-		$staff_model->addCondition('is_application_user',false);
+		$staff_model=$this->add('Model_Staff');
+		// $staff_model=$this->api->currentBranch->staffs();
+		$staff_model->addCondition('is_application_user',0);
 
 		$item_model=$this->api->currentBranch->library_items();
 		// $item_model=$this->add('Model_Library_Item');

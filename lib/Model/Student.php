@@ -136,7 +136,7 @@ public $table="students";
 	function deleteForced(){
 		$stf=$this->ref('StudentAppliedFees');
 		$sta=$this->ref('Student_Attendance');
-		// $stm=$this->ref('Marks');
+		$stm=$this->ref('Student_Marks');
 
 		foreach ($stf as $junk) {
 			$stf->deleteForced();
@@ -144,6 +144,10 @@ public $table="students";
 
 		foreach ($sta as $junk) {
 			$sta->deleteForced();
+		}
+
+		foreach ($stm as $junk) {
+			$stm->delete();
 		}
 
 		// foreach ($stm as $junk) {

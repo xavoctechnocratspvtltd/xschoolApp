@@ -7,6 +7,7 @@ class page_master_user_main extends Page {
 		$crud=$this->add('xCRUD');
 
 		$staff_model_new=$this->add('Model_Staff');
+		$staff_model_new->addCondition('is_active',true);
 
 		$crud->addHook('myupdate',function($crud,$form){
 			if($crud->isEditing('edit')) return false; // Always required to bypass the bellow code in editing crud mode
@@ -24,12 +25,22 @@ class page_master_user_main extends Page {
 			}
 			return true; // Always required
 		});
+
+		if($_GET['deactive']){
+			$old_staff=$this->add('Model_Staff');
+			$old_staff->load($_GET['deactive']);
+			$old_staff->deactive();
+			if($crud->grid)
+				$crud->grid->js(null,$crud->grid->js()->univ()->successMessage('Staff deactive successfully'))->reload()->execute();
+		}
 		
 		$crud->setModel($staff_model_new);		
 
 		if($g=$crud->grid){
 			$g->addQuickSearch(array('name','branch'));
 			$g->addPaginator(10);
+			$g->addColumn('button','deactive');
+			$g->add('misc/Export');
 		}
 	}
 }

@@ -512,7 +512,7 @@ public $table="classes";
 
 		$max_marks_model = $this->add('Model_SubjectInExamClass');
 
-		foreach ($marks_obtained->_dsql()->debug() as $junk) {
+		foreach ($marks_obtained->_dsql() as $junk) {
 			$result = array();
 			$result['student_name'] = $junk['student'];
 			$result[$junk['title'] . ' ' . $junk['subject']] = $junk['sum_marks'];

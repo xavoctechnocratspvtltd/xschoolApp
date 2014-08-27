@@ -54,6 +54,7 @@ class page_reports_duefees extends Page {
 		// });
 
 		$grid->setModel($student_model);
+		if($_GET['class'])
 		$grid->removeColumn('class');
 		$grid->removeColumn('session');
 		$grid->removeColumn('scholar');
