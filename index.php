@@ -12,5 +12,5 @@
 
 include 'atk4/loader.php';
 $api=new Frontend('s');
-$api->main();
+$api->main('demo');
 ?>
