@@ -12,6 +12,8 @@ class Model_Staff_Attendance extends Model_Table{
 
 		$this->setOrder('attendence_on','Desc');
 
+		// $this->addExpression('month')->set('month(attendence_on)');
+
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 

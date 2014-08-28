@@ -23,7 +23,7 @@ class page_master_user_attendance extends Page{
 			if($this->add('Model_Staff')->count()->getOne() != $this->add('Model_Staff_Attendance')->addCondition('attendence_on',$_GET['for_date'])->count()->getOne() ){
 				try{
 					$this->api->db->beginTransaction();
-					foreach($s=$this->add('Model_Staff') as $junk){
+					foreach($s=$this->add('Model_Staff')->addCondition('is_active',true) as $junk){
 						$attendance_temp= $this->add('Model_Staff_Attendance');
 						$attendance_temp->addCondition('staff_id',$s->id);
 						$attendance_temp->addCondition('attendence_on',$_GET['for_date']);

@@ -15,6 +15,11 @@ class page_stock_genral extends Page {
 		$grid=$this->add('Grid');
 		$transaction=$this->add('Model_Stock_Transaction');
 		if($_GET['filter']){
+			$this->api->stickyGET('filter');
+			$this->api->stickyGET('item');
+			$this->api->stickyGET('type');
+			$this->api->stickyGET('from_date');
+			$this->api->stickyGET('to_date');
 			if($_GET['item'])
 				$transaction->addCondition('item_id',$_GET['item']);
 			if($_GET['type'])
@@ -32,6 +37,7 @@ class page_stock_genral extends Page {
 		$grid->removeColumn('session');
 		$grid->removeColumn('branch');
 		$grid->removeColumn('supplier');
+		$grid->add('misc/Export');
 
 		if($form->isSubmitted()){
 			$grid->js()->reload(array('item'=>$form['item'],'type'=>$form['type'],'from_date'=>$form['from_date']?:0,'to_date'=>$form['to_date']?:0,'filter'=>1))->execute();

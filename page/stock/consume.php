@@ -15,7 +15,7 @@ class page_stock_consume extends Page{
 		$item_field=$form->addField('Dropdown','item')->setEmptyText('Please Select')->validateNotNull();
 		$staff_field=$form->addField('Dropdown','staff')->setEmptyText('Please Select');
 		$item_field->setModel('Stock_Item');
-		$staff_field->setModel($this->api->currentBranch->staffs());
+		$staff_field->setModel($this->api->currentBranch->staffs()->addCondition('is_active',true));
 
 		$form->addField('line','qty')->validateNotNull();
 

@@ -58,5 +58,6 @@ class page_stock_current extends Page {
 		$grid->addColumn('consume','consume');
 		$grid->addColumn('issue','issue');
 		$grid->addColumn('submit','submit');
+		$grid->add('misc/Export');
 	}
 }
