@@ -11,8 +11,8 @@ class page_library_main extends Page{
 		$tab1=$tabs->addTabURL('library_item','Item');
 		// $tab1=$tabs->addTabURL('library_stocktransaction','Stock transaction');
 		$tab1=$tabs->addTabURL('library_transaction','Library Actions');
-		$tab1=$tabs->addTabURL('library_reports_staff','Staff Wise Actions');
-		$tab1=$tabs->addTabURL('library_reports_student','Student Wise Actions');
+		$tab1=$tabs->addTabURL('library_reports_staff','Staff Wise Report');
+		$tab1=$tabs->addTabURL('library_reports_student','Student Wise Report');
 		$tab1=$tabs->addTabURL('library_report','Genral Report');
 		$tab1=$tabs->addTabURL('library_submit','Library Non Submit Item List');
 	}

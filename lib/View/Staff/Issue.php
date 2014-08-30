@@ -7,6 +7,7 @@ class View_Staff_Issue extends View {
 		$staff_model=$this->add('Model_Staff');
 		// $staff_model=$this->api->currentBranch->staffs();
 		$staff_model->addCondition('is_application_user',0);
+		// $staff_model->addCondition('is_active',0);
 
 		$item_model=$this->api->currentBranch->library_items();
 		// $item_model=$this->add('Model_Library_Item');

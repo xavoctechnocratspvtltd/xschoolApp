@@ -12,6 +12,9 @@ class page_stock_staff extends Page {
 		$grid=$this->add('Grid');
 		$transaction=$this->add('Model_Stock_Transaction');
 		if($_GET['filter']){
+			$this->api->stickyGET('filter');
+			$this->api->stickyGET('staff');
+			$this->api->stickyGET('type');
 			if($_GET['staff'])
 				$transaction->addCondition('staff_id',$_GET['staff']);
 			if($_GET['type'])
@@ -25,6 +28,7 @@ class page_stock_staff extends Page {
 		$grid->removeColumn('session');
 		$grid->removeColumn('branch');
 		$grid->removeColumn('supplier');
+		$grid->add('misc/Export');
 
 		if($form->isSubmitted()){
 			$grid->js()->reload(array('staff'=>$form['staff'],'type'=>$form['type'],'filter'=>1))->execute();
