@@ -43,7 +43,7 @@ public $table="classes";
         	return $student->addCondition('gender','m')->count();
         });
 
-        $this->setOrder('full_name');
+        $this->setOrder('full_name','asc');
 
         $this->addHook('editing',array($this,'editingDefault'));
         $this->addHook('beforeDelete',$this);
