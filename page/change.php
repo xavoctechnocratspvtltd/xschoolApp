@@ -19,19 +19,23 @@ class page_change extends Page{
 		$marks_join=$marks->join('students','student_id');
 		$s_marks_join=$marks_join->join('scholars','scholar_id');
 		$s_marks_join->addField('scholar_no');
+		
 		if($_GET['class']){
 			$this->api->stickyGET('class');
-			$marks->addcondition('class_id',$_GET['class']);
+			if(!$crud->form)
+				$marks->addcondition('class_id',$_GET['class']);
+			
 		}
 
 
 
+
 		if(!$crud->isEditing()){
-			$crud->grid->addColumn('sno','sno');
 			$crud->grid->addPaginator(50);
 			$crud->grid->addQuickSearch(array('scholar_no','class'));
 
-		
+			$crud->grid->addColumn('sno','sno');
+			
 
 		}
 		$crud->setModel($marks,array('class_id'),array('student','class','scholar_no'));
