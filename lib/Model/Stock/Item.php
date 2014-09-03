@@ -97,12 +97,16 @@ Class Model_Stock_Item extends Model_Table{
 		$inward_tra->addCondition('item_id',$this->id);
 		$inward_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
 		$inward_tra->addCondition('type','Inward');
+		$inward_tra->addCondition('branch_id',$this->api->currentBranch->id);
+		$inward_tra->addCondition('session_id',$this->api->currentSession->id);
 		$inward_tra_qty = ($inward_tra->sum('qty')->getOne())?:0;
 
 		$consume_tra = $this->add('Model_Stock_Transaction');
 		$consume_tra->addCondition('item_id',$this->id);
 		$consume_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
 		$consume_tra->addCondition('type','Consume');
+		$consume_tra->addCondition('branch_id',$this->api->currentBranch->id);
+		$consume_tra->addCondition('session_id',$this->api->currentSession->id);
 		$consume_tra_qty = ($consume_tra->sum('qty')->getOne())?:0;
 
 
@@ -110,12 +114,16 @@ Class Model_Stock_Item extends Model_Table{
 		$issue_tra->addCondition('item_id',$this->id);
 		$issue_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
 		$issue_tra->addCondition('type','Issue');
+		$issue_tra->addCondition('branch_id',$this->api->currentBranch->id);
+		$issue_tra->addCondition('session_id',$this->api->currentSession->id);
 		$issue_tra_qty = ($issue_tra->sum('qty')->getOne())?:0;
 
 		$submit_tra = $this->add('Model_Stock_Transaction');
 		$submit_tra->addCondition('item_id',$this->id);
 		$submit_tra->addCondition('created_at','<',$this->api->nextDate($as_on));
 		$submit_tra->addCondition('type','Submit');
+		$submit_tra->addCondition('branch_id',$this->api->currentBranch->id);
+		$submit_tra->addCondition('session_id',$this->api->currentSession->id);
 		$submit_tra_qty = ($submit_tra->sum('qty')->getOne())?:0;
 
 		return (($inward_tra_qty+$submit_tra_qty)-($consume_tra_qty+$issue_tra_qty));
