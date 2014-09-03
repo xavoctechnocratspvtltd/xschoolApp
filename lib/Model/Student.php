@@ -53,6 +53,7 @@ public $table="students";
         $this->hasMany('FeesReceipt','student_id');
         $this->hasMany('Library_transaction','student_id');
 
+        // $this->addHook('beforeSave',$this);
         $this->addHook('beforeDelete',$this);
 
         $this->setOrder('name');
@@ -60,6 +61,7 @@ public $table="students";
 	    // $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
+	
 
 	function createNew($scholar,$class, $studenttype, $session=null){
 		if(!$session) $session=$this->api->currentSession;

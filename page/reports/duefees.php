@@ -53,6 +53,8 @@ class page_reports_duefees extends Page {
 		// 	$g->current_row[$f]=$g->current_row['applied_fees_sum_till_date']-$g->current_row['paid_fees_sum_till_date'];
 		// });
 
+		$student_model->setOrder('class');
+
 		$grid->setModel($student_model);
 		if($_GET['class'])
 		$grid->removeColumn('class');

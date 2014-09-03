@@ -24,7 +24,7 @@ class page_accounts extends Page {
 		if($crud_received->grid){
 
 			$crud_received->grid->addPaginator(50);
-			$crud_received->grid->addQuickSearch(array('transaction_date','amount'));
+			$crud_received->grid->addQuickSearch(array('transaction_date','amount','narration'));
 
 			$crud_received->grid->addMethod('format_editme',function($g,$field){
 				if($g->model['fees_receipt']){
@@ -58,7 +58,7 @@ class page_accounts extends Page {
 
 		if($crud_paid->grid){
 			$crud_paid->grid->addPaginator(50);
-			$crud_paid->grid->addQuickSearch(array('transaction_date','amount'));
+			$crud_paid->grid->addQuickSearch(array('transaction_date','amount','narration'));
 			$crud_paid->grid->addColumn('button','print_paid','print');
 			// $crud_received->grid->addFormatter('print_received','editme1');
 		}
