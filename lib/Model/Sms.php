@@ -8,7 +8,7 @@ class Model_Sms extends Model_Table {
 		$this->hasOne('Class','class_id');
 		$this->addField('numbers')->type('text');
 		$this->addField('message')->type('text');
-		$this->addField('created_at')->type('datetime')->defaultValue($this->api->now);
+		$this->addField('created_at')->type('date')->defaultValue($this->api->today);
 		$this->addHook('afterInsert',$this);
 		$this->add('dynamic_model/Controller_AutoCreator');
 	}
@@ -98,6 +98,8 @@ class Model_Sms extends Model_Table {
 		// echo "<pre>";
 		// print_r($numbers);
 		// echo "</pre>";
+		// throw new Exception("Error Processing Request", 1);
+		
 		$this->createNew($message,$numbers,$class);
 	}
 
@@ -110,7 +112,7 @@ class Model_Sms extends Model_Table {
 			$no=$on_number;
 		// else
 		// 	$no=$this['numberr'];
-		$this->add('Controller_Sms')->sendMessage($no, $this['message']);
+		// $this->add('Controller_Sms')->sendMessage($no, $this['message']);
 
 		$log=$this->add('Model_Log');
 		$log->createNew("sms send");

@@ -446,6 +446,7 @@ public $table="classes";
 
 		$student = $this->add('Model_Student');
 		$student->addCondition('class_id',$this->id);
+		// $student->addCondition('is_left',false);
 		$student->addCondition('session_id',$session->id);
 		return $student;
 	}
@@ -529,15 +530,15 @@ public $table="classes";
 			$total = $result_grouped[$junk['student_id']][$junk['title'] .' total'] += $junk['sum_marks'];
 			$max = $max_marks_model->getMaxMarks($junk['subject_id'],$junk['exam_id'],$junk['term_id'],$this->id);
 
-			// echo '<pre>';
-			// print_r($junk);
-			// echo '</pre>';
 			
 			if(!isset($result_grouped[$junk['student_id']][$junk['title'] .' max_marks']))
 				$result_grouped[$junk['student_id']][$junk['title'] .' max_marks'] =0 ;
 
 			$max= $result_grouped[$junk['student_id']][$junk['title'] .' max_marks'] += $max ;
 			
+			// echo '<pre>';
+			// print_r($max);
+			// echo '</pre>';
 
 			if(!isset($result_grouped[$junk['student_id']][$junk['title'] .' grade']))
 				$result_grouped[$junk['student_id']][$junk['title'] .' grade']='F';
