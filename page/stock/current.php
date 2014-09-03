@@ -17,6 +17,8 @@ class page_stock_current extends Page {
 			$inward_tra->addCondition('item_id',$g->model->id);
 			$inward_tra->addCondition('created_at','<',$g->api->nextDate($g->api->today));
 			$inward_tra->addCondition('type','Inward');
+			$inward_tra->addCondition('branch_id',$g->api->currentBranch->id);
+			$inward_tra->addCondition('session_id',$g->api->currentSession->id);
 			$inward_tra_qty = ($inward_tra->sum('qty')->getOne())?:0;
 			$g->current_row[$f]=$inward_tra_qty;
 		});
@@ -27,6 +29,8 @@ class page_stock_current extends Page {
 			$consume_tra->addCondition('item_id',$g->model->id);
 			$consume_tra->addCondition('created_at','<',$g->api->nextDate($g->api->today));
 			$consume_tra->addCondition('type','Consume');
+			$consume_tra->addCondition('branch_id',$g->api->currentBranch->id);
+			$consume_tra->addCondition('session_id',$g->api->currentSession->id);
 			$consume_tra_qty = ($consume_tra->sum('qty')->getOne())?:0;
 			$g->current_row[$f]=$consume_tra_qty;
 		});
@@ -38,6 +42,8 @@ class page_stock_current extends Page {
 			$issue_tra->addCondition('item_id',$g->model->id);
 			$issue_tra->addCondition('created_at','<',$g->api->nextDate($g->api->today));
 			$issue_tra->addCondition('type','Issue');
+			$issue_tra->addCondition('branch_id',$g->api->currentBranch->id);
+			$issue_tra->addCondition('session_id',$g->api->currentSession->id);
 			$issue_tra_qty = ($issue_tra->sum('qty')->getOne())?:0;
 			$g->current_row[$f]=$issue_tra_qty;
 		});
@@ -48,6 +54,8 @@ class page_stock_current extends Page {
 			$submit_tra->addCondition('item_id',$g->model->id);
 			$submit_tra->addCondition('created_at','<',$g->api->nextDate($g->api->today));
 			$submit_tra->addCondition('type','Submit');
+			$submit_tra->addCondition('branch_id',$g->api->currentBranch->id);
+			$submit_tra->addCondition('session_id',$g->api->currentSession->id);
 			$submit_tra_qty = ($submit_tra->sum('qty')->getOne())?:0;
 			$g->current_row[$f]=$submit_tra_qty;
 		});

@@ -40,6 +40,7 @@ class Model_Student_Marks extends Model_Table {
 		$this['exam_id']=$exam->id;
 		$this['subject_id']=$subject->id;
 		$this['session_id']=$session->id;
+		$this['created_at']=$this->api->now;
 		$this->saveAndUnload();
 
 		$log=$this->add('Model_Log');
