@@ -20,6 +20,7 @@ class page_master extends Page {
 		$tabs->addTabUrl('master_user_ex','Ex-Staff');
 		$tabs->addTabUrl('master_user_attendance','Staff Attendance');
 		$tabs->addTabUrl('master_user_report','Staff Attendance Report');
+		$tabs->addTabUrl('master_session_promote','Seesion Promote');
 
 		
 	}

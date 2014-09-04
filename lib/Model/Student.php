@@ -532,6 +532,25 @@ public $table="students";
 		// 	);
 	}
 
+	function allReadyInSession($scholar,$class,$session=null){
+		if(!$session)
+				$session=$this->api->currentSession;
+			// $st=$this->add('Model_Student');
+			$this->addCondition('class_id',$class->id);
+			$this->addCondition('scholar_id',$scholar->id);
+			// $st->addCondition('id',$student->id);
+			$this->addCondition('session_id',$session->id);
+			$this->tryLoadAny();
+			// throw new Exception($this['name'], 1);
+			if($this->loaded())
+				return $this;
+			else
+				return false;
+
+			
+
+	}
+
 	
 
 }
