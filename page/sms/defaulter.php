@@ -49,13 +49,14 @@ class page_sms_defaulter extends Page {
 		$grid->addMethod('format_empty',function($g,$f){
 			$sms=$g->add('Model_Sms');
 			$sms->addCondition('created_at',$g->api->today);
-			$sms->addCondition('numbers','in',explode(',',$g->model['phone_no']));
-			$sms->debug()->tryLoadAny();
+			$no_array=$sms->senitizeNumber($g->model['phone_no']);
+			$sms->addCondition('numbers','Like','%'.$no_array[0].'%');
+			$sms->tryLoadAny();
 
-			if($sms->loaded())
+			if(!$sms->loaded())
 				$g->current_row_html[$f]='xyz';
 		});
-		$grid->addColumn('empty','send');
+		$grid->addColumn('empty,button','send');
 
 		if($_GET['send']){	
 			$student=$this->add('Model_Student')->load($_GET['send']);
