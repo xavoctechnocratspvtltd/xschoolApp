@@ -13,6 +13,7 @@ public $table="students";
         $this->hasOne('Vehicle','vehicle_id')->defaultValue(0);
 		$this->addField('roll_no');
 		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
+		$this->addField('is_left')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
         $this->addField('isScholared')->type('boolean')->system(true);
         $this->addField('given_consession')->type('money')->system(true);
 
@@ -58,7 +59,7 @@ public $table="students";
 
         $this->setOrder('name');
 
-	    // $this->add('dynamic_model/Controller_AutoCreator');
+	    $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	
@@ -314,6 +315,8 @@ public $table="students";
 			$transaction->createNew($paid_amount+$late_fees,"Income",$mode,$narration,$receipt->id);
 			return $receipt;
 		}
+
+		
 
 	}
 

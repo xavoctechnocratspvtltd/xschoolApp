@@ -5,21 +5,19 @@ class page_sms_defaulter extends Page {
 		parent::init();
 
 		$cols=$this->add('Columns');
-		$col1=$cols->addColumn(6);
-		$form=$col1->add('Form');
+		$col1=$cols->addColumn(8);
+		// $col2=$cols->addColumn(6);
+		$form=$col1->add('Form',null,null,array('form_horizontal'));
 		$branch_field=$form->addField('dropdown','branch')->setEmptyText('Please Select')->validateNotNull();
 		$branch_field->setModel('Branch');
-		$form->addField('text','message')->validateNotNull();
+		// $form->addField('text','message')->validateNotNull();
 		$form->addSubmit('Send');
-
-		if($form->isSubmitted()){
-			$numbers=array();
-			$branch=$this->add('Model_Branch');
-			$branch->load($form['branch']);
-			$class_model=$branch->classes();
-			foreach ($class_model as $junk) {
-				$student_model = $this->add('Model_Student');
-				$student_model->addExpression('due')->set(function($m,$q){
+		$grid=$col1->add('Grid');
+		$student_model=$this->add('Model_Student');
+		$class_join=$student_join_class=$student_model->join('classes','class_id');
+		$branch_join=$class_join->join('branches','branch_id');
+		$branch_join->addField('branch_name','name');
+		$student_model->addExpression('due')->set(function($m,$q){
 				$sfa=$m->add('Model_StudentAppliedFees',array('table_alias'=>'xsaf1'));
 				$sfa->addCondition('student_id',$q->getField('id'));
 				$sfa->addCondition('due_on','<=',$m->api->today);
@@ -33,28 +31,49 @@ class page_sms_defaulter extends Page {
 				return "((".$sfa_q.") - (".$ft_q."))";
 			})->type('money');
 			
-		
-			$student_model->addCondition('class_id',$class_model->id);
+		 // $student_model->addCondition('class_id',$class_model->id);
 
-			$student_model->_dsql()->having('due > 0 ');
+		$student_model->_dsql()->having('due > 0 ');
 
-			foreach ($student_model as $junk) {
-				if(!$student_model['phone_no']) continue;
-				$numbers[]=$student_model['phone_no'];
-			}
+		if($_GET['branch']){
+			$this->api->stickyGET('branch');
+			$branch=$this->add('Model_Branch')->load($_GET['branch']);
+			$student_model->addCondition('branch_name',$branch['name']);
+		}else
+			$student_model->addCondition('id',-1);
 
-			}
+		$grid->setModel($student_model,array('name','class','phone_no','due'));
+		$grid->controller->importField('branch_name');
+		$grid->addPaginator(10);
+
+		$grid->addMethod('format_empty',function($g,$f){
+			$sms=$g->add('Model_Sms');
+			$sms->addCondition('created_at',$g->api->today);
+			$no_array=$sms->senitizeNumber($g->model['phone_no']);
+			$sms->addCondition('numbers','Like','%'.$no_array[0].'%');
+			$sms->tryLoadAny();
+
+			if($sms->loaded())
+				$g->current_row_html[$f]='xyz';
+		});
+		$grid->addColumn('empty,button','send');
+
+		if($_GET['send']){	
+			$student=$this->add('Model_Student')->load($_GET['send']);
+			$numbers=explode(',', $student['phone_no']);
+			$message="Dear Parents <".$student['name'].">,
+					 Your ward fee us due as last date of submission is 10th of
+					 every month. Plz ignore the msg if fee paid. Principal.";
 
 			$sms=$this->add('Model_Sms');
-			try{
-				$this->api->db->beginTransaction();
-				$sms->sendMessage($form['message'],$numbers,null);
-			}catch(Exception $e){
-				$this->api->db->rollBack();
-				throw $e;
-				
-			}
-			$form->js()->reload(null,$form->js()->univ()->successMessage('Message Send Successfully'))->execute();
+			$sms->sendMessage($message,$numbers,null);
+			$grid->setFormatter('send','empty');
+			$grid->js()->reload()->execute();
+		}
+
+		if($form->isSubmitted()){
+			$numbers=array();
+			$grid->js()->reload(array('branch'=>$form['branch']))->execute();
 		}
 		
 	}
