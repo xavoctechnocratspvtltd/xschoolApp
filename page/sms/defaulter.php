@@ -53,7 +53,7 @@ class page_sms_defaulter extends Page {
 			$sms->addCondition('numbers','Like','%'.$no_array[0].'%');
 			$sms->tryLoadAny();
 
-			if(!$sms->loaded())
+			if($sms->loaded())
 				$g->current_row_html[$f]='xyz';
 		});
 		$grid->addColumn('empty,button','send');
@@ -67,6 +67,7 @@ class page_sms_defaulter extends Page {
 
 			$sms=$this->add('Model_Sms');
 			$sms->sendMessage($message,$numbers,null);
+			$grid->setFormatter('send','empty');
 			$grid->js()->reload()->execute();
 		}
 
