@@ -34,6 +34,7 @@ class page_transport_assign extends Page{
 
 		$grid= $this->add( 'Grid' );
 		$student=$this->add( 'Model_CurrentStudent' );
+		$student->addCondition('is_left',false);
 
 		if ( $_REQUEST['filter'] ) {
 			$this->api->stickyGET('filter');
@@ -57,7 +58,7 @@ class page_transport_assign extends Page{
 			try{
 				$this->api->db->beginTransaction();
 				$student->removeVehicle();
-				
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;
@@ -96,6 +97,7 @@ class page_transport_assign extends Page{
 			try{
 				$this->api->db->beginTransaction();
 				$student->assignVehicle($vehicle);
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;

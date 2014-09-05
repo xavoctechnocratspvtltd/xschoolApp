@@ -6,13 +6,16 @@ class page_library_reports_staff extends Page{
 
 		$form=$this->add('Form',null,null,array('form_horizontal'));
 		$staff_field=$form->addField('autocomplete/Basic','staff');//->setEmptyText('Please Slecect');
-		$staff_field->setModel('Staff');
+		$staff=$this->add('Model_Staff');
+		$staff->addCondition('is_active',true);
+		$staff_field->setModel($staff);
 		$form->addField('DatePicker','from_date');
 		$form->addField('DatePicker','to_date');
 		$form->addField('dropdown','type')->setValueList(array('Issue'=>'Issue','Submit'=>'Submit'))->validateNotNull();
 		$form->addSubmit('GET LIST');
 
 		$transaction=$this->add('Model_Library_Transaction');
+		$transaction->addCondition('session_id',$this->api->currentSession->id);
 		$grid=$this->add('Grid');
 		if($_GET['filter']){
 			if($_GET['staff'])

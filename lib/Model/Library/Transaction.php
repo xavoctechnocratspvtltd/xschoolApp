@@ -10,6 +10,7 @@ class Model_Library_Transaction extends Model_Table{
 		$this->hasOne('Student','student_id');
 		$this->hasOne('Staff','staff_id');
 		$this->hasOne('Branch','branch_id');
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 
 		// $this->addField('name');
 		$this->addField('issue_on')->type('date')->defaultValue($this->api->today);
@@ -18,6 +19,7 @@ class Model_Library_Transaction extends Model_Table{
 		// $this->addField('type')->enum(array('Issue','Submit'));
 		$this->addField('no_of_day_late_submission')->system(true);
 
+		// $this->addCondition('session_id',$this->api->currentSession->id);
 		$this->add('dynamic_model/Controller_AutoCreator');
 
 	}

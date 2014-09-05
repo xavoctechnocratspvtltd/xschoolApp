@@ -14,7 +14,7 @@ class page_reports_studentlist extends Page{
 		$cols=$this->add('Columns');
 		$col1=$cols->addColumn(4);
 		$grid=$col1->add('Grid');
-		$student_model=$this->add('Model_Student');
+		$student_model=$this->add('Model_CurrentStudent');
 		if($_GET['class']){
 			$student_model->addCondition('class_id',$_GET['class']);
 		}else{

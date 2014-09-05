@@ -9,10 +9,6 @@ class page_reports_consession extends Page {
 		$from_date = 'Start';
 		$to_date = 'Last Entry';
 
-		
-
-
-
 		$form=$this->add('Form',null,null,array('form_horizontal'));
 		$form->addField('DatePicker','from_date');
 		$form->addField('DatePicker','to_date');
@@ -48,6 +44,7 @@ class page_reports_consession extends Page {
 		$transaction->_dsql()->group('submitted_on,student_id');
 
 		$transaction->addCondition('branch_id',$this->api->currentBranch->id);
+		$transaction->addCondition('session_id',$this->api->currentSession->id);
 
 		$grid=$this->add('Grid');
 				

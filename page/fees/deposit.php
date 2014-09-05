@@ -74,6 +74,11 @@ class page_fees_deposit extends Page {
 		}
 
 		if($form->isSubmitted()){
+			$st=$this->add('Model_CurrentStudent');
+
+			if($st->isLeft($form['scholar_no']))
+				throw new Exception("This Student Left in current Session");
+				
 			$deposit_container->js()->reload(array($student_field->name=>$form['student_id'], $scholar_no_field->name=>$form['scholar_no']))->execute();
 		}
 

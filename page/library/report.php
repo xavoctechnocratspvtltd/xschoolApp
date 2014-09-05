@@ -13,6 +13,7 @@ class page_library_report extends Page {
 
 		$grid=$this->add('Grid');
 		$transaction=$this->add('Model_Library_Transaction');
+		$transaction->addCondition('session_id',$this->api->currentSession->id);
 		if($_GET['filter']){
 			if($_GET['type']=='Issue'){
 				if($_GET['from_date'])

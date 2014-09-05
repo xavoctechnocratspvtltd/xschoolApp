@@ -10,6 +10,7 @@ class page_master_student_main extends Page {
 		$tabs->addTabUrl('master_student_attendance','Attendance');
 		$tabs->addTabUrl('master_student_attendancereport','Attence Report');
 		$tabs->addTabUrl('scholar_addtoclass','Add Scholar To Class');
+		$tabs->addTabUrl('scholar_left','Mark Students Left');
 
 		
 	}

@@ -81,6 +81,26 @@ public $table="students";
 		return $this;
 	}
 
+	function markLeft(){
+		$this['is_left']=true;
+		$this->save();
+	}
+
+	function restore(){
+		$this['is_left']=false;
+		$this->save();
+
+	}
+
+	function isLeft($scholar_no){
+		$this->addCondition('scholar_no',$scholar_no);
+		$this->addCondition('is_left',true);
+		$this->tryLoadAny();
+		if($this->loaded())
+			return $this;
+		else
+			false;
+	}
 	function issue($item){
 		if(!$this->loaded())
 			throw $this->exception("You can not use Loaded Model on issue ");
@@ -115,6 +135,7 @@ public $table="students";
 			throw $this->exception(' student must be passed Loaded Class Object');
 		 $this->addCondition('class_id',$class->id);
 		 $this->addCondition('session_id',$session->id);
+		 $this->addCondition('is_left',false);
 		 if($count)
 			return $count= $this->count()->getOne();
 		else

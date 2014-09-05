@@ -9,19 +9,19 @@ class page_reports_deposit extends Page {
 		$class=$this->api->currentBranch->classes();
 		$class->title_field='full_name';
 		$class_field->setModel($class);
-		$month_field=$form->addField('dropdown','month')->setValueList(array('1'=>'Jan',
-																			'2'=>'Feb',
-																			'3'=>'March',
-																			'4'=>'April',
-																			'5'=>'May',
-																			'6'=>'Jun',
-																			'7'=>'July',
-																			'8'=>'august',
-																			'9'=>'Sep',
-																			'10'=>'Oct',
-																			'11'=>'Nov',
-																			'12'=>'Dec')
-																		)->setEmptyText('Please Select');
+		$month_field=$form->addField('dropdown','month')->setValueList(array('1'=>'January',
+									            							'2'=>'February ',
+									            							'3'=>'March',
+									            							'4'=>'April',
+									            							'5'=>'May',
+									            							'6'=>'June',
+									            							'7'=>'July',
+									            							'8'=>'August',
+									            							'9'=>'September',
+									            							'10'=>'October',
+									            							'11'=>'November',
+									            							'12'=>'December'
+									            							))->setEmptyText('Please Select');
 
 		$form->addSubmit('GET LIST');
 
@@ -34,7 +34,7 @@ class page_reports_deposit extends Page {
 		$s_c_j=$s_j->join('classes','class_id');
 	 	$receipt->addExpression('full_name')->set('(CONCAT('.$s_c_j->table_alias.'.name, " - ", '.$s_c_j->table_alias.'.section))');
 	 	$receipt->addExpression('month')->set('(MONTH(created_at))');
-	 	
+	 	$receipt->addCondition('session_id',$this->api->currentSession->id);
 		if($_GET['filter']){
 			if($_GET['class']){
 				$class=$this->add('Model_Class')->load($_GET['class']);

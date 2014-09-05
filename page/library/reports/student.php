@@ -17,6 +17,7 @@ class page_library_reports_student extends Page{
 		$form->addField('dropdown','type')->setValueList(array('Issue'=>'Issue','Submit'=>'Submit'))->setEmptyText('please select')->validateNotNull();
 		$form->addSubmit('GET LIST');
 		$student_model=$this->add('Model_CurrentStudent');
+		$student_model->addCondition('is_left',false);
 		if($_REQUEST[$class_field->name]){
 			$this->api->stickyGET($_GET[$class_field->name]);
 			$student_model->addCondition('class_id',$_REQUEST[$class_field->name]);
@@ -29,6 +30,7 @@ class page_library_reports_student extends Page{
 
 
 		$transaction=$this->add('Model_Library_Transaction');
+		// $transaction->addCondition('session_id',$this->api->currentSession->id);
 		$grid=$this->add('Grid');
 		if($_GET['filter']){
 			if($_GET['students'])

@@ -14,6 +14,15 @@ class page_master_student_list extends Page {
 
 		$grid=$this->add('Grid');
 		$current_student_model=$this->add('Model_CurrentStudent');
+		$current_student_model->addCondition('is_left',0);
+
+		// if($_GET['mark_left']){
+		// 	$this->api->stickyGET('mark_left');
+		// 	$all_available_student=$this->add('Model_Student');
+		// 	$all_available_student->load($_GET['mark_left']);
+		// 	$all_available_student->markLeft();
+		// 	$grid->js()->reload()->execute();
+		// }
 		
 		if($_GET['remove_student']){
 			// $this->api->stickyGET('remove_student');
@@ -41,6 +50,7 @@ class page_master_student_list extends Page {
 		$grid->addClass('student-grid');
 		$grid->js('reload')->reload();
 
+		// $grid->addColumn('button','mark_left');
 		$grid->addColumn('Confirm','remove_student');
 		$grid->addColumn('Expander','fees_applied');
 		$grid->addColumn('Expander','change_class');

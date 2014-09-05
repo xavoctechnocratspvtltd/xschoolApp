@@ -12,11 +12,11 @@ Class Model_Stock_Item extends Model_Table{
 		$this->hasMany('Stock_Transaction','item_id');
 
 		$this->addExpression('total_inward')->set(function($m,$q){
-			return $m->refSQL('Stock_Transaction')->addCondition('type','Inward')->sum('qty');
+			return $m->refSQL('Stock_Transaction')->addCondition('session_id',$m->api->currentSession->id)->addCondition('type','Inward')->sum('qty');
 		});
 
 		$this->addExpression('total_consume')->set(function($m,$q){
-			return $m->refSQL('Stock_Transaction')->addCondition('type','Consume')->sum('qty');
+			return $m->refSQL('Stock_Transaction')->addCondition('session_id',$m->api->currentSession->id)->addCondition('type','Consume')->sum('qty');
 		});
 
 		// $this->addExpression('total_issued')->set(function($m,$q){
