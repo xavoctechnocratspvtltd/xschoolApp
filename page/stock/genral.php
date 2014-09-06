@@ -14,6 +14,7 @@ class page_stock_genral extends Page {
 
 		$grid=$this->add('Grid');
 		$transaction=$this->add('Model_Stock_Transaction');
+		$transaction->addCondition('session_id',$this->api->currentSession->id);
 		if($_GET['filter']){
 			$this->api->stickyGET('filter');
 			$this->api->stickyGET('item');

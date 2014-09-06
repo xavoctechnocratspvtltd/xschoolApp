@@ -446,7 +446,7 @@ public $table="classes";
 
 		$student = $this->add('Model_Student');
 		$student->addCondition('class_id',$this->id);
-		// $student->addCondition('is_left',false);
+		$student->addCondition('is_left',false);
 		$student->addCondition('session_id',$session->id);
 		return $student;
 	}

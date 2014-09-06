@@ -6,7 +6,7 @@ class Model_Staff_Attendance extends Model_Table{
 	function init(){
 		parent::init();
 		$this->hasOne('Staff','staff_id')->sortable(true);
-		$this->hasOne('Session','session_id')->defaultValue($this->api->currentBranch->id);
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 		$this->addField('attendence_on')->type('date')->defaultValue(date('Y-m-d'));
 		$this->addField('is_present')->type('boolean')->defaultValue(false)->sortable(true);
 

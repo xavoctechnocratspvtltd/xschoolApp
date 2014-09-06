@@ -54,9 +54,9 @@ class page_sms_defaulter extends Page {
 			$sms->tryLoadAny();
 
 			if($sms->loaded())
-				$g->current_row_html[$f]='xyz';
+				$g->current_row_html[$f]='Message Sent';
 		});
-		$grid->addColumn('empty,button','send');
+		$grid->addColumn('button,empty','send');
 
 		if($_GET['send']){	
 			$student=$this->add('Model_Student')->load($_GET['send']);

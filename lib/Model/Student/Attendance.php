@@ -6,7 +6,7 @@ class Model_Student_Attendance extends Model_Table{
 
 		$this->hasOne('Class','class_id');
 		$this->hasOne('Student','student_id');
-		$this->hasOne('Session','session_id');
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 
 		$this->addField('month')->setValueList(array('1'=>'January',
             							'2'=>'February ',

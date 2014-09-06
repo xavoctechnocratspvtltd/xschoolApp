@@ -6,13 +6,17 @@ class page_marks extends Page {
 		$this->api->stickyGET('class');
 		$this->api->stickyGET('subject');
 		$this->api->stickyGET('exam');
+
 		$student_marks=$this->add('Model_Student_Marks');
 		$student_marks->addCondition('class_id',$_GET['class']);
 		$student_marks->addCondition('subject_id',$_GET['subject']);
 		$student_marks->addCondition('exam_id',$_GET['exam']);
+		$student_marks->addCondition('session_id',$this->api->currentSession->id);
 		$st_join=$student_marks->leftJoin('students','student_id');
 		$sc_join=$st_join->leftJoin('scholars','scholar_id');
 		$sc_join->addField('scholar_name','name');
+		$st_join->addField('is_left');
+		$student_marks->addCondition('is_left',false);
 
 		$student_marks->setOrder('scholar_name');
 

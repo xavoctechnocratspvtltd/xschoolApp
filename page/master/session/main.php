@@ -29,8 +29,17 @@ class page_master_session_main extends Page {
 				foreach ($c=$crud->add('Model_Class') as $junk_class) {
 					foreach ($feeses = $c->feeses($prev_session) as $junk_fees) {
 							$c->addFees($feeses);
+						}
+
+						foreach ($subjects = $c->allSubjects($prev_session) as $junk_fees) {
+							$c->addSubject($subjects);
 						}	
+
+						foreach ($exams = $c->allExams($prev_session) as $junk_fees) {
+							$c->addExam($exams);
+						}
 				}
+				$crud->api->db->commit();
 			}catch(Exception $e){
 				$crud->api->db->rollback();
 				throw $e;

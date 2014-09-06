@@ -18,6 +18,7 @@ class page_stock_item extends Page {
 			try{
 				$crud->api->db->beginTransaction();
 				$item_model->createNew($form['name'],$form->getAllFields(),$form);
+				$crud->api->db->commit();
 			}catch(Exception $e){
 				$crud->api->db->rollBack();
 				throw $e;
@@ -36,7 +37,7 @@ class page_stock_item extends Page {
 			
 			$g->addColumn('currentstock','current_stock');
 			$g->addPaginator(10);
-			// $g->add('Order')->move('edit','after','qty')->now();
+			$g->addOrder()->move('current_stock','after','total_consume')->now();
 		}
 
 

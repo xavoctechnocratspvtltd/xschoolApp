@@ -7,6 +7,7 @@ class Model_FeesReceipt extends Model_Table {
 
 		$this->hasOne('Branch','branch_id');
 		$this->hasOne('Student','student_id');
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 		$this->addField('name')->caption('Receipt No');
 		$this->addExpression('tr_amount')->set(function($m,$q){
 			return $m->refSQL('FeesTransaction')->sum('amount');
@@ -19,6 +20,8 @@ class Model_FeesReceipt extends Model_Table {
 		$this->hasMany('FeesTransaction','fees_receipt_id');
 
 		$this->addHook('beforeDelete',$this);
+
+		$this->addCondition('session_id',$this->api->currentSession->id);
 
 		// $this->add('dynamic_model/Controller_AutoCreator');
 	}

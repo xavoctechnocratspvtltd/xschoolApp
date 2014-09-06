@@ -12,7 +12,7 @@ class page_reports_scholarlist extends Page{
 
 		$form->addSubmit('GET LIST');
 
-		$student_model=$this->add('Model_Student');
+		$student_model=$this->add('Model_CurrentStudent');
 		$scholar_model=$student_model->Leftjoin('scholars','scholar_id');
 		$scholar_model->addField('father_name');
 		$scholar_model->addField('mother_name');

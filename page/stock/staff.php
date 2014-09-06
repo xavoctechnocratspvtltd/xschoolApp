@@ -4,8 +4,10 @@ class page_stock_staff extends Page {
 		parent::init();
 
 		$form=$this->add('Form',null,null,array('form_horizontal'));
-		$staff_field=$form->addField('dropdown','staff')->setEmptyText('Please Select');
-		$staff_field->setModel($this->api->currentBranch->staffs());
+		$staff_field=$form->addField('autocomplete/Basic','staff');//->setEmptyText('Please Select');
+		$staff=$this->add('Model_Staff');
+		$staff->addCondition('is_active',true);
+		$staff_field->setModel($staff);
 		$form->addField('dropdown','type')->setValueList(array('Issue'=>'Issue','Submit'=>'Submit','Consume'=>'Consume'))->setEmptyText('Please Select');
 		$form->addSubmit('GET LIST');
 

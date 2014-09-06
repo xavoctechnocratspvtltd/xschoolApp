@@ -12,7 +12,8 @@ class page_stock_submit extends Page{
 		$col2->add('H4')->set('Recent Submit Activity');
 		$form=$col1->add('Form');
 		$staff_field=$form->addField('autocomplete/Basic','staff')->validateNotNull();//->setEmptyText('Please Select')->validateNotNull();
-		$staff_field->setModel('Staff');
+		$staff=$this->add('Model_Staff')->addCondition('is_active',true);
+		$staff_field->setModel($staff);
 		$item_field=$form->addField('autocomplete/Basic','item')->validateNotNull();//->setEmptyText('Please Select')->validateNotNull();
 		$item_model=$this->add('Model_Stock_Item');
 		$item_field->setModel($item_model);

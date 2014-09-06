@@ -17,11 +17,15 @@ class page_reports_student extends Page {
 		$scholar=$this->add('Model_Scholar');
 		$st=$scholar->leftJoin('students.scholar_id','id');
 		$st->hasOne('Class','class_id');
+		$st->hasOne('Session','session_id');
+		$st->addField('is_left');
 		$st->hasOne('Vehicle','vehicle_id');
-
 		$scholar->getElement('form_no')->system(true);
 		$scholar->getElement('previous_school_and_class')->system(true);
 		$scholar->getElement('detailed_name')->system(true);
+		$scholar->addCondition('is_left',false);
+		$scholar->addCondition('session_id',$this->api->currentSession->id);
+		
 		$grid=$this->add('Grid');
 		if($_GET['class_id'])
 			$scholar->addCondition('class_id',$_GET['class_id']);
