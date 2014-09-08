@@ -13,7 +13,7 @@ class Model_FeesTransaction extends Model_Table {
 		$this->addField('amount')->type('money');
 		$this->addField('by_consession')->type('boolean')->defaultValue(false);
 		$this->addField('submitted_on')->type('date')->defaultValue($this->api->today);
-		$this->addCondition('session_id',$this->api->currentSession->id);
+		// $this->addCondition('session_id',$this->api->currentSession->id);
 		$this->addHook('beforeDelete',$this);
 		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
