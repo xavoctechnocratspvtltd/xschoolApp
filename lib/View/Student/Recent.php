@@ -10,7 +10,7 @@ class View_Student_Recent extends View {
 		$transaction=$this->add('Model_Library_Transaction');
 		$transaction->join('students','student_id');
 		$transaction->addCondition('branch_id',$this->api->currentBranch->id);
-		$transaction->addCondition('branch_id',$this->api->currentSession->id);
+		$transaction->addCondition('session_id',$this->api->currentSession->id);
 		$transaction->setOrder('id','desc');
 		$grid->setModel($transaction,array('student','item','issue_on','submitted_on'));
 		$grid->addPaginator(10);

@@ -5,6 +5,8 @@ class Model_Sms extends Model_Table {
 	function init(){
 		parent::init();
 
+		$this->hasOne('Branch','branch_id')->defaultValue($this->api->currentBranch->id);
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 		$this->hasOne('Class','class_id');
 		$this->addField('numbers')->type('text');
 		$this->addField('message')->type('text');

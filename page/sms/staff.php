@@ -7,12 +7,16 @@ class page_sms_staff extends Page {
 		$cols=$this->add('Columns');
 		$col1=$cols->addColumn(6);
 		$form=$col1->add('Form');
+		$branch_field=$form->addField('dropdown','branch')->setEmptyText('Please Select')->validateNotNull();
+		$branch_field->setModel('Branch');
 		$form->addField('text','message')->validateNotNull();
 		$form->addSubmit('Send');
 
 		if($form->isSubmitted()){
 			$numbers=array();
-			$st=$this->add('Model_Staff');
+
+			$branch=$this->add('Model_Branch')->load($form['branch']);
+			$st=$branch->staffs();
 			$st->addCondition('is_active',true);
 			$st->addCondition('is_application_user',false);
 

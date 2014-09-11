@@ -7,7 +7,9 @@ class page_reports_scholar extends Page {
 		$grid->js('reload')->reload();
 
 		$scholar_model = $this->add('Model_Scholar');
-
+		$scholar_model->addExpression('is_left')->set(function($m,$q){
+			return $m->refSQL('Student')->addCondition('session_id',$m->api->currentSession->id)->fieldQuery('is_left');
+		})->type('boolean');
 
 		$scholar_model->addExpression('previous_class')->set(function($m,$q){
 			$student_m = $m->add('Model_Student',array('table_alias'=>'pc'));
@@ -27,9 +29,14 @@ class page_reports_scholar extends Page {
 			return $student_m->_dsql()->del('fields')->field($student_m->dsql()->expr('concat(name," ",section)'));
 		});
 		// throw new Exception($scholar_model['current_class'], 1);
+		// $scholar_model->addCondition('current_class',null);
+		$scholar_model->_dsql()->having(
+            $scholar_model->_dsql()->orExpr()
+                ->where('current_class',null)
+                ->where('is_left',true)
+        );
 
 
-		$scholar_model->addCondition('current_class',null);
-		$grid->setModel($scholar_model,array('scholar_no','name','previous_class'));
+		$grid->setModel($scholar_model,array('scholar_no','name','previous_class','current_class','is_left'));
 	}
 }

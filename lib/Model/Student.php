@@ -13,7 +13,7 @@ public $table="students";
         $this->hasOne('Vehicle','vehicle_id')->defaultValue(0);
 		$this->addField('roll_no');
 		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
-		$this->addField('is_left')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
+		$this->addField('is_left')->type('boolean')->defaultValue(false)->caption("Is Left")->system(true);
         $this->addField('isScholared')->type('boolean')->system(true);
         $this->addField('given_consession')->type('money')->system(true);
 
@@ -21,6 +21,9 @@ public $table="students";
         $this->addExpression('scholar_no')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('scholar_no');
         });
+
+        
+
 
          $this->addExpression('phone_no')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('phone_no');

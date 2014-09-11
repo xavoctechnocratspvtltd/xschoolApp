@@ -3,6 +3,7 @@ class View_FeesReport extends View {
 	public $from_date;
 	public $to_date;
 	public $branch_id;
+	public $exclude_cheque;
 
 	function recursiveRender(){
 
@@ -13,6 +14,10 @@ class View_FeesReport extends View {
 		
 
 		$fees_transaction  = $this->add('Model_FeesTransaction');
+
+		$fees_transaction->addExpression('mode')->set(function($m,$q){
+			return $m->refSQL('fees_receipt_id')->fieldQuery('mode');
+		});
 		$fees_transaction->addCondition('submitted_on','>=',$this->from_date);
 		$fees_transaction->addCondition('submitted_on','<',$this->api->nextDate($this->to_date));
 		
@@ -27,6 +32,12 @@ class View_FeesReport extends View {
 			$fees_transaction->addCondition('branch_id',$this->branch_id);
 		}
 
+		if($this->exclude_cheque == 'true'){
+			$fees_transaction->addCondition('mode','<>','Cheque');
+		}else{
+			
+		}
+		
 
 		// $fees_join = $student_applied_fees_join->join('fees','fees_id');
 

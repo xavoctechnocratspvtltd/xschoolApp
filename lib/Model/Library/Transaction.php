@@ -18,8 +18,8 @@ class Model_Library_Transaction extends Model_Table{
 		$this->addField('narration')->type('text');
 		// $this->addField('type')->enum(array('Issue','Submit'));
 		$this->addField('no_of_day_late_submission')->system(true);
-
 		// $this->addCondition('session_id',$this->api->currentSession->id);
+		
 		$this->add('dynamic_model/Controller_AutoCreator');
 
 	}
