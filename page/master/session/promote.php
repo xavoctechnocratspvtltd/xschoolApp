@@ -18,7 +18,7 @@ class page_master_session_promote extends Page{
 			$to_class_model=$this->add('Model_Class');
 			$to_class_model->title_field='full_name';
 			$to_class_field->setModel($to_class_model);
-			$student_type_field=$form->addField('autocomplete/Basic','student_type_'.$i);
+			$student_type_field=$form->addField('autocomplete/Basic','student_type');
 			$student_type_field->setModel('StudentType');
 
 			if($form->isSubmitted()){
@@ -35,16 +35,19 @@ class page_master_session_promote extends Page{
 					// throw new Exception($s['name'], 1);
 					if($st->allReadyInSession($scholar,$to_class))
 						throw new Exception("This Class students are already promoted in This session", 1);
+						$to_class->addStudent($scholar, $form['student_type']);						
+						// $entry_in_student_model['session_id']=$this->api->currentSession->id;
+						// $entry_in_student_model['scholar_id']=$students['scholar_id'];
+						// $entry_in_student_model['class_id']=$form['to_class_'.$i];
+						// $entry_in_student_model['studenttype_id']=$form['student_type_'.$i];
+						// $entry_in_student_model['vehicle_id']=$students['vehicle_id'];
+						// $entry_in_student_model['roll_no']=0;
+						// $entry_in_student_model->save();
+						// foreach ($class->feeses($prev_session) as $junk_fees) {
+						// 	$entry_in_student_model->addFees($junk_fees);
+						// }
 						
-						$entry_in_student_model=$this->add('Model_Student');
-						$entry_in_student_model['session_id']=$this->api->currentSession->id;
-						$entry_in_student_model['scholar_id']=$students['scholar_id'];
-						$entry_in_student_model['class_id']=$form['to_class_'.$i];
-						$entry_in_student_model['studenttype_id']=$form['student_type_'.$i];
-						$entry_in_student_model['vehicle_id']=$students['vehicle_id'];
-						$entry_in_student_model['roll_no']=0;
-						$entry_in_student_model->save();
-						
+
 				}
 				
 				}

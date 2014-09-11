@@ -7,6 +7,7 @@ public $table="student_fees_applied";
 		parent::init();
 
 		$this->hasOne('Student','student_id');
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 		$this->hasOne('Fees','fees_id');
 		$this->addField('amount');
 		$this->addField('due_on')->type('date');
@@ -39,6 +40,7 @@ public $table="student_fees_applied";
 
 	function paidAmount($via_receipt=null){
 		$fee_trasactions = $this->ref('FeesTransaction');
+		$fee_trasactions->addCondition('session_id',$this->api->currentSession->id);
 
 		if($via_receipt !== null){
 			$fee_trasactions->addCondition('submitted_on','<',$this->api->nextDate($via_receipt['created_at']));

@@ -59,7 +59,7 @@ class page_fees_deposit extends Page {
 		if($_REQUEST[$student_field->name] or $_REQUEST[$scholar_no_field->name]){
 			$this->api->stickyGET($student_field->name);
 			$this->api->stickyGET($scholar_no_field->name);
-			$student=$this->add('Model_Student');
+			$student=$this->add('Model_CurrentStudent');
 
 			if($_REQUEST[$scholar_no_field->name]){
 				$student->addCondition('scholar_no',$_REQUEST[$scholar_no_field->name])->tryLoadAny();
@@ -97,7 +97,7 @@ class page_fees_deposit extends Page {
 		$get =$_GET['_id'];
 		$data =json_decode($get,true);
 
-		$student = $this->add('Model_Student')->load($data['student_id']);
+		$student = $this->add('Model_CurrentStudent')->load($data['student_id']);
 		$applied_feeses = $student->appliedFees();
 		$applied_feeses->addCondition('due_on','>=',date('Y-m-01',strtotime($data['date'])));
                 $applied_feeses->addCondition('due_on','<=',date('Y-m-t',strtotime($data['date'])));

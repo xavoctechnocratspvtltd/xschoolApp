@@ -238,13 +238,16 @@ public $table="classes";
 		
 		$feesInClass= $this->add('Model_FeesInAClass');
 		$feesInClass->createNew($this,$fees);
+
 		$log=$this->add('Model_Log');
 		$log->createNew("Add fees in class");
 		$log->save();
+
 		if($applyOnAllClassStudents){
 			foreach ($student=$this->allStudents() as $junk) {
 					// $student->createStudentFeesAssociation($fees);
 					$student->addFees($fees);
+					
 					$log=$this->add('Model_Log');
 					$log->createNew("add fees on student id ".$student->id);
 					$log->save();

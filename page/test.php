@@ -2,14 +2,21 @@
 
 class page_test extends Page {
 
-	function page_result(){
-		$student = $this->add('Model_Class');
-		$student->load(32);
-		$term = $this->add('Model_Term')->load(1);
-		echo "<pre>";
-		print_r($student->getResult());
-		echo "</pre>";
+	function init(){
+		parent::init();
+		// $student = $this->add('Model_Class');
+		// $student->load(32);
+		// $term = $this->add('Model_Term')->load(1);
+		// echo "<pre>";
+		// print_r($student->getResult());
+		// echo "</pre>";
 
+		$st=$this->add('Model_Student');
+		$st->load(1585);
+		$stu=$st->appliedFees();
+		// $stu->addCondition('')
+		$grid=$this->add('Grid');
+		$grid->setModel($stu->debug());
 	}
 
 	function page_consession(){

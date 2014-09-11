@@ -314,6 +314,11 @@ public $table="students";
 
 	function appliedFees($fees=null){
 		$fees_for_this_student = $this->add('Model_StudentAppliedFees');
+		
+		$fees_for_this_student->addExpression('fees_name')->set(function($m,$q){
+			return $m->refSQL('fees_id')->fieldQuery('name');
+		});
+
 		if($fees){
 			$fees_for_this_student->associations($this,$fees);
 		}
@@ -353,6 +358,7 @@ public $table="students";
 
 		$to_set_amount = $amount;
 		$fees_for_this_student = $student->appliedFees()->setOrder('due_on,id');
+		$fees_for_this_student->addCondition('fees_name','<>',array('Admission Fees','Caution Money'));
 
 		foreach ($fees_for_this_student as $fees_for_this_student_array) {
 			$paid_against_this_fees = $fees_for_this_student->paidAmount();
@@ -414,6 +420,7 @@ public $table="students";
 		$array=array();
 
 		$fees_for_this_student = $this->add('Model_StudentAppliedFees');
+		// $fees_for_this_student->addCondition('session_id',$this->api->currentSession->id);
 		$fees_for_this_student->join('fees','fees_id')->addField('distribution');
 
 		$fees_for_this_student->addCondition('student_id',$this->id);
