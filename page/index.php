@@ -10,7 +10,7 @@ class page_index extends Page {
 
 
 
-        if(strtotime('2014-09-12')==strtotime(date('Y-m-d')))
+        if(strtotime('2014-09-16')==strtotime(date('Y-m-d')))
 
         throw new Exception('Software Licesne Expired, Kindly Contact To Your Service Provider');
 
