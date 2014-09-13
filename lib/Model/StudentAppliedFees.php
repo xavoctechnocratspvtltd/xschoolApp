@@ -78,7 +78,8 @@ public $table="student_fees_applied";
 			throw $this->exception('Amount Exceeding required amount', 'ValidityCheck')->setField('amount');
 
 		if(($this['amount'] - $this->paidAmount()) == 0)
-			return; // All Fees Paid Already
+			throw new Exception("Amount Submitted Complete");
+			
 
 		$newtransaction = $this->add('Model_FeesTransaction');
 		$newtransaction->createNew($receipt,$this,$amount);

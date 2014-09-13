@@ -64,10 +64,11 @@ class page_library_importer extends Page {
 					}
 
 					if(!in_array($d['Title'], $stored_titles)){
+						
 						$new_title = $this->add('Model_Library_Title');
 						$new_title['name'] = $d['Title'];
 						$new_title['subject_id'] = array_search($d['Subject'], $stored_subjects);
-						$new_title->save();
+						$new_title->saveAndUnload();
 						
 						$stored_titles[$new_title->id] = $new_title['name'];
 
