@@ -11,11 +11,13 @@ class page_reports_main extends Page {
 		$tab1=$tabs->addTabUrl('reports_duefees','Defaulter List');
 		$tab1=$tabs->addTabUrl('reports_scholar','Outgoing Student List');
 		$tab1=$tabs->addTabUrl('reports_fees','Fees Collection Report');
+		$tab1=$tabs->addTabUrl('reports_fees_cheque','Fees Collection Report (Cheque Only');
 		$tab1=$tabs->addTabUrl('reports_examdata','Exam Report');
 		$tab1=$tabs->addTabUrl('reports_scholarlist','Scholar List');
 		$tab1=$tabs->addTabUrl('reports_studentlist','Student List');
 		$tab1=$tabs->addTabUrl('reports_consession','Consession List');
 		$tab1=$tabs->addTabUrl('reports_deposit','Fees Deposit List');
 		$tab1=$tabs->addTabUrl('reports_cheque','Cheque Payement');
+		$tab1=$tabs->addTabUrl('reports_caution','Caution Money Report');
 	}
 }
