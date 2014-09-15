@@ -21,10 +21,12 @@ class page_reports_caution extends Page {
 		$result_j->addField('fees_name','name');
 		$result->addCondition('fees_name','Caution Money');
 
-		if($_GET['branch'])
+		if($_GET['branch']){
+			$this->api->stickyGET('branch');
 			$result->addCondition('branch_id',$_GET['branch']);
-		else
-			$result->addCondition('id',-1);
+		}
+		// else
+		// 	$result->addCondition('id',-1);
 
 
 		$grid->setModel($result,array('student','paid_amount','class_name','section','branch'));		
