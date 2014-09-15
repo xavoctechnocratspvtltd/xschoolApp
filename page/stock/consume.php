@@ -13,9 +13,10 @@ class page_stock_consume extends Page{
 
 		$form=$col1->add('Form');
 		$item_field=$form->addField('Dropdown','item')->setEmptyText('Please Select')->validateNotNull();
-		$staff_field=$form->addField('Dropdown','staff')->setEmptyText('Please Select');
+		$staff_field=$form->addField('autocomplete/Basic','staff');//->setEmptyText('Please Select');
 		$item_field->setModel('Stock_Item');
-		$staff_field->setModel($this->api->currentBranch->staffs()->addCondition('is_active',true));
+		$staff=$this->add('Model_Staff')->addCondition('is_active',true);
+		$staff_field->setModel($staff);
 
 		$form->addField('line','qty')->validateNotNull();
 
@@ -25,6 +26,7 @@ class page_stock_consume extends Page{
 		$grid=$col2->add('Grid');
 		$consume_model=$this->add('Model_Stock_Transaction');
 		$consume_model->addCondition('branch_id',$this->api->currentBranch->id);
+		$consume_model->addCondition('session_id',$this->api->currentSession->id);
 		$consume_model->setOrder('id','desc');
 		if($_GET['remove']){
 			$consume_model->load($_GET['remove']);
@@ -49,6 +51,7 @@ class page_stock_consume extends Page{
 			try{
 				$this->api->db->beginTransaction();
 				$item->consume($form['qty'],$staff);
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;

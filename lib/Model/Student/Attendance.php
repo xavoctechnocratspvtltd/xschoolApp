@@ -6,20 +6,20 @@ class Model_Student_Attendance extends Model_Table{
 
 		$this->hasOne('Class','class_id');
 		$this->hasOne('Student','student_id');
-		$this->hasOne('Session','session_id');
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 
-		$this->addField('month')->setValueList(array('1'=>'Jan',
-            							'2'=>'Feb',
+		$this->addField('month')->setValueList(array('1'=>'January',
+            							'2'=>'February ',
             							'3'=>'March',
             							'4'=>'April',
             							'5'=>'May',
-            							'6'=>'Jun',
+            							'6'=>'June',
             							'7'=>'July',
-            							'8'=>'Augest',
-            							'9'=>'Sep',
-            							'10'=>'Oct',
-            							'11'=>'Nov',
-            							'12'=>'Dec'
+            							'8'=>'August',
+            							'9'=>'September',
+            							'10'=>'October',
+            							'11'=>'November',
+            							'12'=>'December'
             							));
 		$this->addField('total_attendance')->display(array('grid'=>'grid/inline'));
 		$this->addField('present')->display(array('grid'=>'grid/inline'));

@@ -9,18 +9,18 @@ class page_master_user_report extends Page{
 		$staff_model=$this->add('Model_Staff');
 		$staff_model->addCondition('is_active',true);
 		$staff_field->setModel($staff_model);
-		$form->addField('dropdown','month')->setValueList(array('1'=>'Jan',
-            							'2'=>'Feb',
+		$form->addField('dropdown','month')->setValueList(array('1'=>'January',
+            							'2'=>'February ',
             							'3'=>'March',
             							'4'=>'April',
             							'5'=>'May',
-            							'6'=>'Jun',
+            							'6'=>'June',
             							'7'=>'July',
-            							'8'=>'Augest',
-            							'9'=>'Sep',
-            							'10'=>'Oct',
-            							'11'=>'Nov',
-            							'12'=>'Dec'
+            							'8'=>'August',
+            							'9'=>'September',
+            							'10'=>'October',
+            							'11'=>'November',
+            							'12'=>'December'
             							))->setEmptyText('Please Select')->validateNotNull();
 
 		$form->addSubmit('GET LIST');

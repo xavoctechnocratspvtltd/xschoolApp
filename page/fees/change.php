@@ -10,7 +10,9 @@ class page_fees_change extends Page {
 		$class->title_field='full_name';
 		$class_field->setModel($class);	
 		$student_field=$form->addField('dropdown','student')->setEmptyText('Please Select');
-		$student=$this->add('Model_Student');
+		$student=$this->add('Model_CurrentStudent');
+		$student->addCondition('is_left',false);
+
 		if($_REQUEST[$class_field->name]){
 			$this->api->stickyGET($class_field->name);
 			$class_field->set($_REQUEST[$class_field->name]);

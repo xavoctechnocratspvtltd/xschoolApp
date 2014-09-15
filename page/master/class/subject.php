@@ -1,6 +1,6 @@
 <?php
 
-class page_class_subject extends \Page {
+class page_class_subject extends Page {
 	function init(){
 		parent::init();
 		

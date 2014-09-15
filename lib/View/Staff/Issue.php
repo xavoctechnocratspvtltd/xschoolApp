@@ -17,6 +17,7 @@ class View_Staff_Issue extends View {
 		$issue_form=$this->add('Form');
 		
 		$staff_field=$issue_form->addField('autocomplete/Basic','staffs')->validateNotNull();
+		$staff_model->addCondition('is_active',true);
 		$staff_field->setModel($staff_model);
 
 		

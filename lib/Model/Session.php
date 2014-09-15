@@ -32,9 +32,9 @@ public $table="sessions";
 		$this['end_date']=$end_date;
 		$this->save();
 
-		$log=$this->add('Model_Log');
-		$log->createNew("Session created");
-		$log->save();
+		// $log=$this->add('Model_Log');
+		// $log->createNew("Session created");
+		// $log->save();
 
 	}
 

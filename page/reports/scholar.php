@@ -26,6 +26,8 @@ class page_reports_scholar extends Page {
 
 			return $student_m->_dsql()->del('fields')->field($student_m->dsql()->expr('concat(name," ",section)'));
 		});
+		// throw new Exception($scholar_model['current_class'], 1);
+
 
 		$scholar_model->addCondition('current_class',null);
 		$grid->setModel($scholar_model,array('scholar_no','name','previous_class'));

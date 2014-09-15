@@ -7,8 +7,8 @@ class View_Student_Issue extends View {
 		$this->api->stickyGET('students');
 		$this->add('H3')->set('Issue Library Items');
 
-		$student_model=$this->add('Model_Student');
-
+		$student_model=$this->add('Model_CurrentStudent');
+		$student_model->addCondition('is_left',false);
 		$item_model=$this->api->currentBranch->library_items();
 		$item_model->addCondition('is_issued',false);
 		

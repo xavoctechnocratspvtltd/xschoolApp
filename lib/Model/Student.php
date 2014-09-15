@@ -13,6 +13,7 @@ public $table="students";
         $this->hasOne('Vehicle','vehicle_id')->defaultValue(0);
 		$this->addField('roll_no');
 		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
+		$this->addField('is_left')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
         $this->addField('isScholared')->type('boolean')->system(true);
         $this->addField('given_consession')->type('money')->system(true);
 
@@ -53,13 +54,15 @@ public $table="students";
         $this->hasMany('FeesReceipt','student_id');
         $this->hasMany('Library_transaction','student_id');
 
+        // $this->addHook('beforeSave',$this);
         $this->addHook('beforeDelete',$this);
 
         $this->setOrder('name');
 
-	    // $this->add('dynamic_model/Controller_AutoCreator');
+	    $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
+	
 
 	function createNew($scholar,$class, $studenttype, $session=null){
 		if(!$session) $session=$this->api->currentSession;
@@ -78,6 +81,26 @@ public $table="students";
 		return $this;
 	}
 
+	function markLeft(){
+		$this['is_left']=true;
+		$this->save();
+	}
+
+	function restore(){
+		$this['is_left']=false;
+		$this->save();
+
+	}
+
+	function isLeft($scholar_no){
+		$this->addCondition('scholar_no',$scholar_no);
+		$this->addCondition('is_left',true);
+		$this->tryLoadAny();
+		if($this->loaded())
+			return $this;
+		else
+			false;
+	}
 	function issue($item){
 		if(!$this->loaded())
 			throw $this->exception("You can not use Loaded Model on issue ");
@@ -112,6 +135,7 @@ public $table="students";
 			throw $this->exception(' student must be passed Loaded Class Object');
 		 $this->addCondition('class_id',$class->id);
 		 $this->addCondition('session_id',$session->id);
+		 $this->addCondition('is_left',false);
 		 if($count)
 			return $count= $this->count()->getOne();
 		else
@@ -312,6 +336,8 @@ public $table="students";
 			$transaction->createNew($paid_amount+$late_fees,"Income",$mode,$narration,$receipt->id);
 			return $receipt;
 		}
+
+		
 
 	}
 
@@ -525,6 +551,25 @@ public $table="students";
 		// 	'marks'=>obtained_marks,
 		// 	'grade' =>$this->api->getGrade(max_marks,obtainde_marks)
 		// 	);
+	}
+
+	function allReadyInSession($scholar,$class,$session=null){
+		if(!$session)
+				$session=$this->api->currentSession;
+			// $st=$this->add('Model_Student');
+			$this->addCondition('class_id',$class->id);
+			$this->addCondition('scholar_id',$scholar->id);
+			// $st->addCondition('id',$student->id);
+			$this->addCondition('session_id',$session->id);
+			$this->tryLoadAny();
+			// throw new Exception($this['name'], 1);
+			if($this->loaded())
+				return $this;
+			else
+				return false;
+
+			
+
 	}
 
 	

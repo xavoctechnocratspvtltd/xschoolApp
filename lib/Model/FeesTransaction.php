@@ -9,11 +9,13 @@ class Model_FeesTransaction extends Model_Table {
 		$this->hasOne('StudentAppliedFees','student_applied_fees_id');
 		$this->hasOne('FeesReceipt','fees_receipt_id');
 		$this->hasOne('Branch','branch_id')->defaultValue($this->api->currentBranch->id);
+		$this->hasOne('Session','session_id')->defaultValue($this->api->currentSession->id);
 		$this->addField('amount')->type('money');
 		$this->addField('by_consession')->type('boolean')->defaultValue(false);
 		$this->addField('submitted_on')->type('date')->defaultValue($this->api->today);
+		$this->addCondition('session_id',$this->api->currentSession->id);
 		$this->addHook('beforeDelete',$this);
-		$this->add('dynamic_model/Controller_AutoCreator');
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function beforeDelete(){

@@ -10,6 +10,7 @@ class View_Staff_Recent extends View {
 		$transaction=$this->add('Model_Library_Transaction');
 		$transaction->join('staffs','staff_id');
 		$transaction->addCondition('branch_id',$this->api->currentBranch->id);
+		$transaction->addCondition('session_id',$this->api->currentSession->id);
 		$transaction->setOrder('id','desc');
 
 		$grid->setModel($transaction,array('staff','item','issue_on','submitted_on'));
