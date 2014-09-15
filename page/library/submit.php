@@ -11,7 +11,13 @@ class page_library_submit extends Page {
 		$transaction->addCondition('session_id',$this->api->currentSession->id);
 		$transaction->addCondition('submitted_on',null);
 
-		$grid->setModel($transaction,array('item','student','staff','issue_on'));
+		$transaction->addExpression('class_name')->set(function($m,$q){
+			$student_join=$m->leftJoin('students','student_id');
+			$student_join->hasOne('Class','class_id');
+        	return $m->refSQL('class_id')->fieldQuery('full_name');
+			});		
+
+		$grid->setModel($transaction,array('item','student','class_name','staff','issue_on'));
 
 
 		

@@ -13,7 +13,7 @@ class Model_FeesTransaction extends Model_Table {
 		$this->addField('amount')->type('money');
 		$this->addField('by_consession')->type('boolean')->defaultValue(false);
 		$this->addField('submitted_on')->type('date')->defaultValue($this->api->today);
-		$this->addCondition('session_id',$this->api->currentSession->id);
+		// $this->addCondition('session_id',$this->api->currentSession->id);
 		$this->addHook('beforeDelete',$this);
 		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
@@ -21,8 +21,12 @@ class Model_FeesTransaction extends Model_Table {
 	function beforeDelete(){
 		// GET FEES NAME OF MY FEES APPLIED ID 
 		// IF IT IS LATE FEES 
-		// REMOVE APPLIED FEES
-		
+	// REMOVE APPLIED FEES
+		$fees_receipt=$this->ref('fees_receipt_id')->get('name');
+		$log=$this->add('Model_Log');
+		$log->createNew("fees transaction deleted receipt No".$fees_receipt);
+		$log->save();
+
 		
 		$fees_name=$this->ref('student_applied_fees_id')->ref('fees_id')->get('name');
 		if($fees_name=='Late Fees'){
@@ -71,8 +75,5 @@ class Model_FeesTransaction extends Model_Table {
 			$fees_receipt->save();
 		}
 
-		$log=$this->add('Model_Log');
-		$log->createNew("fees transaction deleted receipt No".$fees_receipt['name']);
-		$log->save();
 	}
 }

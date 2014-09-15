@@ -10,5 +10,6 @@ class page_sms_main extends Page {
 		$tabs->addTabUrl('sms_defaulter','Send SMS Defaulter');
 		$tabs->addTabUrl('sms_transportation','Send SMS For Transportation Status');
 		$tabs->addTabUrl('sms_staff','Send SMS To Staff Members');
+		$tabs->addTabUrl('sms_info','SMS Info');
 	}
 }

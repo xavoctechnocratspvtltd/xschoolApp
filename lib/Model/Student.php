@@ -13,7 +13,7 @@ public $table="students";
         $this->hasOne('Vehicle','vehicle_id')->defaultValue(0);
 		$this->addField('roll_no');
 		$this->addField('ishostler')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
-		$this->addField('is_left')->type('boolean')->defaultValue(false)->caption("Is Hostler")->system(true);
+		$this->addField('is_left')->type('boolean')->defaultValue(false)->caption("Is Left")->system(true);
         $this->addField('isScholared')->type('boolean')->system(true);
         $this->addField('given_consession')->type('money')->system(true);
 
@@ -21,6 +21,9 @@ public $table="students";
         $this->addExpression('scholar_no')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('scholar_no');
         });
+
+        
+
 
          $this->addExpression('phone_no')->set(function($m,$q){
         	return $m->refSQL('scholar_id')->fieldQuery('phone_no');
@@ -311,6 +314,11 @@ public $table="students";
 
 	function appliedFees($fees=null){
 		$fees_for_this_student = $this->add('Model_StudentAppliedFees');
+		
+		$fees_for_this_student->addExpression('fees_name')->set(function($m,$q){
+			return $m->refSQL('fees_id')->fieldQuery('name');
+		});
+
 		if($fees){
 			$fees_for_this_student->associations($this,$fees);
 		}
@@ -350,6 +358,7 @@ public $table="students";
 
 		$to_set_amount = $amount;
 		$fees_for_this_student = $student->appliedFees()->setOrder('due_on,id');
+		$fees_for_this_student->addCondition('fees_name','<>',array('Admission Fees','Caution Money'));
 
 		foreach ($fees_for_this_student as $fees_for_this_student_array) {
 			$paid_against_this_fees = $fees_for_this_student->paidAmount();
@@ -411,6 +420,7 @@ public $table="students";
 		$array=array();
 
 		$fees_for_this_student = $this->add('Model_StudentAppliedFees');
+		// $fees_for_this_student->addCondition('session_id',$this->api->currentSession->id);
 		$fees_for_this_student->join('fees','fees_id')->addField('distribution');
 
 		$fees_for_this_student->addCondition('student_id',$this->id);
