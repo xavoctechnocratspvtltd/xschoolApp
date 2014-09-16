@@ -124,7 +124,6 @@ class View_FeesReport extends View {
 			}
 		}
 
-		print_r($result_array);
 		$fees_totals['date']='Total';
 
 		$result_array['totals'] = $fees_totals;
