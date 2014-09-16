@@ -20,6 +20,7 @@ class page_reports_caution extends Page {
 		$result_c_j->addField('section');
 		$result_j->addField('fees_name','name');
 		$result->addCondition('fees_name','Caution Money');
+		$result->_dsql()->group('student');
 
 		if($_GET['branch']){
 			$this->api->stickyGET('branch');
