@@ -34,6 +34,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
 		$this['mode']=$mode;
 		$this['narration']=$narration;
+		$this->save();
 		
 		if($late_fees){
 			// apply late fees on student first
@@ -63,10 +64,11 @@ class Model_FeesReceipt extends Model_Table {
 
 		}
 
-		if($to_set_amount>0)
-						throw new Exception("Amount Remaining Not Saving Receipt");
+		if($to_set_amount>0){
+			$this->delete();
+			throw new Exception("Amount Remaining Not Saving Receipt");
+		}
 						
-		$this->save();
 
 		$log=$this->add('Model_Log');
 		$log->createNew("fees receipt Created receipt No".$this['name']);

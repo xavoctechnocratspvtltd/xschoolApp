@@ -31,10 +31,19 @@ class page_reports_caution extends Page {
 
 
 		$grid->setModel($result,array('student','paid_amount','class_name','section','branch'));		
-		$grid->addPaginator(50);	
-
+		// $grid->addPaginator(50);	
+		$grid->addOrder('student');
 		$grid->removeColumn('session');	
 		$grid->removeColumn('branch');	
+		$grid->add('misc/Export');
+		$js=array(
+			$this->js()->_selector('#header')->toggle(),
+			$this->js()->_selector('#footer')->toggle(),
+			$this->js()->_selector('ul.ui-tabs-nav')->toggle(),
+			$this->js()->_selector('.atk-form')->toggle(),
+			);
+
+		$grid->js('click',$js);
 
 		if($form->isSubmitted()){
 
