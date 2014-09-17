@@ -18,6 +18,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this->addField('narration');
 		$this->addField('created_at')->type('date')->defaultValue($this->api->today);
 		$this->hasMany('FeesTransaction','fees_receipt_id');
+		$this->hasMany('PaymentTransaction','fees_receipt_id');
 
 		$this->addHook('beforeDelete',$this);
 
@@ -116,6 +117,7 @@ class Model_FeesReceipt extends Model_Table {
 		
 		$fees_applied_in_required_months = $this->add('Model_StudentAppliedFees');
 		$fees_applied_in_required_months->addCondition('due_on',$touched_months);
+		// $fees_applied_in_required_months->addCondition('due_on','<',$this->api->today);
 		$fees_applied_in_required_months->addCondition('student_id',$this['student_id']);
 
 		foreach ($fees_applied_in_required_months as $junk) {
