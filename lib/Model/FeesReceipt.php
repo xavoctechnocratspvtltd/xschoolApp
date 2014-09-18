@@ -18,6 +18,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this->addField('narration');
 		$this->addField('created_at')->type('date')->defaultValue($this->api->today);
 		$this->hasMany('FeesTransaction','fees_receipt_id');
+		$this->hasMany('PaymentTransaction','fees_receipt_id');
 
 		$this->addHook('beforeDelete',$this);
 
@@ -34,6 +35,7 @@ class Model_FeesReceipt extends Model_Table {
 		$this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
 		$this['mode']=$mode;
 		$this['narration']=$narration;
+		$this->save();
 		
 		if($late_fees){
 			// apply late fees on student first
@@ -63,10 +65,11 @@ class Model_FeesReceipt extends Model_Table {
 
 		}
 
-		if($to_set_amount>0)
-						throw new Exception("Amount Remaining Not Saving Receipt");
+		if($to_set_amount>0){
+			$this->delete();
+			throw new Exception("Amount Remaining Not Saving Receipt");
+		}
 						
-		$this->save();
 
 		$log=$this->add('Model_Log');
 		$log->createNew("fees receipt Created receipt No".$this['name']);
@@ -102,8 +105,10 @@ class Model_FeesReceipt extends Model_Table {
 				$month_print[$fees['name']] = $transaction_aginst_fees_applied['amount'] - $transaction_aginst_fees_applied->paidAmountTill($this);
 			}else{
 				$month_print[$in_month_year] = 0;
-				if(!in_array($transaction_aginst_fees_applied['due_on'], $touched_months))
+				if(!in_array($transaction_aginst_fees_applied['due_on'], $touched_months)){
 					$touched_months[] = $transaction_aginst_fees_applied['due_on'];
+					$last_touched_month = $transaction_aginst_fees_applied['due_on'];
+				}
 			}
 
 		}
@@ -114,6 +119,7 @@ class Model_FeesReceipt extends Model_Table {
 		
 		$fees_applied_in_required_months = $this->add('Model_StudentAppliedFees');
 		$fees_applied_in_required_months->addCondition('due_on',$touched_months);
+		// $fees_applied_in_required_months->addCondition('due_on','<',$this->api->today);
 		$fees_applied_in_required_months->addCondition('student_id',$this['student_id']);
 
 		foreach ($fees_applied_in_required_months as $junk) {
@@ -122,6 +128,21 @@ class Model_FeesReceipt extends Model_Table {
 				$month_print[$in_month_year] += $due_amount;
 			}
 		}
+
+		// All dues that are due till receipt date but even not touched in this receipt .. fully due
+		$applied_fees_but_not_touched_till_receipt_date = $this->add('Model_StudentAppliedFees');
+		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','<=',$this['created_at']);
+		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','<>',$touched_months);
+		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','>=',$last_touched_month);
+		$applied_fees_but_not_touched_till_receipt_date->addCondition('student_id',$this['student_id']);
+
+		foreach ($applied_fees_but_not_touched_till_receipt_date as $junk) {
+			$un_touched_month_year = date('M Y',strtotime($applied_fees_but_not_touched_till_receipt_date['due_on']));
+			if(!isset($month_print[$un_touched_month_year])) $month_print[$un_touched_month_year] = 0;
+			$month_print[$un_touched_month_year] += $applied_fees_but_not_touched_till_receipt_date['amount'];
+		}
+
+
 
 		// echo $in_month_year. " => " .$fees_applied_in_required_months->ref('fees_id')->get('name') . '=' . $month_print[$in_month_year] . '<br/>';
 		return $month_print;

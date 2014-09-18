@@ -31,16 +31,16 @@ class page_library_importer extends Page {
 				$existing_subjects_array = $existing_subjects->getRows();
 
 
-				$existing_titles = $this->add('Model_Library_Subjects');
+				$existing_titles = $this->add('Model_Library_Title');
 				$existing_titles_array = $existing_titles->getRows();
 
 				$stored_subjects=array();
 				$stored_titles=array();
-				foreach ($existing_subjects as $es) {
+				foreach ($existing_subjects_array as $es) {
 					$stored_subjects[$es['id']] = $es['name'];
 				}
 
-				foreach ($existing_titles as $et) {
+				foreach ($existing_titles_array as $et) {
 					$stored_titles[$et['id']] = $et['name'];
 				}
 				
@@ -68,17 +68,23 @@ class page_library_importer extends Page {
 						$new_title = $this->add('Model_Library_Title');
 						$new_title['name'] = $d['Title'];
 						$new_title['subject_id'] = array_search($d['Subject'], $stored_subjects);
-						$new_title->saveAndUnload();
+						$new_title->save();
 						
 						$stored_titles[$new_title->id] = $new_title['name'];
 
 						$new_title->destroy();
 					}
-
+					
+					// throw new Exception(print_r($stored_titles,true). '<br/>'.print_r($d,true).' FOUND AT ' . array_search($d['Title'], $stored_titles), 1);
 					$new_item = $this->add('Model_Library_Item');
 					$new_item->addCondition('title_id', array_search($d['Title'], $stored_titles));
 					$new_item->addCondition('name', $d['AccessionNo']);
 					$new_item->tryLoadAny();
+
+
+					$new_item['title_id'] = array_search($d['Title'], $stored_titles);
+					$new_item['name'] = $d['AccessionNo'];
+					$new_item['name'] = $d['AccessionNo'];
 					$new_item['book_no'] = $d['Book No'];
 					$new_item['class_no'] = $d['Class No'];
 					$new_item['publishe_year'] = $d['Publish Year'];

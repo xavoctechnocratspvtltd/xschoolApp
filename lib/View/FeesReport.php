@@ -68,7 +68,7 @@ class View_FeesReport extends View {
 		$grid->addColumn('text','date');
 
 			$fees = $this->add('Model_Fees');
-		
+			// $fees->addCondition('name','Caution Money');
 		foreach ($fees_transaction->_dsql()->get() as $data) {
 
 			$fees->unload();
@@ -81,6 +81,8 @@ class View_FeesReport extends View {
 			$result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$data['total_amount']);
 
 			$fees_names = $this->add('Model_Fees');
+			// $fees_names->addCondition('name','Caution Money');
+			// $fees_names->tryLoadAny();
 			foreach ($fees_names as $junk) {
 				if(!isset($result_array[$data['submitted_on']][$fees_names['name']]))
 					$result_array[$data['submitted_on']][$fees_names['name']]=0;
@@ -121,6 +123,7 @@ class View_FeesReport extends View {
 				$fees_totals[$key] += $value;
 			}
 		}
+
 		$fees_totals['date']='Total';
 
 		$result_array['totals'] = $fees_totals;

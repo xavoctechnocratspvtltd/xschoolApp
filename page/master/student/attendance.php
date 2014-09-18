@@ -1,4 +1,4 @@
-<?php
+	<?php
 class page_master_student_attendance extends Page {
 	function init(){
 		parent::init();
@@ -11,15 +11,15 @@ class page_master_student_attendance extends Page {
 
 		$month_field=$form->addField('dropdown','month');
 		$month_field->setValueList(array('1'=>'January',
-            							'2'=>'February',
+            							'2'=>'February ',
             							'3'=>'March',
             							'4'=>'April',
             							'5'=>'May',
-            							'6'=>'Jun',
+            							'6'=>'June',
             							'7'=>'July',
-            							'8'=>'Augst',
+            							'8'=>'August',
             							'9'=>'September',
-            							'10'=>'Octomber',
+            							'10'=>'October',
             							'11'=>'November',
             							'12'=>'December'
             							));
