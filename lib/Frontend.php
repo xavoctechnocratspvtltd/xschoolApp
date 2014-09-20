@@ -42,7 +42,7 @@ class Frontend extends ApiFrontend {
             $auth->check();
             // ;
 
-            // $this->add('H1',null,'Menu')->setHtml('<span style="color:red">This is Demo Software </span>');
+            $this->add('H1',null,'Menu')->setHtml('<span style="color:red">This is Demo Software </span>');
 
         $this->currentBranch = $this->add('Model_Branch')->getCurrent();
         $this->currentSession = $this->add('Model_Session')->getCurrent();
