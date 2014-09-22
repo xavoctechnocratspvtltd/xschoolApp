@@ -7,6 +7,10 @@ class page_master_session_promote extends Page{
 		$class=$this->add('Model_Class');
 
 		$from_class_field=$form->addField('autocomplete/Basic','from_class');
+		$session_field=$form->addField('dropdown','privouse_session')->setEmptyText('Please Select');
+		$session=$this->add('Model_Session');
+		$session->addCondition('id','<>',$this->api->currentSession->id);
+		$session_field->setModel($session);
 		$from_class_model=$this->add('Model_Class');
 		$from_class_model->title_field='full_name';
 		$from_class_field->setModel($from_class_model);
@@ -53,7 +57,7 @@ class page_master_session_promote extends Page{
 		$form->addSubmit('Promote');
 
 		if($form->isSubmitted()){
-			$form->js()->univ()->newWindow($this->api->url('master_session_promotestudent',array('class'=>$form['from_class'])))->execute();
+			$form->js()->univ()->newWindow($this->api->url('master_session_promotestudent',array('class'=>$form['from_class'],'session'=>$form['privouse_session'])))->execute();
 		}
 	}
 }
