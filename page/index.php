@@ -19,7 +19,11 @@ class page_index extends Page {
 
 
 
-        if(strtotime('2014-09-23')==strtotime(date('Y-m-d')))
+
+
+
+        if(strtotime('2014-09-26')==strtotime(date('Y-m-d')))
+
 
 
 
