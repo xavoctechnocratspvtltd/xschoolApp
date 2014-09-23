@@ -4,9 +4,14 @@ $config['atk']['base_path']='./atk4/';
 
 
 
+
 // $config['dsn']='mysql://root:winserver@localhost/xschool';
 
 $config['dsn']='mysql://root:winserver@localhost/demo';
+
+
+
+
 
 
 
