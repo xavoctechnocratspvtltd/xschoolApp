@@ -10,7 +10,9 @@ class page_library_submit extends Page {
 		$transaction->addCondition('branch_id',$this->api->currentBranch->id);
 		$transaction->addCondition('session_id',$this->api->currentSession->id);
 		$transaction->addCondition('submitted_on',null);
-
+		$transaction_item_j=$transaction->join('library_items','item_id');
+		$transaction_item_j->addField('is_issued');
+		$transaction->addCondition('is_issued',0);
 		$transaction->addExpression('class_name')->set(function($m,$q){
 			$student_join=$m->leftJoin('students','student_id');
 			$student_join->hasOne('Class','class_id');

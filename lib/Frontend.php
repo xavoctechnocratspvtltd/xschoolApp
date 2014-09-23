@@ -42,7 +42,7 @@ class Frontend extends ApiFrontend {
             $auth->check();
             // ;
 
-            $this->add('H1',null,'Menu')->setHtml('<span style="color:red">This is Demo Software </span>');
+            // $this->add('H1',null,'Menu')->setHtml('<span style="color:red">This is Demo Software </span>');
 
         $this->currentBranch = $this->add('Model_Branch')->getCurrent();
         $this->currentSession = $this->add('Model_Session')->getCurrent();
@@ -63,14 +63,7 @@ class Frontend extends ApiFrontend {
 
             $v=$this->add('View',null,'WelcomeBlock');
             $v->setStyle('width','300px');
-
-
-
-
-
-
             $v->setHtml('<span style="color:red">Software Licesne  Expiry Date: 26/09/2014</span><br/>'.
-
                 '<b>Welcome! </b>'.$this->api->auth->model['name'].'<br/>'
                 .'Current Branch : '.$this->currentBranch['name'].'<br/>'.
                 'Current Session : '.$current_session.'<br/>'.

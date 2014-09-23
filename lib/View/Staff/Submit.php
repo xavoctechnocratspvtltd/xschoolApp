@@ -15,6 +15,7 @@ class View_Staff_Submit extends View {
 		$item_m_j=$item_model->join('library_transactions.item_id','id');
 		$item_m_j->hasOne("Student",'student_id');
 		$item_model->addCondition('student_id',null);
+		// $item_model->addCondition('branch_id',$this->api->currentBranch->id);
 		
 		
 		$form=$this->add('Form');
