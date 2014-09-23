@@ -35,7 +35,7 @@ class Model_Library_Item extends Model_Table{
 		// })->type('boolean');
 
 		$this->hasMany('Library_Transaction','item_id');
-		$this->addCondition('branch_id',$this->api->currentBranch->id);
+		// $this->addCondition('branch_id',$this->api->currentBranch->id);
 		// $this->addHook('beforeSave',$this);
 		$this->addHook('beforeDelete',$this);
 

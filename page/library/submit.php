@@ -19,7 +19,7 @@ class page_library_submit extends Page {
         	return $m->refSQL('class_id')->fieldQuery('full_name');
 			});		
 
-		$grid->setModel($transaction->debug(),array('item','student','class_name','staff','issue_on'));
+		$grid->setModel($transaction,array('item','student','class_name','staff','issue_on'));
 
 
 		
