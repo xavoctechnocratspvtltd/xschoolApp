@@ -53,10 +53,11 @@ class Model_Library_Transaction extends Model_Table{
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['narration']=$narration;
 		$this->save();
+		$item->markIssued();
+		
 		$log=$this->add('Model_Log');
 		$log->createNew("Library Item Issue");
 		$log->save();
-		$item->markIssued();
 		return true;
 	}
 
