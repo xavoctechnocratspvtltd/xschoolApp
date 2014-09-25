@@ -41,7 +41,8 @@ class Model_FeesReceipt extends Model_Table {
 			// apply late fees on student first
 			$fees= $this->add('Model_Fees');
 			$late_fees_applied = $this->add('Model_StudentAppliedFees');
-			$late_fees_applied->addRow($student,$fees->loadLateFees(),$late_fees,$this->api->today);
+			$late_fees_data = date('Y',strtotime($this->api->today)) . '-'. date('m',strtotime($this->api->today)) .'-'. $this->api->getConfig('school/fee_date');
+			$late_fees_applied->addRow($student,$fees->loadLateFees(),$late_fees,$late_fees_data);
 			// and pay the full amount immediately in the same receipt
 			$late_fees_applied->pay($late_fees,$this);
 		}
@@ -83,6 +84,10 @@ class Model_FeesReceipt extends Model_Table {
 		$log->save();
 		foreach ($fees=$this->ref('FeesTransaction') as $junk) {
 				$fees->delete();
+		}
+
+		foreach ($pay_tra=$this->ref('PaymentTransaction') as $junk) {
+			$pay_tra->delete();
 		}
 
 	}

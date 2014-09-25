@@ -38,6 +38,8 @@ class Model_PaymentTransaction extends Model_Table {
 		$log=$this->add('Model_Log');
 		$log->createNew("Payemt transaction deleted");
 		$log->save();
+		throw new Exception($this['fees_receipt_id'], 1);
+		
 		if($this['fees_receipt_id']){
 			$this->ref('fees_receipt_id')->delete();
 		}
