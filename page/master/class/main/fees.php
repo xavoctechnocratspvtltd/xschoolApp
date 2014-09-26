@@ -19,7 +19,7 @@ class page_master_class_main_fees extends Page {
 
 			}
 
-			if($btn->isClicked("Are you sure")){
+			if($btn->isClicked("Are you sure " . $class->students()->count()->getOne() . ' students will be affected')){
 				if($fee_applied){
 					$class->removeFees($feeses);
 				}else{
