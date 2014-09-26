@@ -1,4 +1,4 @@
-	<?php
+<?php
 
 class page_master_fees_main extends Page {
 

@@ -9,5 +9,6 @@ class page_log extends Page {
 		$grid->setModel($log);
 
 		$grid->addPaginator(30);
+		$grid->addQuickSearch(array('activity'));
 	}
 }
