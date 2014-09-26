@@ -5,33 +5,38 @@ class page_test extends Page {
 	function init(){
 		parent::init();
 
-		$transaction=$this->add('Model_Library_Transaction');
-		$transaction_j=$transaction->leftJoin('library_items','item_id');
-		$transaction_j->addField('is_issued');
-		$transaction->addCondition('submitted_on',null);
-		$transaction->addCondition('is_issued',	0);
-		// $student = $this->add('Model_Class');
-		// $student->load(32);
-		// $term = $this->add('Model_Term')->load(1);
-		// echo "<pre>";
-		// print_r($student->getResult());
-		// echo "</pre>";
+		// $transaction=$this->add('Model_Library_Transaction');
+		// $transaction_j=$transaction->leftJoin('library_items','item_id');
+		// $transaction_j->addField('is_issued');
+		// $transaction->addCondition('submitted_on',null);
+		// $transaction->addCondition('is_issued',	0);
+		// // $student = $this->add('Model_Class');
+		// // $student->load(32);
+		// // $term = $this->add('Model_Term')->load(1);
+		// // echo "<pre>";
+		// // print_r($student->getResult());
+		// // echo "</pre>";
 
-		// $st=$this->add('Model_Student');
-		// $st->load(1585);
-		// $stu=$st->appliedFees();
-		// // $stu->addCondition('')
-		$item=$this->add('Model_Library_Item');
-		foreach ($transaction as $value) {
-			$item->load($transaction['item_id']);
-			$item['is_issued']=1;
-			$item->saveAndUnload();
+		// // $st=$this->add('Model_Student');
+		// // $st->load(1585);
+		// // $stu=$st->appliedFees();
+		// // // $stu->addCondition('')
+		// $item=$this->add('Model_Library_Item');
+		// foreach ($transaction as $value) {
+		// 	$item->load($transaction['item_id']);
+		// 	$item['is_issued']=1;
+		// 	$item->saveAndUnload();
 			
 
-		}
+		// }
 
+		$pay=$this->add('Model_PaymentTransaction');
+		$pay_j=$pay->leftJoin('fees_receipts','fees_receipt_id');
+		$pay_j->addField('fees_receiptsid','id');
+		$pay->addCondition('fees_receiptsid',null);
+		$pay->addCondition('id','<>',null);
 		$grid=$this->add('Grid');
-		$grid->setModel($transaction);
+		$grid->setModel($pay->);
 	}
 
 	function page_consession(){

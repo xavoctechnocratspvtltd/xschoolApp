@@ -11,6 +11,8 @@ public $table="student_fees_applied";
 		$this->hasOne('Fees','fees_id');
 		$this->addField('amount');
 		$this->addField('due_on')->type('date');
+		$this->addField('added_on_today')->type('date')->defaultValue($this->api->today);
+		$this->addField('added_on_actual')->type('date')->defaultValue(date('Y-m-d'));
 
 		$this->leftJoin('students','student_id')
 			->leftJoin('scholars','scholar_id')
