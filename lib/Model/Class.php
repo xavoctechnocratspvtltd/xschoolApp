@@ -273,7 +273,7 @@ public $table="classes";
 
 		// TODO ASK FOR DELETE FUNCTION
 		$log=$this->add('Model_Log');
-		$log->createNew("remove fees from class");
+		$log->createNew("remove fees ".$fees['name']." from class " . $this['name']);
 		$log->save();
 		if($removeFromAllClassStudents){
 			
