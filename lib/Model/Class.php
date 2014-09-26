@@ -243,10 +243,16 @@ public $table="classes";
 		$log->createNew("Add fees in class");
 		$log->save();
 
+		$msg  = '';
+
 		if($applyOnAllClassStudents){
 			foreach ($student=$this->allStudents() as $junk) {
 					// $student->createStudentFeesAssociation($fees);
-					$student->addFees($fees);
+					try{
+						$student->addFees($fees);
+					}catch(Exception $e){
+						$msg .= ", " . $student['scholar_no']. ' not done';
+					}
 					
 					$log=$this->add('Model_Log');
 					$log->createNew("add fees on student id ".$student->id);
@@ -254,7 +260,7 @@ public $table="classes";
 			}
 		}
 
-		
+		return $msg;
 	}
 
 	function removeFees($fees,$removeFromAllClassStudents=true){

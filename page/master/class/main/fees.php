@@ -21,11 +21,11 @@ class page_master_class_main_fees extends Page {
 
 			if($btn->isClicked("Are you sure")){
 				if($fee_applied){
-					$class->removeFees($feeses);
+					$msg = $class->removeFees($feeses);
 				}else{
-					$class->addFees($feeses);
+					$msg = $class->addFees($feeses);
 				}
-				$btn->js()->reload()->execute();
+				$btn->js(null,$btn->js()->univ()->errorMessage($msg))->reload()->execute();
 			}
 
 		}
