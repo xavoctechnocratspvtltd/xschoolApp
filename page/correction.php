@@ -32,13 +32,13 @@ class page_correction extends Page {
 			$fee_transactions->tryLoadAny();
 
 			if(!$fee_transactions->loaded()){
-				$this->add('View_Error')->setHTML('No Transaction found for reeipt ' . $receipt_model['name'] . ' <b>'.$receipt_model['amount'].'</b>');
+				$this->add('View_Error')->setHTML('No Transaction found for reeipt ' . $receipt_model['name'] . ' <b>'.$receipt_model['amount'].'</b> on ' . $receipt_model['created_at']);
 			}else{
 
 				foreach ($fee_transactions as $junk) {
 					// update receipt_id in fee_transactions model now
 					$fee_transactions['fees_receipt_id'] = $receipt_model->id;
-					$fee_transactions->saveAndUnload();
+					// $fee_transactions->saveAndUnload();
 				}
 
 				$this->add('View_Info')->setHTML($receipt_model['name']. ' ' . $receipt_model['created_at'] . ' <b>'. $receipt_model['amount'] .'</b>');

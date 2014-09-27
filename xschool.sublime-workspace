@@ -16,10 +16,18 @@
 			}
 		},
 		{
+			"file": "page/correction.php",
+			"settings":
+			{
+				"buffer_size": 3793,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "lib/Model/Class.php",
 			"settings":
 			{
-				"buffer_size": 16327,
+				"buffer_size": 16374,
 				"line_ending": "Unix"
 			}
 		}
@@ -72,11 +80,13 @@
 	},
 	"file_history":
 	[
-		"/var/www/xschool/README.md",
-		"/var/www/xschool/atk4-addons/misc/templates/view/model_core.html",
 		"/var/www/xschool/lib/Model/FeesReceipt.php",
 		"/var/www/xschool/atk4/lib/Model.php",
 		"/var/www/xschool/page/marks.php",
+		"/var/www/xschool/config-default.php",
+		"/var/www/xschool/page/fees/printreceipt.php",
+		"/var/www/xschool/README.md",
+		"/var/www/xschool/atk4-addons/misc/templates/view/model_core.html",
 		"/var/www/xschool/page/reports/main.php",
 		"/var/www/xschool/page/reports/scholar.php",
 		"/var/www/xschool/lib/View/FeesReport.php",
@@ -87,7 +97,6 @@
 		"/var/www/xschool/lib/Model/Sms.php",
 		"/var/www/xschool/page/reports/duefees.php",
 		"/var/www/xschool/atk4/lib/Dummy.php",
-		"/var/www/xschool/config-default.php",
 		"/var/www/xschool/lib/Controller/Sms.php",
 		"/var/www/xschool/lib/Controller/CURL.php",
 		"/var/www/index.php",
@@ -102,7 +111,6 @@
 		"/var/www/xschool/lib/View/Staff/Submit.php",
 		"/var/www/xschool/atk4/lib/View.php",
 		"/var/www/xschool/atk4/VERSION",
-		"/var/www/xschool/page/fees/printreceipt.php",
 		"/var/www/xschool/page/feestype.php",
 		"/var/www/xschool/atk4-addons/misc/lib/PageInFrame.php",
 		"/var/www/xschool/atk4/lib/Page.php",
@@ -182,7 +190,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -211,24 +219,53 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "lib/Model/Class.php",
+					"file": "page/correction.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16327,
+						"buffer_size": 3793,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13851,
-								13851
+								1322,
+								1322
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 660.0,
+						"translation.y": 396.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/Model/Class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16374,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -237,10 +274,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 11577.0,
+						"translation.y": 11429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -296,6 +333,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"modelrecep",
+				"lib/Model/FeesReceipt.php"
+			],
+			[
+				"modelreceipt",
+				"lib/Model/FeesReceipt.php"
+			],
+			[
+				"correc",
+				"page/correction.php"
+			],
 			[
 				"reportmarks",
 				"page/reports/marks.php"
@@ -385,11 +434,11 @@
 		"selected_items":
 		[
 			[
-				"xbank2",
+				"xbank",
 				"/var/www/xbank2/xbank2.sublime-project"
 			],
 			[
-				"xbank",
+				"xbank2",
 				"/var/www/xbank2/xbank2.sublime-project"
 			]
 		],
