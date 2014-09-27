@@ -86,9 +86,10 @@ class Model_FeesReceipt extends Model_Table {
 				$fees->delete();
 		}
 
-		foreach ($pay_tra=$this->ref('PaymentTransaction') as $junk) {
-			$pay_tra->delete();
-		}
+		// Not required as Payment Transaction before delete is calling receipt delete itself
+		// foreach ($pay_tra=$this->ref('PaymentTransaction') as $junk) {
+		// 	$pay_tra->delete();
+		// }
 
 	}
 
