@@ -8,10 +8,10 @@
 	"buffers":
 	[
 		{
-			"file": "page/reports/marks.php",
+			"file": "page/accounts.php",
 			"settings":
 			{
-				"buffer_size": 964,
+				"buffer_size": 2385,
 				"line_ending": "Unix"
 			}
 		},
@@ -19,15 +19,39 @@
 			"file": "page/correction.php",
 			"settings":
 			{
-				"buffer_size": 3793,
+				"buffer_size": 3790,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "lib/Model/Class.php",
+			"file": "lib/Model/FeesReceipt.php",
 			"settings":
 			{
-				"buffer_size": 16374,
+				"buffer_size": 6734,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/Model/FeesTransaction.php",
+			"settings":
+			{
+				"buffer_size": 2417,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/Model/StudentAppliedFees.php",
+			"settings":
+			{
+				"buffer_size": 6636,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/Model/PaymentTransaction.php",
+			"settings":
+			{
+				"buffer_size": 1540,
 				"line_ending": "Unix"
 			}
 		}
@@ -80,11 +104,21 @@
 	},
 	"file_history":
 	[
-		"/var/www/xschool/lib/Model/FeesReceipt.php",
+		"/var/www/xschool/page/student.php",
+		"/var/www/xschool/lib/Model/StudentAppliedFees.php",
+		"/var/www/xschool/s.sql",
+		"/var/www/xschool/page/change.php",
+		"/var/www/xschool/page/fees/printreceipt.php",
 		"/var/www/xschool/atk4/lib/Model.php",
 		"/var/www/xschool/page/marks.php",
+		"/var/www/xschool/lib/Model/FeesReceipt.php",
+		"/var/www/xschool/atk4/lib/PageManager.php",
+		"/var/www/xschool/atk4/lib/Page.php",
+		"/var/www/xschool/templates/default/css/pick-a-color-1.1.8.min.css",
+		"/var/www/xschool/lib/Model/Class.php",
+		"/var/www/xschool/page/reports/marks.php",
+		"/var/www/xschool/page/correction.php",
 		"/var/www/xschool/config-default.php",
-		"/var/www/xschool/page/fees/printreceipt.php",
 		"/var/www/xschool/README.md",
 		"/var/www/xschool/atk4-addons/misc/templates/view/model_core.html",
 		"/var/www/xschool/page/reports/main.php",
@@ -100,7 +134,6 @@
 		"/var/www/xschool/lib/Controller/Sms.php",
 		"/var/www/xschool/lib/Controller/CURL.php",
 		"/var/www/index.php",
-		"/var/www/xschool/lib/Model/StudentAppliedFees.php",
 		"/var/www/xschool/lib/View/Student/PrintReceipt.php",
 		"/var/www/xschool/lib/Model/FeesTransaction.php",
 		"/var/www/xschool/page/reports/consession.php",
@@ -113,8 +146,6 @@
 		"/var/www/xschool/atk4/VERSION",
 		"/var/www/xschool/page/feestype.php",
 		"/var/www/xschool/atk4-addons/misc/lib/PageInFrame.php",
-		"/var/www/xschool/atk4/lib/Page.php",
-		"/var/www/xschool/templates/default/css/pick-a-color-1.1.8.min.css",
 		"/var/www/xschool/atk4/lib/P.php",
 		"/var/www/xschool/lib/Model/Fees.php",
 		"/var/www/xschool/atk4/tests/page/modeldef.php",
@@ -124,7 +155,6 @@
 		"/var/www/xschool/atk4-addons/mvc/Page/ModelGenerator.php",
 		"/var/www/xschool/atk4/templates/shared/form_empty.html",
 		"/var/www/xschool/lib/Frontend.php",
-		"/var/www/xschool/page/student.php",
 		"/var/www/xschool/atk4/lib/Exception/SkipTests.php",
 		"/var/www/xschool/page/setdate.php",
 		"/var/www/xbank2/page/accounts/Loan.php",
@@ -163,9 +193,11 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			"/var/www/xschool",
+			"/var/www/xbank2"
 		]
 	},
 	"find_state":
@@ -173,6 +205,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"MATCH"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -190,24 +223,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "page/reports/marks.php",
+					"file": "page/accounts.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 964,
+						"buffer_size": 2385,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								461,
-								461
+								490,
+								490
 							]
 						],
 						"settings":
@@ -219,7 +252,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -228,15 +261,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3793,
+						"buffer_size": 3790,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1322,
-								1322
+								2547,
+								2547
 							]
 						],
 						"settings":
@@ -244,20 +277,49 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 660.0,
-						"translation.y": 396.0,
+						"translation.x": 0.0,
+						"translation.y": 990.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/Model/FeesReceipt.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6734,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2563,
+								2563
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1325.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "lib/Model/Class.php",
+					"buffer": 3,
+					"file": "lib/Model/FeesTransaction.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16374,
+						"buffer_size": 2417,
 						"regions":
 						{
 						},
@@ -273,11 +335,69 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 11429.0,
+						"translation.x": -0.0,
+						"translation.y": 264.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "lib/Model/StudentAppliedFees.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6636,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1004,
+								1004
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 330.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "lib/Model/PaymentTransaction.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1540,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1451,
+								1451
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 401.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -334,6 +454,30 @@
 		"selected_items":
 		[
 			[
+				"studentappli",
+				"lib/Model/StudentAppliedFees.php"
+			],
+			[
+				"pagecorre",
+				"page/correction.php"
+			],
+			[
+				"modelfeetra",
+				"lib/Model/FeesTransaction.php"
+			],
+			[
+				"modelreceip",
+				"lib/Model/FeesReceipt.php"
+			],
+			[
+				"modelpaytra",
+				"lib/Model/PaymentTransaction.php"
+			],
+			[
+				"pageaccount",
+				"page/accounts.php"
+			],
+			[
 				"modelrecep",
 				"lib/Model/FeesReceipt.php"
 			],
@@ -368,10 +512,6 @@
 			[
 				"modelstud",
 				"lib/Model/StudentAppliedFees.php"
-			],
-			[
-				"modelreceip",
-				"lib/Model/FeesReceipt.php"
 			],
 			[
 				"viewstuprint",
