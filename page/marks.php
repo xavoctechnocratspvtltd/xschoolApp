@@ -34,14 +34,14 @@ class page_marks extends Page {
 		$grid=$col1->add('Grid');
 		$grid->setModel($student_marks,array('student','marks'));
 
-		$grid->addColumn('button','remove');
+		// $grid->addColumn('button','remove');
 
-		if($_GET['remove']){
-			$student_marks=$this->add('Model_Student_Marks');
-			$student_marks->load($_GET['remove']);
-			$student_marks->delete();
-			$grid->js()->reload()->execute();
-		}
+		// if($_GET['remove']){
+		// 	$student_marks=$this->add('Model_Student_Marks');
+		// 	$student_marks->load($_GET['remove']);
+		// 	$student_marks->delete();
+		// 	$grid->js()->reload()->execute();
+		// }
 
 
 	}	
