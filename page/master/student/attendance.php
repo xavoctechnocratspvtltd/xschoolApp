@@ -30,10 +30,17 @@ class page_master_student_attendance extends Page {
 		$student_attendance=$this->add('Model_Student_Attendance');
 		$student_attendance->addCondition('session_id',$this->api->currentSession->id);
 		if($_GET['filter']){
-			if($_GET['class'])
+			$this->api->stickyGET('filter');
+			if($_GET['class']){
+				$this->api->stickyGET('class');
 				$student_attendance->addCondition('class_id',$_GET['class']);
-			if($_GET['month'])
+			}
+			if($_GET['month']){
+				$this->api->stickyGET('month');
 				$student_attendance->addCondition('month',$_GET['month']);
+			}
+		}else{
+			$student_attendance->addCondition('id',0);
 		}
 
 		if($form->isSubmitted()){
