@@ -35,7 +35,7 @@
 			"file": "page/marks.php",
 			"settings":
 			{
-				"buffer_size": 1442,
+				"buffer_size": 1463,
 				"line_ending": "Unix"
 			}
 		},
@@ -265,6 +265,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"bindconditional",
 			"MATCH"
 		],
 		"highlight": true,
@@ -379,15 +380,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1442,
+						"buffer_size": 1463,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								182,
-								182
+								511,
+								511
 							]
 						],
 						"settings":
@@ -396,7 +397,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 57.0,
+						"translation.y": 228.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
