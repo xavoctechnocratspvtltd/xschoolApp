@@ -14,6 +14,8 @@ class page_reports_duefees extends Page {
 		$form->addSubmit('Get List');
 
 		$student_model = $this->add('Model_Student');
+		$student_model->addCondition('is_left',false);
+
 		$student_model->addExpression('due')->set(function($m,$q){
 			$sfa=$m->add('Model_StudentAppliedFees',array('table_alias'=>'xsaf1'));
 			$sfa->addCondition('student_id',$q->getField('id'));

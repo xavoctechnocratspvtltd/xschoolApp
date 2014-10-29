@@ -40,6 +40,7 @@ class Model_Student_Attendance extends Model_Table{
 	function createNew($class,$student,$month,$total_attendance){
 		if($this->loaded())
 			throw $this->exception('Please use empty Model');
+		
 		$this['class_id']=$class->id;
 		$this['student_id']=$student->id;
 		$this['month']=$month;
@@ -77,11 +78,13 @@ class Model_Student_Attendance extends Model_Table{
 		 $this->addCondition('session_id',$session->id);
 		 $this->addCondition('month',$month);
 		 $this->tryLoadAny();
-
-		 if($this->loaded())
+		 	
+		 if($this->loaded()){
 			return $this;
-		else
+		 }
+		else{
 			return false;
+		}
 	}
 
 	function deleteForced(){

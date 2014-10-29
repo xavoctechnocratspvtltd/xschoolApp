@@ -45,6 +45,7 @@ class page_master_student_attendance extends Page {
 
 		if($form->isSubmitted()){
 			$class_model=$this->add('Model_Class')->load($form['class']);
+			
 			$class_model->title_field='full_name';
 			$attendance=$this->add('Model_Student_Attendance');
 
@@ -54,12 +55,13 @@ class page_master_student_attendance extends Page {
 				$student=$this->add('Model_Student');
 				$student->addCondition('is_left',false);
 				$total_student_in_class_table=$student->classStudents($class_model,null,true);
+
 				if($total_students_in_attendance_table!=$total_student_in_class_table){
 					foreach ($st=$class_model->allStudents() as $junk) {
+						
 						$att=$this->add('Model_Student_Attendance');
 						if(!$att->isExist($class_model,$st,$form['month']))
 								$att->createNew($class_model,$st,$form['month'],$form['att']);
-
 					}
 				}else{
 					if($form['att'] and $form['change_total_attendance']==false)
