@@ -1,11 +1,12 @@
 <?php
 class page_printdefaulterlist extends Page {
 	function init(){
-		parent::init();
+		parent::init(); 
 
 		$this->js(true)->_selector('#header')->toggle();
 		$this->js(true)->_selector('#footer')->toggle();
 		$student_model = $this->add('Model_Student');
+		$student_model->addCondition('is_left',false);
 		
 		if($_GET['class']){
 			$student_model->addCondition('class_id',$_GET['class']);
