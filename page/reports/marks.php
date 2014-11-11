@@ -34,7 +34,11 @@ class page_reports_marks extends Page {
 		// $columns=array();
 		
 		$class_students = $class->students();
-		$class_students->setLimit(3);
+		// $class_students->setLimit(3);
+		$class_students->addExpression('rank_total')->set(function($m,$q){
+			return $m->refSQL('Student_Marks')->addCondition('session_id',$m->api->currentSession->id)->sum('marks');
+		});
+		$class_students->setOrder('rank_total','desc');
 
 		foreach ($subject as $sub) {
 			// echo "Subject :".$sub['name']."</br>";
@@ -59,11 +63,11 @@ class page_reports_marks extends Page {
 					$marks_detail->tryLoadAny();
 
 					$g->max_marks += $marks_detail['max_marks'];
-					$g->grand_max_marks += $marks_detail['max_marks'];
+					$g->grand_max_marks += $marks_detail->sum('max_marks')->getOne()?:0;
 
 				});
 
-				$grid->addColumn($this->api->normalizeName($sub['subject'].$exam['exam']),$sub['subject'].$exam['exam']);
+				$grid->addColumn($this->api->normalizeName($sub['subject'].$exam['exam']),$exam['exam']." - ".$sub['subject']);
 			}
 
 			$grid->addMethod('format_'.$this->api->normalizeName($sub['subject']).'_total',function($g,$f){
@@ -83,14 +87,35 @@ class page_reports_marks extends Page {
 			// $grid->total=0;
 		}
 
+		// grand total
 		$grid->addMethod('format_grand_total',function($g,$f){
 			$g->current_row[$f]=$g->grand_total;
-			$g->grand_total=0;
+			// $g->grand_total=0;
 		});
-
 		$grid->addColumn('grand_total','grand_total');
 
+		//Grand max marks
+		$grid->addMethod('format_grand_max_marks',function($g,$f){
+			$g->current_row[$f]=$g->grand_max_marks;
+		});
+		$grid->addColumn('grand_max_marks','grand_max_marks');
+		
+		//Grand Grade
+		$grid->addMethod('format_total_grade',function($g,$f){
+				$g->current_row_html[$f]=$g->api->currentSession->getGrade($g->grand_total?:0, $g->grand_max_marks?:1);
+				$g->grand_total=0;
+				$g->grand_max_marks=0;
+			});
+		$grid->addColumn("total_grade","total_grade");
+
+		//Adding Rank 
+		$grid->rank=1;
+		$grid->addMethod('format_rank',function($g,$f){
+			$g->current_row[$f] = $g->rank++;
+		});
+
 		$grid->setModel($class_students);
+		$grid->setFormatter('rank_total','rank');
 
 		$grid->removeColumn('studenttype');
 		$grid->removeColumn('vehicle');

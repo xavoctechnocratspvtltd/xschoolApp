@@ -134,6 +134,8 @@ class Model_FeesReceipt extends Model_Table {
 				$month_print[$in_month_year] += $due_amount;
 			}
 		}
+		
+		// print_r($month_print);
 
 		// All dues that are due till receipt date but even not touched in this receipt .. fully due
 		$applied_fees_but_not_touched_till_receipt_date = $this->add('Model_StudentAppliedFees');
@@ -141,6 +143,7 @@ class Model_FeesReceipt extends Model_Table {
 		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','<>',$touched_months);
 		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','>=',$last_touched_month);
 		$applied_fees_but_not_touched_till_receipt_date->addCondition('student_id',$this['student_id']);
+		$applied_fees_but_not_touched_till_receipt_date->addCondition('fees_id','<>',29); // LATE FEES TO BE BYPASS
 
 		foreach ($applied_fees_but_not_touched_till_receipt_date as $junk) {
 			$un_touched_month_year = date('M Y',strtotime($applied_fees_but_not_touched_till_receipt_date['due_on']));
@@ -148,6 +151,7 @@ class Model_FeesReceipt extends Model_Table {
 			$month_print[$un_touched_month_year] += $applied_fees_but_not_touched_till_receipt_date['amount'];
 		}
 
+		// print_r($month_print);
 
 
 		// echo $in_month_year. " => " .$fees_applied_in_required_months->ref('fees_id')->get('name') . '=' . $month_print[$in_month_year] . '<br/>';

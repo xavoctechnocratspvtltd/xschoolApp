@@ -28,7 +28,7 @@ class page_reports_allmarks extends Page {
 		$class_students->addExpression('rank_total')->set(function($m,$q){
 			return $m->refSQL('Student_Marks')->addCondition('session_id',$m->api->currentSession->id)->sum('marks');
 		});
-		$class_students->setOrder('rank_total');
+		$class_students->setOrder('rank_total','desc');
 		// $class_students->setLimit(3);
 
 		foreach ($subject as $sub) {
@@ -70,7 +70,7 @@ class page_reports_allmarks extends Page {
 						$g->grand_max_marks += $marks_detail->sum('max_marks')->getOne()?:0;
 					});
 
-					$grid->addColumn($this->api->normalizeName($term['name'].$sub['subject']),$term['name'].$sub['subject']);
+					$grid->addColumn($this->api->normalizeName($term['name'].$sub['subject']),$term['name']." - ".$sub['subject']);
 				// }
 
 			}
@@ -112,7 +112,14 @@ class page_reports_allmarks extends Page {
 			});
 		$grid->addColumn("total_grade","total_grade");
 
+		$grid->rank=1;
+		$grid->addMethod('format_rank',function($g,$f){
+			$g->current_row[$f] = $g->rank++;
+		});
+
 		$grid->setModel($class_students);
+		$grid->setFormatter('rank_total','rank');
+
 		$grid->removeColumn('studenttype');
 		$grid->removeColumn('vehicle');
 		$grid->removeColumn('phone_no');
