@@ -56,7 +56,7 @@ class page_reports_marks extends Page {
 					$g->total +=$marks['marks'];
 					$g->grand_total +=$marks['marks'];
 
-					$marks_detail = $this->add('Model_SubjectInExamClass');
+					$marks_detail = $g->add('Model_SubjectInExamClass');
 					$marks_detail->addCondition('class_id',$_GET['class_id']);
 					$marks_detail->addCondition('subject_id',$sub['subject_id']);
 					$marks_detail->addCondition('exam_id',$exam['exam_id']);
