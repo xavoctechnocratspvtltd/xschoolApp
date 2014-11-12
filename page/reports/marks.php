@@ -44,7 +44,7 @@ class page_reports_marks extends Page {
 			// echo "Subject :".$sub['name']."</br>";
 			foreach ($exams as $exam) {
 				$grid->addMethod('format_'. $this->api->normalizeName($sub['subject'].$exam['exam']),function($g,$f)use($sub,$exam){
-					$marks = $this->add('Model_Student_Marks');
+					$marks = $g->add('Model_Student_Marks');
 					$marks->addCondition('class_id',$_GET['class_id']);
 					$marks->addCondition('subject_id',$sub['subject_id']);
 					// echo "exam :".$exam['name']."</br>";

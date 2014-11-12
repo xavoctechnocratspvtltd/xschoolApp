@@ -4,6 +4,82 @@
 		"selected_items":
 		[
 			[
+				"is_a",
+				"is_array"
+			],
+			[
+				"ca",
+				"candidate_subscribers"
+			],
+			[
+				"subsc",
+				"subscriber_id"
+			],
+			[
+				"max",
+				"max_marks"
+			],
+			[
+				"gran",
+				"grand_markstotal"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"mark",
+				"marks_detail_exam_j"
+			],
+			[
+				"mar",
+				"marks_detail"
+			],
+			[
+				"exa",
+				"exam_id"
+			],
+			[
+				"m",
+				"marks_detail"
+			],
+			[
+				"ter",
+				"term"
+			],
+			[
+				"term",
+				"term_id"
+			],
+			[
+				"try",
+				"tryLoadAny"
+			],
+			[
+				"trm",
+				"term_junk"
+			],
+			[
+				"ex",
+				"exams"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"curre",
+				"current_row_html"
+			],
+			[
+				"class",
+				"class_students"
+			],
+			[
+				"sub",
+				"subject"
+			],
+			[
 				"stude",
 				"student_attendance"
 			]
@@ -12,98 +88,58 @@
 	"buffers":
 	[
 		{
-			"file": "page/accounts.php",
+			"file": "/var/www/xepanMrkt/epan-components/xMarketingCampaign/page/owner/campaignexec.php",
 			"settings":
 			{
-				"buffer_size": 2385,
+				"buffer_size": 3590,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "page/correction.php",
+			"file": "/var/www/xepanMrkt/epan-components/xMarketingCampaign/page/emailexec.php",
 			"settings":
 			{
-				"buffer_size": 3790,
+				"buffer_size": 6604,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "lib/Model/FeesReceipt.php",
+			"file": "/var/www/xepanMrkt/epan-components/xMarketingCampaign/lib/Model/Config.php",
 			"settings":
 			{
-				"buffer_size": 6734,
+				"buffer_size": 3123,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "page/marks.php",
+			"file": "/var/www/XAVOC/epan-components/xMarketingCampaign/page/emailexec.php",
 			"settings":
 			{
-				"buffer_size": 1463,
+				"buffer_size": 5889,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "page/master/student/attendance.php",
+			"file": "/var/www/xepanMrkt/epan-components/xEnquiryNSubscription/lib/Model/EmailQueue.php",
 			"settings":
 			{
-				"buffer_size": 3011,
+				"buffer_size": 2167,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "page/change.php",
+			"file": "/var/www/xepanMrkt/lib/TMail/Transport/SwiftMailer.php",
 			"settings":
 			{
-				"buffer_size": 1586,
+				"buffer_size": 3926,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "page/master/student/list.php",
+			"file": "/var/www/XAVOC/epan-components/xEnquiryNSubscription/lib/Model/Subscription.php",
 			"settings":
 			{
-				"buffer_size": 4302,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "lib/Model/Student.php",
-			"settings":
-			{
-				"buffer_size": 17496,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "page/exam/marksassign.php",
-			"settings":
-			{
-				"buffer_size": 2212,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "lib/Model/FeesTransaction.php",
-			"settings":
-			{
-				"buffer_size": 2417,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "lib/Model/StudentAppliedFees.php",
-			"settings":
-			{
-				"buffer_size": 6636,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "lib/Model/PaymentTransaction.php",
-			"settings":
-			{
-				"buffer_size": 1540,
+				"buffer_size": 1619,
 				"line_ending": "Unix"
 			}
 		}
@@ -111,9 +147,21 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 117.0,
+		"height": 96.0,
 		"selected_items":
 		[
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"gitstatu",
+				"Git: Status"
+			],
 			[
 				"gitlog",
 				"Git: Quick Log Current File"
@@ -160,39 +208,64 @@
 	},
 	"file_history":
 	[
+		"/var/www/XAVOC/epan-components/xEnquiryNSubscription/lib/Model/Subscription.php",
+		"/var/www/xschool/lib/Model/SubjectInExamClass.php",
+		"/var/www/xschool/lib/Model/Student.php",
+		"/var/www/xschool/page/reports/marks.php",
+		"/var/www/xschool/lib/Model/Student/Marks.php",
+		"/var/www/xschool/lib/Model/Session.php",
+		"/var/www/xschool/page/reports/allmarks.php",
+		"/var/www/xschool/atk4-addons/misc/templates/view/model.html",
+		"/var/www/xschool/lib/Model/Exam.php",
+		"/var/www/xschool/atk4/lib/Model.php",
+		"/var/www/xschool/page/marks.php",
+		"/var/www/xschool/lib/Model/StudentAppliedFees.php",
+		"/var/www/xschool/atk4/tools/atk4-model.sublime-snippet",
+		"/var/www/xschool/page/reports/examdata.php",
+		"/var/www/xschool/lib/Model/ExamInAClass.php",
+		"/var/www/xschool/lib/Model/FeesReceipt.php",
+		"/var/www/xschool/atk4-addons/mvc/ModelException.php",
+		"/var/www/xschool/templates/default/css/less/modals.less",
+		"/var/www/xschool/atk4/lib/Grid/Advanced.php",
+		"/var/www/xschool/atk4-addons/jqgrid/js/jqgrid/grid.locale-en.js",
+		"/var/www/xschool/atk4/lib/Grid.php",
+		"/var/www/xschool/templates/default/css/fonts/glyphicons-halflings-regular.svg",
+		"/var/www/xschool/lib/Model/SubjectInAClass.php",
+		"/var/www/xschool/lib/Model/Subject.php",
+		"/var/www/xschool/atk4/lib/ModelIO.php",
+		"/var/www/xschool/lib/Model/PaymentTransaction.php",
+		"/var/www/xschool/atk4-addons/billing/lib/billing/Model/PaymentMethod/RealexRedirect.php",
+		"/var/www/xschool/atk4/templates/shared/css/atk-main-css-backup/atk-settings.css",
+		"/var/www/xschool/page/exam/marksassign.php",
+		"/var/www/xschool/atk4/lib/SMliteException.php",
+		"/var/www/xschool/s.sql",
+		"/var/www/xschool/atk4/lib/Page.php",
+		"/var/www/xschool/page/correction.php",
+		"/var/www/xschool/page/accounts.php",
+		"/var/www/xschool/page/fees/printreceipt.php",
+		"/var/www/xschool/lib/Model/FeesTransaction.php",
+		"/var/www/xschool/page/master/student/list.php",
+		"/var/www/xschool/page/change.php",
+		"/var/www/xschool/page/master/student/attendance.php",
 		"/var/www/xschool/page/master.php",
 		"/var/www/xschool/page/index.php",
 		"/var/www/xschool/atk4-addons/misc/lib/PageInFrame.php",
-		"/var/www/xschool/page/fees/printreceipt.php",
 		"/var/www/xschool/lib/Frontend.php",
 		"/var/www/xschool/page/exam/main.php",
 		"/var/www/xschool/page/examsubject.php",
 		"/var/www/xschool/atk4/templates/shared/page_error.html",
-		"/var/www/xschool/lib/Model/Student.php",
-		"/var/www/xschool/atk4/lib/Model.php",
 		"/var/www/xschool/lib/Model/Library/Transaction.php",
 		"/var/www/xschool/lib/Model/Library/Title.php",
 		"/var/www/xschool/lib/Model/Library/Item.php",
-		"/var/www/xschool/atk4/tools/atk4-model.sublime-snippet",
-		"/var/www/xschool/atk4-addons/misc/templates/view/model.html",
 		"/var/www/xschool/page/library/transaction.php",
 		"/var/www/xschool/library_items.sql",
-		"/var/www/xschool/lib/Model/Student/Marks.php",
 		"/var/www/xschool/page/master/class/main/students.php",
 		"/var/www/xschool/page/master/student/type.php",
 		"/var/www/xschool/atk4-addons/misc/lib/Controller/FormAsterisk.php",
 		"/var/www/xschool/atk4/lib/PageManager.php",
 		"/var/www/xschool/page/student.php",
-		"/var/www/xschool/lib/Model/StudentAppliedFees.php",
-		"/var/www/xschool/s.sql",
-		"/var/www/xschool/page/change.php",
-		"/var/www/xschool/page/marks.php",
-		"/var/www/xschool/lib/Model/FeesReceipt.php",
-		"/var/www/xschool/atk4/lib/Page.php",
 		"/var/www/xschool/templates/default/css/pick-a-color-1.1.8.min.css",
 		"/var/www/xschool/lib/Model/Class.php",
-		"/var/www/xschool/page/reports/marks.php",
-		"/var/www/xschool/page/correction.php",
 		"/var/www/xschool/config-default.php",
 		"/var/www/xschool/README.md",
 		"/var/www/xschool/atk4-addons/misc/templates/view/model_core.html",
@@ -202,7 +275,6 @@
 		"/var/www/xschool/atk4/lib/ApiCLI.php",
 		"/var/www/xschool/atk4/lib/ApiInstall.php",
 		"/var/www/xschool/atk4/tools/atk4-page.sublime-snippet",
-		"/var/www/xschool/page/accounts.php",
 		"/var/www/xschool/lib/Model/Sms.php",
 		"/var/www/xschool/page/reports/duefees.php",
 		"/var/www/xschool/atk4/lib/Dummy.php",
@@ -210,9 +282,7 @@
 		"/var/www/xschool/lib/Controller/CURL.php",
 		"/var/www/index.php",
 		"/var/www/xschool/lib/View/Student/PrintReceipt.php",
-		"/var/www/xschool/lib/Model/FeesTransaction.php",
 		"/var/www/xschool/page/reports/consession.php",
-		"/var/www/xschool/atk4-addons/mvc/ModelException.php",
 		"/var/www/xschool/lib/Model/FeesInAClass.php",
 		"/var/www/xschool/lib/View/Student/FastDeposit.php",
 		"/var/www/xschool/lib/View/Student/FeesSubmitBlock.php",
@@ -223,7 +293,6 @@
 		"/var/www/xschool/atk4/lib/P.php",
 		"/var/www/xschool/lib/Model/Fees.php",
 		"/var/www/xschool/atk4/tests/page/modeldef.php",
-		"/var/www/xschool/lib/Model/PaymentTransaction.php",
 		"/var/www/xschool/atk4/lib/View/ModelDetails.php",
 		"/var/www/xschool/atk4-addons/mvc/Page/ModelGenerator.php",
 		"/var/www/xschool/atk4/templates/shared/form_empty.html",
@@ -296,24 +365,24 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "page/accounts.php",
+					"file": "/var/www/xepanMrkt/epan-components/xMarketingCampaign/page/owner/campaignexec.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2385,
+						"buffer_size": 3590,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								490,
-								490
+								2022,
+								2022
 							]
 						],
 						"settings":
@@ -322,259 +391,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "page/correction.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3790,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2547,
-								2547
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 990.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "lib/Model/FeesReceipt.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6734,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2977,
-								2977
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1325.0,
+						"translation.y": 1023.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "page/marks.php",
+					"buffer": 1,
+					"file": "/var/www/xepanMrkt/epan-components/xMarketingCampaign/page/emailexec.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1463,
+						"buffer_size": 6604,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								511,
-								511
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 228.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "page/master/student/attendance.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3011,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								890,
-								890
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 342.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "page/change.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1586,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								179,
-								179
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 57.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "page/master/student/list.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4302,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4046,
-								4046
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2123.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "lib/Model/Student.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17496,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3985,
-								3985
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1793.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "page/exam/marksassign.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2212,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "lib/Model/FeesTransaction.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2417,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								4385,
+								4385
 							]
 						],
 						"settings":
@@ -586,24 +423,111 @@
 						"translation.y": 264.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "lib/Model/StudentAppliedFees.php",
+					"buffer": 2,
+					"file": "/var/www/xepanMrkt/epan-components/xMarketingCampaign/lib/Model/Config.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6636,
+						"buffer_size": 3123,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1004,
-								1004
+								1302,
+								1302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 152.0,
+						"translation.y": 330.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/var/www/XAVOC/epan-components/xMarketingCampaign/page/emailexec.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5889,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								617,
+								617
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 132.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/var/www/xepanMrkt/epan-components/xEnquiryNSubscription/lib/Model/EmailQueue.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2167,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1302,
+								1302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 26.0,
+						"translation.y": 924.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/var/www/xepanMrkt/lib/TMail/Transport/SwiftMailer.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3926,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1662,
+								1662
 							]
 						],
 						"settings":
@@ -615,24 +539,24 @@
 						"translation.y": 330.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
-					"file": "lib/Model/PaymentTransaction.php",
+					"buffer": 6,
+					"file": "/var/www/XAVOC/epan-components/xEnquiryNSubscription/lib/Model/Subscription.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1540,
+						"buffer_size": 1619,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1451,
-								1451
+								1443,
+								1443
 							]
 						],
 						"settings":
@@ -641,10 +565,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 401.0,
+						"translation.y": 660.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -685,6 +609,10 @@
 	{
 		"height": 0.0
 	},
+	"output.git-commit":
+	{
+		"height": 142.0
+	},
 	"output.git-pull":
 	{
 		"height": 142.0
@@ -701,6 +629,50 @@
 		"selected_items":
 		[
 			[
+				"modelmar",
+				"lib/Model/Student/Marks.php"
+			],
+			[
+				"modelstude",
+				"lib/Model/Student.php"
+			],
+			[
+				"modelsessio",
+				"lib/Model/Session.php"
+			],
+			[
+				"modelexamincl",
+				"lib/Model/ExamInAClass.php"
+			],
+			[
+				"modelexam",
+				"lib/Model/Exam.php"
+			],
+			[
+				"modelexamin",
+				"lib/Model/ExamInAClass.php"
+			],
+			[
+				"gridadva",
+				"atk4/lib/Grid/Advanced.php"
+			],
+			[
+				"subjecinex",
+				"lib/Model/SubjectInExamClass.php"
+			],
+			[
+				"modelinclass",
+				"lib/Model/ExamInAClass.php"
+			],
+			[
+				"session",
+				"lib/Model/Session.php"
+			],
+			[
+				"pagemarks",
+				"page/marks.php"
+			],
+			[
 				"masterstudeatt",
 				"page/master/student/attendance.php"
 			],
@@ -713,16 +685,8 @@
 				"lib/Frontend.php"
 			],
 			[
-				"pagemarks",
-				"page/marks.php"
-			],
-			[
 				"pageexammarks",
 				"page/exam/marksassign.php"
-			],
-			[
-				"modelstude",
-				"lib/Model/Student.php"
 			],
 			[
 				"modellibrartran",
@@ -894,7 +858,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 210.0,
+	"side_bar_width": 277.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
