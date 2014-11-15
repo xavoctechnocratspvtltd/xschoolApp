@@ -112,9 +112,9 @@ class Model_Sms extends Model_Table {
 
 		if($on_number)
 			$no=$on_number;
-		// else
-		// 	$no=$this['numberr'];
-		// $this->add('Controller_Sms')->sendMessage($no, $this['message']);
+		else
+			$no=$this['numberr'];
+		$this->add('Controller_Sms')->sendMessage($no, $this['message']);
 
 		$log=$this->add('Model_Log');
 		$log->createNew("sms send");
