@@ -42,7 +42,7 @@ class Model_Sms extends Model_Table {
 			$number_s = $this->senitizeNumber($number);
 			if(count($number_s))
 				echo $number." =>". print_r($number_s,true) .'<br/>';
-			// 	$this->sendSMS($number,$sms['message']);
+				$this->sendSMS($number,$sms['message']);
 		}
 
 	}
