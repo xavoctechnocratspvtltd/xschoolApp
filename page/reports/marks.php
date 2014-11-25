@@ -40,6 +40,9 @@ class page_reports_marks extends Page {
 		});
 		$class_students->setOrder('rank_total','desc');
 
+		$class_students->addExpression('Attandance')->set(function($m,$q){
+			 return $m->refSQL('Student_Attendance')->addCondition('session_id',$m->api->currentSession->id)->sum('present');
+		});
 		foreach ($subject as $sub) {
 			// echo "Subject :".$sub['name']."</br>";
 			foreach ($exams as $exam) {

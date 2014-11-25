@@ -30,7 +30,9 @@ class page_reports_allmarks extends Page {
 		});
 		$class_students->setOrder('rank_total','desc');
 		// $class_students->setLimit(3);
-
+		$class_students->addExpression('Attandance')->set(function($m,$q){
+			 return $m->refSQL('Student_Attendance')->addCondition('session_id',$m->api->currentSession->id)->sum('present');
+		});
 		foreach ($subject as $sub) {
 
 			foreach ($terms as $term) {
