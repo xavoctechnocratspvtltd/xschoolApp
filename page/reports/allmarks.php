@@ -47,7 +47,7 @@ class page_reports_allmarks extends Page {
 				
 				// foreach ($exams as $exam) {
 					$grid->addMethod('format_'.$this->api->normalizeName($term['name'].$sub['subject']),function($g,$f)use($sub,$exams,$term){
-						$marks = $this->add('Model_Student_Marks');
+						$marks = $g->add('Model_Student_Marks');
 						$mark_exam_j = $marks->join('exams','exam_id');
 						$mark_exam_j->addField('term_id');
 						$marks->addCondition('class_id',$_GET['class_id']);
@@ -60,7 +60,7 @@ class page_reports_allmarks extends Page {
 						$g->current_row_html[$f] = $marks->sum('marks')->getOne()?:0; 
 						$g->grand_total += $marks->sum('marks')->getOne()?:0;
 
-						$marks_detail = $this->add('Model_SubjectInExamClass');
+						$marks_detail = $g->add('Model_SubjectInExamClass');
 						$marks_detail_exam_j = $marks_detail->join('exams','exam_id');
 						$marks_detail_exam_j->addField('term_id');	
 						$marks_detail->addCondition('class_id',$_GET['class_id']);

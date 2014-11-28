@@ -42,7 +42,7 @@ class Model_Sms extends Model_Table {
 			$number_s = $this->senitizeNumber($number);
 			if(count($number_s))
 				echo $number." =>". print_r($number_s,true) .'<br/>';
-			// 	$this->sendSMS($number,$sms['message']);
+				$this->sendSMS($number,$sms['message']);
 		}
 
 	}
@@ -112,9 +112,9 @@ class Model_Sms extends Model_Table {
 
 		if($on_number)
 			$no=$on_number;
-		// else
-		// 	$no=$this['numberr'];
-		// $this->add('Controller_Sms')->sendMessage($no, $this['message']);
+		else
+			$no=$this['numberr'];
+		$this->add('Controller_Sms')->sendMessage($no, $this['message']);
 
 		$log=$this->add('Model_Log');
 		$log->createNew("sms send");
