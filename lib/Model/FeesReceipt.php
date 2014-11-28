@@ -95,8 +95,10 @@ class Model_FeesReceipt extends Model_Table {
 
 	function satisfiedMonths(){
 
+
 		$month_print=array();
 		$touched_months=array(0);
+		$last_touched_month = 0;
 		$transactions_in_this_receipt = $this->ref('FeesTransaction');
 		$transactions_in_this_receipt->join('student_fees_applied','student_applied_fees_id')
 				->join('fees','fees_id')->addField('distribution');
@@ -141,7 +143,8 @@ class Model_FeesReceipt extends Model_Table {
 		$applied_fees_but_not_touched_till_receipt_date = $this->add('Model_StudentAppliedFees');
 		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','<=',$this['created_at']);
 		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','<>',$touched_months);
-		$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','>=',$last_touched_month);
+		if($last_touched_month)
+			$applied_fees_but_not_touched_till_receipt_date->addCondition('due_on','>=',$last_touched_month);		
 		$applied_fees_but_not_touched_till_receipt_date->addCondition('student_id',$this['student_id']);
 		$applied_fees_but_not_touched_till_receipt_date->addCondition('fees_id','<>',29); // LATE FEES TO BE BYPASS
 
