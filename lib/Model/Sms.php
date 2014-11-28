@@ -33,16 +33,16 @@ class Model_Sms extends Model_Table {
 		elseif($sms['numbers']){
 			$no=explode(',', $sms['numbers']);
 			foreach ($no as $junk) {
-				$numbers[]=trim($junk['phone_no']);
+				$numbers[]=trim($junk);
 			}
 		}else
 			throw new Exception("Required Proper Data", 1);
-			
+		
+		//print_r($numbers);
+
 		foreach ($numbers as $number) {
 			$number_s = $this->senitizeNumber($number);
-			if(count($number_s))
-				echo $number." =>". print_r($number_s,true) .'<br/>';
-				$this->sendSMS($number,$sms['message']);
+			$this->sendSMS($number,$sms['message']);
 		}
 
 	}
