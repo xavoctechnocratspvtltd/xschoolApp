@@ -63,7 +63,7 @@ class Frontend extends ApiFrontend {
 
             $v=$this->add('View',null,'WelcomeBlock');
             $v->setStyle('width','300px');
-            $v->setHtml('<span style="color:red">Software Licesne  Expiry Date: 25/12/2014</span><br/>'.
+            $v->setHtml(''.
                 '<b>Welcome! </b>'.$this->api->auth->model['name'].'<br/>'
                 .'Current Branch : '.$this->currentBranch['name'].'<br/>'.
                 'Current Session : '.$current_session.'<br/>'.

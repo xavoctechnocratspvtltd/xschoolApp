@@ -34,18 +34,22 @@ class page_reports_marks extends Page {
 		// $columns=array();
 		
 		$class_students = $class->students();
-		// $class_students->setLimit(3);
-		$class_students->addExpression('rank_total')->set(function($m,$q){
-			return $m->refSQL('Student_Marks')->addCondition('session_id',$m->api->currentSession->id)->sum('marks');
-		});
-		$class_students->setOrder('rank_total','desc');
+		// $class_students->setLimit(10);
 
 		$class_students->addExpression('Attandance')->set(function($m,$q){
 			 return $m->refSQL('Student_Attendance')->addCondition('session_id',$m->api->currentSession->id)->sum('present');
 		});
+
+		$subject_array=array();
+		$exam_array=array();
+
 		foreach ($subject as $sub) {
 			// echo "Subject :".$sub['name']."</br>";
 			foreach ($exams as $exam) {
+
+				if(!in_array($sub['subject_id'],$subject_array)) $subject_array[] = $sub['subject_id'];
+				if(!in_array($exam['exam_id'],$exam_array)) $exam_array[] = $exam['exam_id'];
+
 				$grid->addMethod('format_'. $this->api->normalizeName($sub['subject'].$exam['exam']),function($g,$f)use($sub,$exam){
 					$marks = $g->add('Model_Student_Marks');
 					$marks->addCondition('class_id',$_GET['class_id']);
@@ -89,6 +93,17 @@ class page_reports_marks extends Page {
 			$grid->addColumn($this->api->normalizeName($sub['subject']).'_grade',$sub['subject']."_grade");
 			// $grid->total=0;
 		}
+
+		// print_r($subject_array);
+		$class_students->addExpression('rank_total')->set(function($m,$q)use($subject_array,$exam_array){
+				return $m->refSQL('Student_Marks')
+				->addCondition('session_id',$m->api->currentSession->id)
+				->addCondition('exam_id',$exam_array)
+				->addCondition('subject_id',$subject_array)
+				->sum('marks');
+			});
+			
+			$class_students->setOrder('rank_total','desc');
 
 		// grand total
 		$grid->addMethod('format_grand_total',function($g,$f){
