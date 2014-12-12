@@ -41,8 +41,10 @@ class Model_Sms extends Model_Table {
 		//print_r($numbers);
 
 		foreach ($numbers as $number) {
-			$number_s = $this->senitizeNumber($number);
-			$this->sendSMS($number,$sms['message']);
+			$number = $this->senitizeNumber($number);
+			foreach($number as $no){
+				$this->sendSMS($no,$sms['message']);
+			}
 		}
 
 	}
