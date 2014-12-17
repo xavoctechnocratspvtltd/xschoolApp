@@ -63,7 +63,7 @@ class page_sms_defaulter extends Page {
 			$numbers=explode(',', $student['phone_no']);
 			$message="Dear Parents <".$student['name'].">,
 					 Your ward fee us due as last date of submission is 10th of
-					 every month. Plz ignore the msg if fee paid. Principal.";
+					 every month. Plz ignore the msg if fee paid. Regards Principal";
 
 			$sms=$this->add('Model_Sms');
 			$sms->sendMessage($message,$numbers,null);
