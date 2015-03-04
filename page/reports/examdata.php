@@ -17,7 +17,11 @@ class page_reports_examdata extends Page {
 		$form->addSubmit( 'GET LIST' );
 
 		if($form->isSubmitted()){
-			$form->js()->univ()->newWindow($this->api->url('reports_marks',array('class_id'=>$form['class'],'term_id'=>$form['term'])))->execute();
+			if($form['term'])
+				$form->js()->univ()->newWindow($this->api->url('reports_marks',array('class_id'=>$form['class'],'term_id'=>$form['term'])))->execute();
+			else
+				$form->js()->univ()->newWindow($this->api->url('reports_allmarks',array('class_id'=>$form['class'])))->execute();
+
 		}
 
 	

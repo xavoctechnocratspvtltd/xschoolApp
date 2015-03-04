@@ -27,7 +27,7 @@ class View_Student_FastDeposit extends View{
 			try{
 				$this->api->db->beginTransaction();
 				$student->submitFees($form['amount'],$form['mode'],$form['narration'],$form['late_fees']);
-				$message="Dear Parents,We received fee of <".$student['name']."> <".$student['scholar_no'].">, of Rs. <".$form['amount'].">. Thanks Principal";
+				$message="Dear Parent We received fee of <".$student['name']."> <".$student['scholar_no'].">, of Rs. <". ($form['amount'] + $form['late_fees']).">. Regards Principal";
 				$sms=$this->add('Model_Sms');
 				$sms->sendMessage($message,$student['phone_no'],null);
 				$this->api->db->commit();

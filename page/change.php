@@ -3,6 +3,10 @@
 class page_change extends Page{
 	function init(){
 		parent::init();
+		$this->add('View_Error')->set('Removed to Student Management > Student > Change Class');
+		return;
+
+		
 		$form=$this->add('Form',null,null,array('form_horizontal'));
 		$class_field=$form->addField('dropdown','class')->setEmptyText('Please Select');
 		$class_model=$this->api->currentBranch->classes();

@@ -30,14 +30,22 @@ class page_master_student_attendance extends Page {
 		$student_attendance=$this->add('Model_Student_Attendance');
 		$student_attendance->addCondition('session_id',$this->api->currentSession->id);
 		if($_GET['filter']){
-			if($_GET['class'])
+			$this->api->stickyGET('filter');
+			if($_GET['class']){
+				$this->api->stickyGET('class');
 				$student_attendance->addCondition('class_id',$_GET['class']);
-			if($_GET['month'])
+			}
+			if($_GET['month']){
+				$this->api->stickyGET('month');
 				$student_attendance->addCondition('month',$_GET['month']);
+			}
+		}else{
+			$student_attendance->addCondition('id',0);
 		}
 
 		if($form->isSubmitted()){
 			$class_model=$this->add('Model_Class')->load($form['class']);
+			
 			$class_model->title_field='full_name';
 			$attendance=$this->add('Model_Student_Attendance');
 
@@ -47,12 +55,13 @@ class page_master_student_attendance extends Page {
 				$student=$this->add('Model_Student');
 				$student->addCondition('is_left',false);
 				$total_student_in_class_table=$student->classStudents($class_model,null,true);
+
 				if($total_students_in_attendance_table!=$total_student_in_class_table){
 					foreach ($st=$class_model->allStudents() as $junk) {
+						
 						$att=$this->add('Model_Student_Attendance');
 						if(!$att->isExist($class_model,$st,$form['month']))
 								$att->createNew($class_model,$st,$form['month'],$form['att']);
-
 					}
 				}else{
 					if($form['att'] and $form['change_total_attendance']==false)
