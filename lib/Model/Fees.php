@@ -65,6 +65,8 @@ public $table="fees";
 	}
 
 	function beforeDelete(){
+		if($this->add('Model_StudentAppliedFees')->addCondition('fees_id',$this->id)->count()->getOne() > 0)
+			throw new Exception("Fees Cannot be Delete, First Delete Student Applied Fees");
 
 		$fafst=$this->ref('FeesAmountForStudentTypes');
 		foreach ($fafst as $junk) {
