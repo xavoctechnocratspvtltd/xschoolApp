@@ -21,10 +21,20 @@ class Model_FeesReceipt extends Model_Table {
 		$this->hasMany('PaymentTransaction','fees_receipt_id');
 
 		$this->addHook('beforeDelete',$this);
+		$this->addHook('beforeSave',$this);
 
 		$this->addCondition('session_id',$this->api->currentSession->id);
 
 		// $this->add('dynamic_model/Controller_AutoCreator');
+	}
+
+	function beforeSave(){
+		$fees_model=$this->add('Model_FeesReceipt');
+		$fees_model->addCondition('session_id', $this['session_id']);
+		$fees_model->addCondition('name', $this['name']);
+		if(!$this->loaded())
+			$fees_model->addCondition('id','<>', $this->id);
+		$fees_model->tryLoadAny();
 	}
 
 	function createNew($student,$amount , $mode,$narration,$late_fees = 0){

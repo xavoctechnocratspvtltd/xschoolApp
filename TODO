@@ -1,0 +1,26 @@
+    We have promoted all the students except from X & XII in new session. In new session while taking fee receipts amount is not adjusting in proper manner for few scholars not for all(Exa. Scholar No. 2421, 2680, 2679, 2668, 2670, 2670, 2672, 2676, 2675, 2674 & full infant class )
+
+    Above problem is not occurring with all scholars, for examples fee receipts taken of scholars like 2185, 3820, 2682, 2683, 2178 .... are OK.
+
+    We are not able to Change section of scholar no. 2667 from Pre Nursery A to Pre Nursery A-RKP.
+
+    Library issue is still pending.
+
+
+    //student id  1275
+    //scholer id = 1268
+    //session id not comming in studentappliedfees
+    //fees Applied Wrong
+    //example
+    //student id    //scholer id   //applied fees id        //fees id
+    1752              //1268           //112353                   //33
+                                                //112346                    //37
+
+   //region for errro is student fees applied is wrong
+   //fees applied and then remove then fees
+
+   // 2421 = = 1752
+   // 2680 == 1742
+   // 2679 == 1645
+   //2668 == 1634
+   //2670 == 1636
