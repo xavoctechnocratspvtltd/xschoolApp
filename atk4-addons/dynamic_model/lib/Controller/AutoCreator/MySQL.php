@@ -37,7 +37,7 @@ class Controller_AutoCreator_MySQL extends Controller_AutoCreator_Abstract
     public $default_type = 'varchar({length|255})';
 
     // MySQL engine
-    public $engine = 'INNODB'; // MyISAM | INNODB | etc.
+    public $engine = 'MyISAM'; // MyISAM | INNODB | etc.
     
     // array of SQL templates used
     // supports one level deep nested action templates
