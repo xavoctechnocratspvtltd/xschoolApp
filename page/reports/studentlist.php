@@ -17,6 +17,7 @@ class page_reports_studentlist extends Page{
 		$student_model=$this->add('Model_CurrentStudent');
 		if($_GET['class']){
 			$student_model->addCondition('class_id',$_GET['class']);
+			$student_model->addCondition('is_left',false);
 		}else{
 			$student_model->addCondition('id',-1);
 		}
