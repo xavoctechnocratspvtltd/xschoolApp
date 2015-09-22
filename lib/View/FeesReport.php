@@ -93,7 +93,7 @@ class View_FeesReport extends View {
 			// echo "</pre>";
 
 			if(!in_array($fees['name'], $columns_added)){
-				$grid->addColumn('money',$fees['name']);
+				$grid->addColumn('text',$fees['name']);
 				$columns_added[] = $fees['name'];
 			}
 
