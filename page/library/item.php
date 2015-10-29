@@ -4,9 +4,11 @@ class page_library_item extends Page {
 	function init(){
 		parent::init();
 	
-		$crud=$this->add('xCRUD');
-
-		$item=$this->add('Model_Library_Item');	
+		try{
+			$this->api->db->beginTransaction();
+			
+			$crud=$this->add('xCRUD');
+			$item=$this->add('Model_Library_Item');	
 
 		// $crud->addHook('myupdate',function($crud,$form){
 		// 	if($crud->isEditing('edit')) return false; // Always required to bypass the bellow code in editing crud mode
@@ -19,9 +21,8 @@ class page_library_item extends Page {
 		// 	$item_model->createNew($title,$form->getAllFields(),$form);
 		// 	return true; // Always required
 		// });	
-		try{
-			$this->api->db->beginTransaction();
-			$crud->setModel($item);		
+			$crud->setModel($item);
+			$this->api->db->commit();
 		}catch(Exception $e){
 			$this->api->db->rollBack();
 			throw $e;
