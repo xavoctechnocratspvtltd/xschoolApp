@@ -11,7 +11,7 @@ class View_Promote extends View{
 		$class=$this->add('Model_Class');
 		$class->load($_GET['class']);
 		// $students=$class->students()->setOrder('id');
-		$students=$class->ref('Student')->addCondition('session_id',$_GET['session'])->setOrder('id');
+		$students=$class->ref('Student')->addCondition('is_left',false)->addCondition('session_id',$_GET['session'])->setOrder('id');
 
 		$form=$this->add('Form');
 		$student_type=$this->add('Model_StudentType');
@@ -39,7 +39,7 @@ class View_Promote extends View{
 			$to_class=$this->add('Model_Class');
 			$to_class->load($form['to_class']);
 
-			$students=$class->ref('Student')->addCondition('session_id',$_GET['session'])->setOrder('id');
+			$students=$class->ref('Student')->addCondition('is_left',false)->addCondition('session_id',$_GET['session'])->setOrder('id');
 				
 				
 				$i=1;

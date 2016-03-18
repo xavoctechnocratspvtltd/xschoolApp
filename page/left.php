@@ -32,7 +32,7 @@ class page_left extends Page{
 
 		$grid->setModel($student);
 		$grid->addColumn('button','mark_left');
-
+		$grid->addPaginator(50);
 		if($form->isSubmitted()){
 			$grid->js()->reload(array('class'=>$form['class']))->execute();
 		}
