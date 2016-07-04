@@ -18,6 +18,7 @@ class page_master_scholar_main extends Page {
 			$class_join = $student_m->join('classes','class_id');
 			$student_m->addCondition('scholar_id',$q->getField('id'));
 			$student_m->addCondition('session_id',$m->api->currentSession->id);
+			$student_m->addCondition('is_left',false);
 
 			return $student_m->_dsql()->del('fields')->field($student_m->dsql()->expr('concat(name," ",section)'));
 		});
