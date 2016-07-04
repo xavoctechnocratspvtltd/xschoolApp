@@ -16,6 +16,11 @@ class page_sms_class extends Page {
 		if($form->isSubmitted()){
 			$class=$this->add('Model_Class');
 			$class->load($form['class']);
+			$student_j=$class->leftJoin('Student.class_id');
+			$student_j->addField('is_left');
+			$class->addCondition('is_left',0);
+			
+			
 			$sms=$this->add('Model_Sms');
 			try{
 				$this->api->db->beginTransaction();
