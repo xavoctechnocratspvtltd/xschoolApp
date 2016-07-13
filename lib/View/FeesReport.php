@@ -45,7 +45,30 @@ class View_FeesReport extends View {
 			->field('submitted_on')
 			->field($student_applied_fees_join->table_alias.'.fees_id')
 			->field('by_consession')
-			->field('SUM(fees_transactions.amount) as total_amount');
+			->field(
+				$this->api->db->dsql()->expr(
+					'SUM(
+						case
+							WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 10 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 11 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 12 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 13 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 16 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 17 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 18 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 22 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 23 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 26 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 28 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 29 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 45 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 49 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 58 AND fees_transactions.session_id=2 THEN 0 
+							ELSE fees_transactions.amount
+						END
+					) as total_amount'
+					)
+				);
 
 		$fees_transaction->addCondition('by_consession',false);
 
@@ -81,8 +104,7 @@ class View_FeesReport extends View {
 			$result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$data['total_amount']);
 
 			$fees_names = $this->add('Model_Fees');
-			// $fees_names->addCondition('name','Caution Money');
-			// $fees_names->tryLoadAny();
+
 			foreach ($fees_names as $junk) {
 				if(!isset($result_array[$data['submitted_on']][$fees_names['name']]))
 					$result_array[$data['submitted_on']][$fees_names['name']]=0;
@@ -99,13 +121,41 @@ class View_FeesReport extends View {
 
 			// consession time
 			if(!in_array($data['submitted_on'], $consession_stored_4_date)){
-				
+				$fee_trans = $this->add('Model_FeesTransaction');
+				$student_applied_fees_join = $fee_trans->leftJoin('student_fees_applied','student_applied_fees_id');
+				$student_applied_fees_join->addField('fees_id');
+				$fee_trans
+					->_dsql()
+					->del('fields')
+					->field(
+						$this->api->db->dsql()->expr(
+							'SUM(
+							case 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 10 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 11 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 12 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 13 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 16 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 17 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 18 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 22 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 23 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 26 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 28 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 29 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 45 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 49 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 58 AND fees_transactions.session_id=2 THEN 0 
+								ELSE fees_transactions.amount
+							END
+							)'
+						)
+					)
+					->where('submitted_on',$data['submitted_on'])
+					->where('by_consession',1);
+
 				$result_array[$data['submitted_on']] += array(
-					'consession'=> $this->add('Model_FeesTransaction')
-									->sum('amount')
-									->where('submitted_on',$data['submitted_on'])
-									->where('by_consession',1)
-									->getOne(),
+					'consession'=> $fee_trans->_dsql()->getOne(),
 					);
 				
 				// $result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$result_array[$data['submitted_on']]['consession']);
@@ -125,6 +175,7 @@ class View_FeesReport extends View {
 		}
 
 		$fees_totals['date']='Total';
+
 
 		$result_array['totals'] = $fees_totals;
 
