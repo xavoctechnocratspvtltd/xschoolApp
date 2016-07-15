@@ -56,13 +56,17 @@ class View_FeesReport extends View {
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 16 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 17 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 18 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 19 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 22 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 23 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 26 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 28 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 29 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 43 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 44 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 45 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 49 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 57 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 58 AND fees_transactions.session_id=2 THEN 0 
 							ELSE fees_transactions.amount
 						END
@@ -138,13 +142,17 @@ class View_FeesReport extends View {
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 16 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 17 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 18 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 19 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 22 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 23 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 26 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 28 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 29 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 43 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 44 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 45 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 49 AND fees_transactions.session_id=2 THEN 0 
+								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 57 AND fees_transactions.session_id=2 THEN 0 
 								WHEN '.$student_applied_fees_join->table_alias.'.fees_id = 58 AND fees_transactions.session_id=2 THEN 0 
 								ELSE fees_transactions.amount
 							END
