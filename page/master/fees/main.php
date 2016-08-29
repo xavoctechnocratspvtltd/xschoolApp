@@ -50,6 +50,15 @@ class page_master_fees_main extends Page {
 			});
 			
 			$grid->setFormatter('edit','edit');
+
+			$this->currentSession = $this->add('Model_Session')->getCurrent()->id;
+			$grid->addHook('formatRow',function($g){
+				if($this->currentSession == 2){
+						if($g->model['id'] == 15 And $g->model['name'] == "Computer Science And Physical Fees"){
+							$g->current_row['name']='Books & Stationery';
+						}
+				}
+			});	
 		}
 
 		if($crud->isEditing()){
