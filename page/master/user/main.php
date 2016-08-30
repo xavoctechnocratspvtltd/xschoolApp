@@ -1,8 +1,8 @@
 <?php
 
 class page_master_user_main extends Page {
-	function init(){
-		parent::init();
+	function page_index(){
+		// parent::init();
 	
 		$crud=$this->add('xCRUD');
 
@@ -41,6 +41,12 @@ class page_master_user_main extends Page {
 			$g->addPaginator(10);
 			$g->addColumn('button','deactive');
 			$g->add('misc/Export');
+			$g->addColumn('button','acl');
+
+			if($_GET['acl']){
+				$this->js()->univ()->frameURL('Staff ACL',$this->api->url('staffAcl',['staff_id'=>$_GET['acl']]))->execute();
+			}
 		}
 	}
+
 }
