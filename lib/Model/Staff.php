@@ -20,6 +20,7 @@ class Model_Staff extends Model_Table{
 		$this->addField('is_active')->type('boolean')->defaultValue(true);
 		$this->hasMany('Library_transaction','staff_id');
 		$this->hasMany('Staff_Attendance','staff_id');
+		$this->hasMany('ACL','staff_id');
 		 $this->add('dynamic_model/Controller_AutoCreator');
 
 
