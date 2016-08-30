@@ -2,7 +2,7 @@
 class page_master_student_attendance extends Page {
 	function init(){
 		parent::init();
-
+		$this->add('Controller_ACL');
 		$class=$this->api->currentBranch->classes();
 		$form=$this->add('Form',null,null,array('form_horizontal'));
 		$class_field=$form->addField('dropdown','class');

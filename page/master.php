@@ -3,7 +3,7 @@
 class page_master extends Page {
 	function init(){
 		parent::init();
-		
+		$this->add('Controller_ACL');
 		$tabs=$this->add('Tabs');
 		$tabs->addTabUrl('master_branch_main','Branch');
 		$tabs->addTabUrl('master_session_main','Session');

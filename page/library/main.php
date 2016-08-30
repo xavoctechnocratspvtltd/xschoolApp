@@ -3,7 +3,7 @@
 class page_library_main extends Page{
 	function init(){
 		parent::init();
-
+		$this->add('Controller_ACL');
 		// $this->add('View_Error')->setHtml('<h3>Temporary In Testing Phase, No Activity Will be consider As Final Activity</h3>');
 		$tabs=$this->add('Tabs');
 		$tab1=$tabs->addTabURL('library_subjects','Subjects');
