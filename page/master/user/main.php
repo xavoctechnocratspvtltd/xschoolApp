@@ -44,7 +44,7 @@ class page_master_user_main extends Page {
 			$g->addColumn('button','acl');
 
 			if($_GET['acl']){
-				$this->js()->univ()->frameURL('Staff ACL',$this->api->url('staffAcl',['staff_id'=>$_GET['acl']]))->execute();
+				$this->js()->univ()->frameURL('Staff ACL',$this->api->url('staffAcl',array('staff_id'=>$_GET['acl'])))->execute();
 			}
 		}
 	}
