@@ -7,7 +7,7 @@ class page_staffAcl extends Page{
 		$m=$this->add('Model_ACL');
 		$m->tryLoadBy('staff_id',$staff_id);
 		$m->getElement('page')->editable(false);
-		$c=$this->add('CRUD',['allow_add'=>false,'allow_del'=>false]);
+		$c=$this->add('CRUD',array('allow_add'=>false,'allow_del'=>false));
 		$c->setModel($m);
 	}
 }
