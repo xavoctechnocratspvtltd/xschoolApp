@@ -65,6 +65,10 @@ public $table="fees";
 	}
 
 	function beforeDelete(){
+		if($this['name']== "Late Fees"){
+			throw new \Exception("Late Fees Cannot Be delete", 1);
+			
+		}
 		if($this->add('Model_StudentAppliedFees')->addCondition('fees_id',$this->id)->count()->getOne() > 0)
 			throw new Exception("Fees Cannot be Delete, First Delete Student Applied Fees");
 
