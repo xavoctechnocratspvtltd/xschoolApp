@@ -2,7 +2,7 @@
 class page_accounts extends Page {
 	function init(){
 		parent::init();
-
+		$this->add('Controller_ACL');
 		
 		$tabs=$this->add('Tabs');
 		$tab1=$tabs->addTab('Payment Received');

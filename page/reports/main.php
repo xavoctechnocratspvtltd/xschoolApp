@@ -3,7 +3,7 @@
 class page_reports_main extends Page {
 	function init(){
 		parent::init();
-
+		$this->add('Controller_ACL');
 		$tabs=$this->add('Tabs');
 		$tab1=$tabs->addTabUrl('reports_student','Student Report');
 		$tab1=$tabs->addTabUrl('reports_category','Category Wise Report');

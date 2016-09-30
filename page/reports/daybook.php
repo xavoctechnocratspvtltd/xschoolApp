@@ -3,7 +3,7 @@
 class page_reports_daybook extends Page {
 	function init(){
 		parent::init();
-
+		$this->add('Controller_ACL');
 		$form= $this->add('Form');
 		$form->addField('DatePicker','date');
 		$form->addField('checkbox','only_fees_record');
