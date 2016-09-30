@@ -16,7 +16,7 @@ class Model_Staff extends Model_Table{
 		$this->addField('username');
 		$this->addField('password')->type('password');
 		$this->addField('code');
-		$this->addField('is_application_user')->type('boolean')->defaultValue(false);
+		$this->addField('is_application_user')->type('boolean')->defaultValue(false)->caption('Allow All Pages');
 		$this->addField('is_active')->type('boolean')->defaultValue(true);
 		$this->hasMany('Library_transaction','staff_id');
 		$this->hasMany('Staff_Attendance','staff_id');
