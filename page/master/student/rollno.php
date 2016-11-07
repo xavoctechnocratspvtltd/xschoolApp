@@ -17,6 +17,7 @@ class page_master_student_rollno extends Page{
 		$form->addSubmit("Allot");
 
 		$c=$this->add('Model_CurrentStudent');
+		$c->addCondition('is_left',false);
 		$c->_dsql()->del('order')->order('roll_no','asc');
 		$crud=$this->add('CRUD',array('allow_add'=>false,"allow_del"=>false,"allow_edit"=>false));
 		
