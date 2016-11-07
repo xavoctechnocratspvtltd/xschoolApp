@@ -359,9 +359,10 @@ public $table="students";
 		$to_set_amount = $amount;
 		$fees_for_this_student = $student->appliedFees()->setOrder('due_on,id');
 		$fees_for_this_student->addCondition('fees_name','<>',array('Admission Fees','Caution Money'));
-
+		$sum=0;
 		foreach ($fees_for_this_student as $fees_for_this_student_array) {
 			$paid_against_this_fees = $fees_for_this_student->paidAmount();
+			
 			$to_pay_for_this_fees = $fees_for_this_student['amount'] - $paid_against_this_fees;
 
 			if($to_pay_for_this_fees > $to_set_amount)
@@ -373,8 +374,9 @@ public $table="students";
 			$fees_for_this_student->payByConsession($to_pay_for_this_fees);
 
 			$to_set_amount = $to_set_amount - $to_pay_for_this_fees;
-
+			$sum += $to_pay_for_this_fees;
 		}
+		// throw new \Exception($sum);
 	}
 
 	// function consessionInFees($amount){

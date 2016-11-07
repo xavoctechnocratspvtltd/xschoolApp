@@ -16,6 +16,8 @@ class Model_FeesTransaction extends Model_Table {
 		// $this->addCondition('session_id',$this->api->currentSession->id);
 		$this->addHook('beforeDelete',$this);
 		// $this->add('dynamic_model/Controller_AutoCreator');
+
+		$this->addExpression('fees')->set($this->refSQL('student_applied_fees_id')->fieldQuery('fees'));
 	}
 
 	function beforeDelete(){

@@ -14,6 +14,7 @@ class page_master_student_list_consession extends Page {
 		// Consessions given 
 		$fees_transactions = $this->add('Model_FeesTransaction');
 		$fees_transactions->addCondition('student_id',$this_student->id);
+		$fees_transactions->addCondition('session_id',$this->api->currentSession->id);
 		$fees_transactions->addCondition('by_consession',true);
 
 		$fees_transactions->_dsql()->del('fields')

@@ -19,11 +19,13 @@ class page_reports_duefees extends Page {
 		$student_model->addExpression('due')->set(function($m,$q){
 			$sfa=$m->add('Model_StudentAppliedFees',array('table_alias'=>'xsaf1'));
 			$sfa->addCondition('student_id',$q->getField('id'));
+			$sfa->addCondition('session_id',$q->getField('session_id'));
 			$sfa->addCondition('due_on','<=',$m->api->today);
 			$sfa_q=$sfa->_dsql()->del('fields')->field($q->dsql()->expr('IF(sum(amount) is null, 0, sum(amount))'))->render();
 
 			
 			$ft=$m->add('Model_FeesTransaction',array('table_alias'=>'xsft'));
+			$ft->addCondition('session_id',$q->getField('session_id'));
 			$ft->addCondition('student_id',$q->getField('id'));
 			$ft->addCondition('submitted_on','<=',$m->api->today);
 			$ft_q = $ft->_dsql()->del('fields')->field($q->dsql()->expr('IF(sum(amount) is null, 0, sum(amount))'))->render();
@@ -59,12 +61,12 @@ class page_reports_duefees extends Page {
 
 		$grid->setModel($student_model);
 		if($_GET['class'])
-		$grid->removeColumn('class');
-		$grid->removeColumn('session');
-		$grid->removeColumn('scholar');
+		// $grid->removeColumn('class');
+		// $grid->removeColumn('session');
+		// $grid->removeColumn('scholar');
 		// $grid->removeColumn('studenttype');
-		$grid->removeColumn('vehicle');
-		$grid->removeColumn('roll_no');
+		// $grid->removeColumn('vehicle');
+		// $grid->removeColumn('roll_no');
 
 		$grid->addTotals(array('due'));
 		
