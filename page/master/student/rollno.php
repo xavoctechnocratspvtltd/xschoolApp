@@ -17,7 +17,7 @@ class page_master_student_rollno extends Page{
 		$form->addSubmit("Allot");
 
 		$c=$this->add('Model_CurrentStudent');
-		$c->addCondition('is_left',false);
+		$c->addCondition('is_left',0);
 		$c->_dsql()->del('order')->order('roll_no','asc');
 		$crud=$this->add('CRUD',array('allow_add'=>false,"allow_del"=>false,"allow_edit"=>false));
 		
@@ -46,6 +46,7 @@ class page_master_student_rollno extends Page{
 
 			$students=$this->add('Model_CurrentStudent');
 			$students->addCondition('class_id',$form->get('class'));
+			$students->addCondition('is_left',0);
 			// $students->_dsql()->del('order')->order('fname','asc');
 			$start_roll_no=$form->get('roll_no');
 			foreach ($students as $junk) {

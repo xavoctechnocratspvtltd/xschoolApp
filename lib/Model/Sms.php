@@ -25,8 +25,13 @@ class Model_Sms extends Model_Table {
 		if($sms['class_id']){
 			$class=$this->add('Model_Class');
 			$class->load($sms['class_id']);
-
-			foreach ($class->ref('Student') as $junk) {
+			$st = $this->add('Model_CurrentStudent');
+			$st->addCondition('is_left',0);
+			$st->addCondition('class_id',$class->id);
+			foreach ($st as $junk) {
+				// echo "<pre>";
+				// print_r($junk['name']);
+				// echo "</pre>";
 				$numbers[]=trim($junk['phone_no']);
 			}
 		}
