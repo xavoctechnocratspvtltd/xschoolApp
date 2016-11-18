@@ -15,7 +15,7 @@ class page_master_student_attendancereport extends Page{
 
 		$grid=$this->add('Grid');
 		$attendance=$this->add('Model_CurrentStudent');
-
+		$attendance->addCondition('is_left',false);
 		$attendance->addExpression('total_meetings')->set(function($m,$q){
 			return $m->refSQL('Student_Attendance')->sum('total_attendance');
 		});
