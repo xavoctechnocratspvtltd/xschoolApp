@@ -55,6 +55,7 @@ class page_stock_inward extends Page{
 			try{
 				$this->api->db->beginTransaction();
 				$item->inward($supplier,$form['qty'],$form['rate'],$form['date'],$form['remark']);
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;

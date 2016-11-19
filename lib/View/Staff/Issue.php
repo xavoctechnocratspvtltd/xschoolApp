@@ -36,6 +36,7 @@ class View_Staff_Issue extends View {
 			try{
 				$this->api->db->beginTransaction();
 				$staff->issue($item,null,$staff);
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;

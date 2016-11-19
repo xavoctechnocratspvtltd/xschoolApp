@@ -143,6 +143,7 @@ class page_master_student_list extends Page {
 			try{
 				$this->api->db->beginTransaction();
 				$this_student->shiftToClass($this->add('Model_Class')->load($form['class']));
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;

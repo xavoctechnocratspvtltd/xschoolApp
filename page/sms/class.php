@@ -25,6 +25,7 @@ class page_sms_class extends Page {
 			try{
 				$this->api->db->beginTransaction();
 				$sms->sendMessage($form['message'],null,$class);
+				$this->api->db->commit();
 			}catch(Exception $e){
 
 				$this->api->db->rollBack();

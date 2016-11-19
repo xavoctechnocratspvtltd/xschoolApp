@@ -48,6 +48,7 @@ class page_scholar_addtoclass extends Page {
 				$this->api->db->beginTransaction();
 				$class_model->load($form['class']);
 				$scholar->assignClass($class_model,$form['student_type']);
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;

@@ -18,7 +18,7 @@ class page_library_supplier extends Page {
 
 				$this->api->db->beginTransaction();
 				$supplier_model->createNew($form['name'],$form->getAllFields(),$form);
-				
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;

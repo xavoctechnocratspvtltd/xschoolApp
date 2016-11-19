@@ -18,7 +18,7 @@ class page_sms_general extends Page {
 
 				$this->api->db->beginTransaction();
 				$sms->sendMessage($form['message'],$form['numbers']);
-				
+				$this->api->db->commit();
 			}catch(Exception $e){
 
 				$this->api->db->rollBack();

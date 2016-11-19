@@ -51,6 +51,7 @@ class page_exam_manage_exams extends Page {
 			try{
 				$this->api->db->beginTransaction();
 				$assign_marks->remove();
+				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollBack();
 				throw $e;
