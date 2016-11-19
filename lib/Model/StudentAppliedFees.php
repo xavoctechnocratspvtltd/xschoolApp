@@ -122,11 +122,12 @@ public $table="student_fees_applied";
 
 	function deleteForced(){
 		// if(!$this->loaded())
-		// 	throw new Exception("Error Processing Request", 1);
-			
-		foreach ($ft=$this->ref('FeesTransaction') as $junk) {
-			$ft->deleteForced();
-		}
+		if($this->ref('FeesTransaction')->count()->getOne()){
+			throw new \Exception("Cannot Delete, First remove related FeesTransaction applied  on All Student ");
+		}	
+		// foreach ($ft=$this->ref('FeesTransaction') as $junk) {
+		// 	$ft->deleteForced();
+		// }
 
 		$this->delete();
 
