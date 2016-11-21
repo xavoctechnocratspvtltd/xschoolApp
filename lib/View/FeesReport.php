@@ -100,18 +100,19 @@ class View_FeesReport extends View {
 
 			$fees->unload();
 			$fees->load($data['fees_id']);
-                        
+
             if(!isset($result_array[$data['submitted_on']])) $result_array[$data['submitted_on']] = array();
                         
 			$result_array[$data['submitted_on']]['date'] = $data['submitted_on'];
-			$result_array[$data['submitted_on']][$fees['name']] = $data['total_amount'];
+			$result_array[$data['submitted_on']][trim($fees['name'])] = $data['total_amount'];
 			$result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$data['total_amount']);
 
 			$fees_names = $this->add('Model_Fees');
 
 			foreach ($fees_names as $junk) {
-				if(!isset($result_array[$data['submitted_on']][$fees_names['name']]))
+				if(!isset($result_array[$data['submitted_on']][$fees_names['name']])){
 					$result_array[$data['submitted_on']][$fees_names['name']]=0;
+				}
 			}
 
 			// echo "<pre>";

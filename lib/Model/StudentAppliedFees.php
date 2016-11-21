@@ -121,15 +121,18 @@ public $table="student_fees_applied";
 	function submitFees($student){}
 
 	function deleteForced(){
-		// if(!$this->loaded())
 		if($this->ref('FeesTransaction')->count()->getOne()){
 			throw new \Exception("Cannot Delete, First remove related FeesTransaction applied  on All Student ");
-		}	
+		}else{
 		// foreach ($ft=$this->ref('FeesTransaction') as $junk) {
 		// 	$ft->deleteForced();
+		// 	// echo $ft->id."<br/> ";
 		// }
+			
+			$this->delete();
+		}	
 
-		$this->delete();
+
 
 
 
