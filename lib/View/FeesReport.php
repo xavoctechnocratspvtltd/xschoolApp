@@ -195,7 +195,7 @@ class View_FeesReport extends View {
 		$grid->setSource($result_array);
 		
 		$grid->addHook('formatRow',function($g){
-			echo $g->model['One side Van Conv. 16-17']."<br/>";
+			// echo $g->model['One side Van Conv. 16-17']."<br/>";
 			if($g->model['One side Van Conv. 16-17'] > 0)
 				$g->current_row_html['One side Van Conv. 16-17'] = $g->model['One side Van Conv. 16-17'];
 			else
