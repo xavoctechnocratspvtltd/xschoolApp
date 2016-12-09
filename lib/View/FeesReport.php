@@ -123,6 +123,8 @@ class View_FeesReport extends View {
 				$grid->addColumn('text',$fees['name']);
 				$columns_added[] = $fees['name'];
 			}
+			// echo "<pre>";
+			// print_r($columns_added);
 
 			// consession time
 			if(!in_array($data['submitted_on'], $consession_stored_4_date)){
@@ -168,7 +170,7 @@ class View_FeesReport extends View {
 					);
 				
 				// $result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$result_array[$data['submitted_on']]['consession']);
-				$consession_stored_4_date[] = $data['submitted_on'];
+				// $consession_stored_4_date[] = $data['submitted_on'];
 			}
 
 		}
@@ -178,7 +180,6 @@ class View_FeesReport extends View {
 			foreach ($row as $key => $value) {
 				if($key=='date') continue;
 				if(!isset($fees_totals[$key])) $fees_totals[$key]=0;
-
 				$fees_totals[$key] += $value;
 			}
 		}
@@ -192,7 +193,14 @@ class View_FeesReport extends View {
 		$grid->addColumn('money','row_total');
 		$grid->setStyle('font-size','15px');
 		$grid->setSource($result_array);
-                
+		
+		$grid->addHook('formatRow',function($g){
+			echo $g->model['One side Van Conv. 16-17']."<br/>";
+			if($g->model['One side Van Conv. 16-17'] > 0)
+				$g->current_row_html['One side Van Conv. 16-17'] = $g->model['One side Van Conv. 16-17'];
+			else
+				$g->current_row_html['One side Van Conv. 16-17'] = "0";
+		});
                 // echo "<pre>";
                 //     print_r($result_array);
                 // echo "</pre>";
