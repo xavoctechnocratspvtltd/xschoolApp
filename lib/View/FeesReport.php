@@ -176,13 +176,18 @@ class View_FeesReport extends View {
 		}
 
 		$fees_totals=array();
+		
+		$fees_key_value_array=array();
+
 		foreach ($result_array as $date => $row) {
 			foreach ($row as $key => $value) {
 				if($key=='date') continue;
 				if(!isset($fees_totals[$key])) $fees_totals[$key]=0;
 				$fees_totals[$key] += $value;
+				$fees_key_value_array[$key]=$key;
 			}
 		}
+
 
 		$fees_totals['date']='Total';
 
@@ -194,12 +199,13 @@ class View_FeesReport extends View {
 		$grid->setStyle('font-size','15px');
 		$grid->setSource($result_array);
 		
-		$grid->addHook('formatRow',function($g){
-			// echo $g->model['One side Van Conv. 16-17']."<br/>";
-			if($g->model['One side Van Conv. 16-17'] > 0)
-				$g->current_row_html['One side Van Conv. 16-17'] = $g->model['One side Van Conv. 16-17'];
-			else
-				$g->current_row_html['One side Van Conv. 16-17'] = "0";
+		$grid->addHook('formatRow',function($g)use($fees_key_value_array){
+			foreach ($fees_key_value_array as $value) {
+				if($g->model[$value] > 0)
+					$g->current_row_html[$value] = $g->model[$value];
+				else
+					$g->current_row_html[$value] = "0";
+			}
 		});
                 // echo "<pre>";
                 //     print_r($result_array);
