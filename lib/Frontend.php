@@ -103,6 +103,7 @@ class Frontend extends ApiFrontend {
             ->addMenuItem('reports_main','Reports ')
             ->addMenuItem('stock_main','Stock ')
             ->addMenuItem('sms_main','SMS ')
+            ->addMenuItem('log','LOG ')
             ->addMenuItem('logout')
             ;
 
