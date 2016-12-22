@@ -128,6 +128,9 @@ public $table="student_fees_applied";
 		// 	$ft->deleteForced();
 		// 	// echo $ft->id."<br/> ";
 		// }
+			$log=$this->add('Model_Log');
+			$log->createNew("Delete Student fees Applied Entry For Student Student_ID is " .$this['student_id']." Fees ID is ".$this['fees_id']." amount is ".$this['amount']."this id" .$this->id);
+			$log->save();
 			
 			$this->delete();
 		}	

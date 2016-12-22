@@ -85,11 +85,14 @@ class page_master_student_list extends Page {
 
 			if($btn->isClicked("Are you sure")){
 				try{
+					$this->api->db->beginTransaction();
 					if($fee_applied){
+
 						$this_student->removeFees($feeses);
 					}else{
 						$this_student->addFees($feeses);
 					}
+					$this->api->db->commit();	
 				}catch(Exception $e){
 					$this->api->db->rollBack();
 					throw $e;
