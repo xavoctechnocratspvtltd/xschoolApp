@@ -7,7 +7,8 @@ class Model_Table extends SQL_Model {
 
 		// Log Editing Entries
 
-		$this->addHook('beforeSave',function($model){
+		$self = $this;
+		$this->addHook('beforeSave',function($model)use($self){
 			// if(@$model->api->closing_running) return;
 			
 			if($model->loaded()){
@@ -21,28 +22,27 @@ class Model_Table extends SQL_Model {
 				if(!count($changes)) return;
 
 				$log = $model->add('Model_Log');
-				$log['branch_id'] = $this->api->currentBranch->id;
-				$log['staff_id'] = $this->api->auth->model->id;
-				$log['session_id']=$this->api->currentSession->id;
+				$log['branch_id'] = $self->api->currentBranch->id;
+				$log['staff_id'] = $self->api->auth->model->id;
+				$log['session_id']=$self->api->currentSession->id;
 				$log['activity']=json_encode($changes);
 				$log['model_class'] = get_class($model);
 				$log['pk_id'] = $model->id;
 				$log['type'] = "Edit";
-				$log['url'] = (string) $this->api->url();
+				$log['url'] = (string) $self->api->url();
 				$log->save(true);
 			}
 		});
-
-		$this->addHook('beforeDelete',function($model){
+		$this->addHook('beforeDelete',function($model)use($self){
 				$log = $model->add('Model_Log');
-				$log['branch_id'] = $this->api->currentBranch->id;
-				$log['staff_id'] = $this->api->auth->model->id;
-				$log['session_id']=$this->api->currentSession->id;
+				$log['branch_id'] = $self->api->currentBranch->id;
+				$log['staff_id'] = $self->api->auth->model->id;
+				$log['session_id']=$self->api->currentSession->id;
 				$log['activity']=json_encode($model->data);
 				$log['model_class'] = get_class($model);
 				$log['pk_id'] = $model->id;
 				$log['type'] = "Delete";
-				$log['url'] = (string) $this->api->url();
+				$log['url'] = (string) $self->api->url();
 				$log->save(true);
 		});
 
