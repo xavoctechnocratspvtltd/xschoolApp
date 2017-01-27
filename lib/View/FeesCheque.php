@@ -77,22 +77,22 @@ class View_FeesCheque extends View {
             if(!isset($result_array[$data['submitted_on']])) $result_array[$data['submitted_on']] = array();
                         
 			$result_array[$data['submitted_on']]['date'] = $data['submitted_on'];
-			$result_array[$data['submitted_on']][$fees['name']] = $data['total_amount'];
+			$result_array[$data['submitted_on']][trim($fees['name'])] = $data['total_amount'];
 			$result_array[$data['submitted_on']]['row_total'] = ($result_array[$data['submitted_on']]['row_total']+$data['total_amount']);
 
 			$fees_names = $this->add('Model_Fees');
 			foreach ($fees_names as $junk) {
-				if(!isset($result_array[$data['submitted_on']][$fees_names['name']]))
-					$result_array[$data['submitted_on']][$fees_names['name']]=0;
+				if(!isset($result_array[$data['submitted_on']][trim($fees_names['name'])]))
+					$result_array[$data['submitted_on']][trim($fees_names['name'])]=0;
 			}
 
 			// echo "<pre>";
 			// print_r($result_array[$data['submitted_on']]['row_total']);
 			// echo "</pre>";
 
-			if(!in_array($fees['name'], $columns_added)){
-				$grid->addColumn('money',$fees['name']);
-				$columns_added[] = $fees['name'];
+			if(!in_array(trim($fees['name']), $columns_added)){
+				$grid->addColumn('money',trim($fees['name']));
+				$columns_added[] = trim($fees['name']);
 			}
 
 			// consession time
