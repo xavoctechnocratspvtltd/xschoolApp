@@ -18,7 +18,7 @@ class page_sms_staff extends Page {
 			$branch=$this->add('Model_Branch')->load($form['branch']);
 			$st=$branch->staffs();
 			$st->addCondition('is_active',true);
-			$st->addCondition('is_application_user',false);
+			// $st->addCondition('is_application_user',false);
 
 			foreach ($st as $key => $value) {
 				if(!$st['mobile_no']) continue;
