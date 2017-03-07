@@ -5,7 +5,7 @@ class page_session extends Page {
 		parent::init();
 		$this->add('Controller_ACL');
 
-		$crud=$this->add('xCRUD',['allow_add'=>false,'allow_del'=>false,'allow_edit'=>false]);
+		$crud=$this->add('xCRUD',array('allow_add'=>false,'allow_del'=>false,'allow_edit'=>false));
 		$session_model=$this->add('Model_Session');
 		
 		$crud->addHook('myupdate',function($crud,$form){
