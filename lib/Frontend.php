@@ -93,6 +93,7 @@ class Frontend extends ApiFrontend {
         $this->add('Menu',null,'Menu')
             // ->addMenuItem('index','Welcome')
             ->addMenuItem('master','Masters')
+            ->addMenuItem('session','Session')
             ->addMenuItem('master_student_main','Student Management')
             ->addMenuItem('fees_main','Fees Management')
             ->addMenuItem('reports_daybook','Day Book')
