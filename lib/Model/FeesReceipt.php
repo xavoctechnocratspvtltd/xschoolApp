@@ -75,7 +75,7 @@ class Model_FeesReceipt extends Model_Table {
 			if($to_pay_for_this_fees==0) continue;
 
 			// Actual payment made here ======================
-			// $fees_for_this_student->pay($to_pay_for_this_fees, $this);
+			$fees_for_this_student->pay($to_pay_for_this_fees, $this);
 
 			// echo "pay for this fees ".$to_pay_for_this_fees."<br/>";
 			$to_set_amount = round($to_set_amount - $to_pay_for_this_fees,4);
