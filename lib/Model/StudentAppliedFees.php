@@ -51,7 +51,7 @@ public $table="student_fees_applied";
 
 		// $amount = $fee_trasactions->_dsql()->del('fields')->field('sum(amount)')->getOne();
 		$amount = $fee_trasactions->sum('amount')->getOne();
-		return $amount;
+		return round($amount,4);
 	}
 
 	function paidAmountTill($via_receipt=null,$include_consessions=true){
@@ -76,7 +76,10 @@ public $table="student_fees_applied";
 	}
 
 	function pay($amount, $receipt){
-		if($amount > ($this['amount'] - $this->paidAmount()) )
+		$cal_amount = $this['amount'] - $this->paidAmount();
+		// throw new \Exception(round($cal_amount,4), 1);
+		
+		if($amount > round($cal_amount,4) )
 			throw $this->exception('Amount Exceeding required amount', 'ValidityCheck')->setField('amount');
 
 		if(($this['amount'] - $this->paidAmount()) == 0)
