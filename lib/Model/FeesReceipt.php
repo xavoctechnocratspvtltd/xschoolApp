@@ -38,7 +38,7 @@ class Model_FeesReceipt extends Model_Table {
 	}
 
 	function createNew($student,$amount , $mode,$narration,$late_fees = 0){
-
+		
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
@@ -50,7 +50,7 @@ class Model_FeesReceipt extends Model_Table {
 		if($late_fees){
 			// apply late fees on student first
 			$fees= $this->add('Model_Fees');
-			$late_fees_applied = $this->add('Model_StudentAppliedFees');
+			$late_fees_applied = $this->add('Model_St udentAppliedFees');
 			$late_fees_data = date('Y',strtotime($this->api->today)) . '-'. date('m',strtotime($this->api->today)) .'-'. $this->api->getConfig('school/fee_date');
 			$late_fees_applied->addRow($student,$fees->loadLateFees(),$late_fees,$late_fees_data);
 			// and pay the full amount immediately in the same receipt
@@ -61,21 +61,32 @@ class Model_FeesReceipt extends Model_Table {
 		$fees_for_this_student = $student->appliedFees()->setOrder('due_on,id');
 
 		foreach ($fees_for_this_student as $fees_for_this_student_array) {
-			$paid_against_this_fees = $fees_for_this_student->paidAmount();
-			$to_pay_for_this_fees = $fees_for_this_student['amount'] - $paid_against_this_fees;
 
-			if($to_pay_for_this_fees > $to_set_amount)
+			// echo "fees_for_this_student " . $fees_for_this_student['amount']."<br/>";
+			
+			$paid_against_this_fees = $fees_for_this_student->paidAmount();
+			// echo "paid_against_this_fees " . $paid_against_this_fees."<br/>";
+			$to_pay_for_this_fees = round($fees_for_this_student['amount'] - $paid_against_this_fees,4);
+
+			if($to_pay_for_this_fees > $to_set_amount){
 				$to_pay_for_this_fees = $to_set_amount;
+			}
 
 			if($to_pay_for_this_fees==0) continue;
 
 			// Actual payment made here ======================
-			$fees_for_this_student->pay($to_pay_for_this_fees, $this);
+			// $fees_for_this_student->pay($to_pay_for_this_fees, $this);
 
-			$to_set_amount = $to_set_amount - $to_pay_for_this_fees;
+			// echo "pay for this fees ".$to_pay_for_this_fees."<br/>";
+			$to_set_amount = round($to_set_amount - $to_pay_for_this_fees,4);
+			// echo "this fees ".$to_pay_for_this_fees."<br/>";
+			// echo "set amount ".$to_set_amount."<br/>";
 
 		}
-
+		// echo "string". $to_set_amount."<br/>";
+		// echo "string". round($to_set_amount,2)."<br/>";
+		// throw new \Exception(round($to_set_amount,3), 1);
+		
 		if($to_set_amount>0){
 			$this->delete();
 			throw new Exception("Amount Remaining Not Saving Receipt");

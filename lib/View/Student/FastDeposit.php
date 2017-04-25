@@ -21,9 +21,9 @@ class View_Student_FastDeposit extends View{
 		$form->addSubmit('Submit Fees');
 
 		if($form->isSubmitted()){
-			if(($due_amount = $student->getDueFeesAmount()) < $form['amount'])
+			$due_amount = $student->getDueFeesAmount();
+			if($due_amount < $form['amount'])
 				$form->displayError('amount','Amount cannot exceed than '. $due_amount.'/-' );
-
 			try{
 				$this->api->db->beginTransaction();
 				$student->submitFees($form['amount'],$form['mode'],$form['narration'],$form['late_fees']);
