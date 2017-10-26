@@ -29,7 +29,7 @@ class View_Student_FastDeposit extends View{
 				$student->submitFees($form['amount'],$form['mode'],$form['narration'],$form['late_fees']);
 				$message="Dear Parent We received fee of <".$student['name']."> <".$student['scholar_no'].">, of Rs. <". ($form['amount'] + $form['late_fees']).">. Regards Principal";
 				$sms=$this->add('Model_Sms');
-				$sms->sendMessage($message,$student['phone_no'],null);
+				$sms->sendMessage($message,$student['phone_no'].',9116609131',null);
 				$this->api->db->commit();
 				
 			}catch(Exception $e){
