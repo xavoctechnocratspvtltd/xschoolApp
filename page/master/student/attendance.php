@@ -26,7 +26,7 @@ class page_master_student_attendance extends Page {
 		$att=$form->addField('line','att','Total Monthly Attendance');
 	 	$form->addField('checkbox','change_total_attendance');
 		$form->addSubmit('Allot');
-		$grid=$this->add('CRUD',['allow_add'=>false]);
+		$grid=$this->add('Grid');
 		$student_attendance=$this->add('Model_Student_Attendance');
 		$student_attendance->addCondition('session_id',$this->api->currentSession->id);
 		if($_GET['filter']){
@@ -77,6 +77,6 @@ class page_master_student_attendance extends Page {
 		}
 
 
-		$grid->setModel($student_attendance,array('student','class','session','roll_no','total_attendance','present'));
+		$grid->setModel($student_attendance,array('student','total_attendance','present'));
 	}
 }
