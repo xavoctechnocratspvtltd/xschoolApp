@@ -29,7 +29,7 @@ class page_attendancecorrection extends Page {
 		$att=$form->addField('line','att','Total Monthly Attendance');
 	 	$form->addField('checkbox','change_total_attendance');
 		$form->addSubmit('Allot');
-		$grid = $this->add('CRUD',['allow_add'=>false]);
+		$grid = $this->add('CRUD',array('allow_add'=>false));
 		$student_attendance=$this->add('Model_Student_Attendance');
 		$student_attendance->addCondition('session_id',$this->api->currentSession->id);
 		if($_GET['filter']){
