@@ -15,6 +15,10 @@ class page_master extends Page {
 		$tabs->addTabUrl('master_fees_main','Fees');
 		$tabs->addTabUrl('master_class_main','Class');
 		$tabs->addTabUrl('master_scholar_main','Scholar');
+		$tabs->addTabUrl('master_student_list','Students');
+		$tabs->addTabUrl('scholar_left','Mark Students Left');
+		$tabs->addTabUrl('scholar_addtoclass','Add Scholar To Class');
+		
 		// $tabs->addTabUrl('master_fees_head','FeesHead'); //TODO DELETE
 		$tabs->addTabUrl('master_user_main','Staff');
 		$tabs->addTabUrl('master_user_ex','Ex-Staff');
