@@ -18,7 +18,7 @@ class page_master_user_ex extends Page{
 			
 		}
 
-
+		$grid->addQuickSearch(['name','fname','ph_no','mobile_no','email']);
 		$grid->addColumn('button','active');
 		$grid->add('misc/Export');
 
