@@ -9,9 +9,19 @@ public $table="subjects";
 	 $this->addField('name')->mandatory(true);
 	 $this->addField('order')->type('int');
 	 $this->hasMany('SubjectInAClass','subject_id');
+
+	 $this->addHook('beforeDelete',$this);
+
 	 $this->add('dynamic_model/Controller_AutoCreator');
 
 
+	}
+
+	function beforeDelete(){
+		if($this->ref('SubjectInAClass')->count()->getOne() > 0 ){
+			throw new Exception("This subject is associated with some class", 1);
+			
+		}
 	}
 
 	function createNew($name,$other_fields=array(),$form=null){
