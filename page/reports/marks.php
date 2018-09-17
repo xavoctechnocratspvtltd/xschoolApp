@@ -5,7 +5,6 @@ class page_reports_marks extends Page {
 	function init(){
 		parent::init();
 
-
 		$class = $this->add('Model_Class')->load($_GET['class_id']);
 		$term=null;
 		if($_GET['term_id']){
@@ -40,16 +39,15 @@ class page_reports_marks extends Page {
 			 return $m->refSQL('Student_Attendance')->addCondition('session_id',$m->api->currentSession->id)->sum('present');
 		});
 
-		$subject_array=array();
-		$exam_array=array();
+		$subject_array=array(0);
+		$exam_array=array(0);
 
 		foreach ($subject as $sub) {
-			// echo "Subject :".$sub['name']."</br>";
+			if(!$sub['name']) continue;
 			foreach ($exams as $exam) {
 
 				if(!in_array($sub['subject_id'],$subject_array)) $subject_array[] = $sub['subject_id'];
 				if(!in_array($exam['exam_id'],$exam_array)) $exam_array[] = $exam['exam_id'];
-
 				$grid->addMethod('format_'. $this->api->normalizeName($sub['subject'].$exam['exam']),function($g,$f)use($sub,$exam){
 					$marks = $g->add('Model_Student_Marks');
 					$marks->addCondition('class_id',$_GET['class_id']);
