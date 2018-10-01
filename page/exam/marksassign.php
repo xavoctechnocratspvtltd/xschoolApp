@@ -12,7 +12,7 @@ class page_exam_marksassign extends Page {
 		$class_field->setModel($class_model);
 		if($_REQUEST[$class_field->name] or $this->api->recall('markasign',false)){
 			$this->api->memorize('markasign',$_REQUEST[$class_field->name]);
-			$class_model->load($_REQUEST[$class_field->name]);
+			$class_model->load($_REQUEST[$class_field->name]?:$this->api->recall('markasign',-1));
 		}else{
 			$class_model->tryLoadAny();
 		}
