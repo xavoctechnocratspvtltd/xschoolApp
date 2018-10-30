@@ -5,6 +5,7 @@ class page_reports_marks extends Page {
 	function init(){
 		parent::init();
 
+
 		$class = $this->add('Model_Class')->load($_GET['class_id']);
 		$term=null;
 		if($_GET['term_id']){
@@ -43,7 +44,7 @@ class page_reports_marks extends Page {
 		$exam_array=array(0);
 
 		foreach ($subject as $sub) {
-			if(!$sub['name']) continue;
+			// if(!$sub['name']) continue;
 			foreach ($exams as $exam) {
 
 				if(!in_array($sub['subject_id'],$subject_array)) $subject_array[] = $sub['subject_id'];
