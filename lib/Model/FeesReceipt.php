@@ -39,10 +39,11 @@ class Model_FeesReceipt extends Model_Table {
 
 	function createNew($student,$amount , $mode,$narration,$late_fees = 0){
 		
+		
 		$this['branch_id']=$this->api->currentBranch->id;
 		$this['name']=$this->newReceiptNo();
 		$this['student_id']=$student->id;
-		$this['amount']=$amount+$late_fees; // NOW AS EXPRESSION
+		$this['amount']=$amount+($late_fees?$late_fees:0); // NOW AS EXPRESSION
 		$this['mode']=$mode;
 		$this['narration']=$narration;
 		$this->save();
@@ -87,7 +88,7 @@ class Model_FeesReceipt extends Model_Table {
 		// echo "string". round($to_set_amount,2)."<br/>";
 		// throw new \Exception(round($to_set_amount,3), 1);
 		
-		if($to_set_amount>0){
+		if(round($to_set_amount)>0){
 			$this->delete();
 			throw new Exception("Amount Remaining Not Saving Receipt");
 		}

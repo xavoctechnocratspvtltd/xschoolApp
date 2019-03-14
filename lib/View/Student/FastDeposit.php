@@ -15,7 +15,7 @@ class View_Student_FastDeposit extends View{
 		
 		$form = $this->add('Form');
 		$form->addField('line','amount');
-		$form->addField('line','late_fees');
+		$form->addField('line','late_fees')->set(0);
 		$form->addField('dropdown','mode')->setValueList(array('Cash'=>'Cash','Cheque'=>'Cheque'));
 		$form->addField('text','narration');
 		$form->addSubmit('Submit Fees');
