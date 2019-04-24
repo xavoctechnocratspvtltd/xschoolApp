@@ -27,7 +27,7 @@ class page_correction_student2many extends Page {
 		$student_m = $this->add('Model_Student');
 		$student_m->addCondition('scholar_id',$sid);
 		$student_m->addCondition('session_id',$this->api->currentSession->id);
-		$crud = $this->add('CRUD',['allow_add'=>false,'allow_edit'=>false]);
+		$crud = $this->add('CRUD',array('allow_add'=>false,'allow_edit'=>false));
 		$crud->setModel($student_m);
 
 	}
